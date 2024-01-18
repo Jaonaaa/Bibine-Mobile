@@ -1,0 +1,48 @@
+@use '../../../breakpoints'
+.micro_annonce_box
+    display: flex
+    justify-content: center
+    align-items: center
+    min-height: 7rem
+    height: 10rem
+    position: relative
+    border-radius: 0.2rem
+    overflow: hidden
+    margin: 0.1rem
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+    .about
+        position: absolute
+        bottom: 0.2rem
+        left: 0
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        z-index: 3
+        flex-direction: column
+        color: #fff
+        .name
+            font-weight: bolder
+            font-family: "Sora_B"
+            font-size: 0.78rem
+            color: #ffffffec
+            @include breakpoints.break_XSM()
+                font-size: 0.74rem
+        .price
+            font-size: 1rem
+            @include breakpoints.break_XSM()
+                font-size: 0.9rem
+
+    .overlay
+        width: 100%
+        height: 100%
+        left: 0
+        top: 0
+        background: linear-gradient(177deg, transparent,#00000000,transparent,transparent,transparent,transparent,#14495270,#062c3293,#004456c8)
+        position: absolute
+        z-index: 2
+        @include breakpoints.break_XSM()
+        background: linear-gradient(177deg, transparent,#00000000,transparent,transparent,transparent,transparent,transparent,#14495270,#062c3293,#004456c8)

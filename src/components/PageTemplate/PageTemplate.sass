@@ -1,0 +1,26 @@
+
+@use '../../breakpoints'
+.header_page
+    display: flex
+    flex-direction: column
+    .title
+        font-size: 1.6rem
+        font-family: "Poppins_B"
+        margin-bottom: 0.2rem
+        @include breakpoints.break_XSM()
+            font-size: 1.28rem
+    .subtitle
+        font-size: 0.77rem
+        color: #858585
+        width: 95%
+        @include breakpoints.break_XSM()
+            font-size: 0.68rem
+.centered_padding
+    width: 100%
+    padding: 0 1rem
+.page_content
+    --padding-top: 0
+    .content
+        padding-top: 2rem
+ion-back-button  
+        margin-left: -0.77rem

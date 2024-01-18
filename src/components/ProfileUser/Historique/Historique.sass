@@ -1,0 +1,84 @@
+.list_historique
+    display: flex
+    flex-direction: column
+    width: 100%
+    align-items: flex-start
+    .row_histo
+        width: 100%
+        height: 5.5rem
+        margin-bottom: 0.2rem
+        display: flex
+        align-items: center
+        padding: 0.5rem
+        border-radius: 0.2rem
+        transition: all 0.2s ease-in-out
+        position: relative
+        &::before
+            content: ""
+            left: 50%
+            transform: translateX(-50%)
+            height: 1px
+            width: 100%
+            bottom: 0
+            position: absolute
+            background: #b2b2b226
+        .left
+            height: 4.5rem
+            min-width: 2.5rem
+            margin-right: 0.4rem
+            background: #fff
+            display: flex
+            justify-content: center
+            align-items: center
+            .cube
+                display: flex
+                justify-content: center
+                align-items: center
+                width: 1.8rem
+                height: 1.8rem
+                background: #fc1f1f
+                transform-origin: center
+                border-radius: 0.3rem
+                svg
+                    width: 0.75rem
+                    path
+                        stroke: #ffffff
+            .up
+                background: #1c8e1a
+                transform: rotate(180deg)
+            .down
+                background: #fc1f1f
+        .right
+            display: flex
+            align-items: center
+            width: 100%
+            justify-content: space-between
+            .block_left
+                margin-left: 0.5rem
+                display: flex
+                align-items: flex-start
+                flex-direction: column
+                .title
+                    font-size: 0.9rem
+                    font-family: Poppins_B
+                    margin-bottom: 0.1rem
+                .ref
+                    font-size: 0.75rem
+                    color: #4a4a4add
+                    span
+                        margin-right: 0.15rem
+            .block_right
+                display: flex
+                align-items: flex-end
+                flex-direction: column
+                width: 50%
+                .time
+                    font-size: 0.8rem
+                .value
+                    display: flex
+                    align-items: flex-end
+                    flex-wrap: nowrap
+                    .text
+                        font-size: 1.3rem
+                        font-family: Sora_B
+                        margin-right: 0.3rem

@@ -1,0 +1,88 @@
+@use '../../../../breakpoints'
+.price_containers
+    display: flex
+    align-items: stretch
+    width: 100%
+    .content_price
+        width: 85%
+        display: flex
+        align-items: center
+        flex-wrap: wrap
+        max-width: 18rem
+        .min
+            font-size: 1.2rem
+            font-weight: bolder
+            font-family: Poppins_B
+            margin-left: 0.2rem
+            @include breakpoints.break_XSM()
+                font-size: 1rem
+        .divider_price
+            margin: auto 0.4rem
+            color: #a4a0a0dc
+            font-weight: bolder
+        .max
+            font-size: 1.2rem
+            font-weight: bolder
+            font-family: Poppins_B
+            @include breakpoints.break_XSM()
+                font-size: 1rem
+
+    .opener
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 15%
+        svg
+            @include breakpoints.break_XSM()
+.modal_price_ranger
+    display: flex
+    flex-direction: column
+    background: #fff
+    width: 80vw
+    box-shadow: 0 0.1rem 0.54rem 0.1rem #7978787f
+    min-height: 5rem
+    border-radius: 0.2rem
+    align-items: center
+    position: relative
+    @include breakpoints.break_XSM()
+        width: 70vw
+    .closer
+        color: #171717
+        position: absolute
+        right: 0.6rem
+        top: 0.6rem
+        width: 2rem
+        height: 2rem
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 50%
+        cursor: pointer
+        @include breakpoints.break_XSM()
+            top: 0.5rem
+            right: 0.3rem
+        svg
+            transition: all 0.2s ease-in-out
+            @include breakpoints.break_XSM()
+                width: 0.9rem
+                height: 0.9rem
+            &:hover
+                transform: scale(1.05)
+            line
+                stroke-width: 2px
+                stroke: var(--ion-color-secondary)
+    button
+        color: #fff
+        background: #000000
+
+        border: 2px solid #000000
+        padding: 0.9rem 2rem
+        font-weight: bolder
+        border-radius: 1.5rem
+        margin-bottom: 1rem
+        font-size: 0.86rem
+        cursor: pointer
+        letter-spacing: 0.09rem
+        @include breakpoints.break_XSM()
+            font-size: 0.76rem
+            padding: 0.87rem 2rem

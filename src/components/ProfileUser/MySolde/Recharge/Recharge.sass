@@ -1,0 +1,84 @@
+@use '../../../../breakpoints'
+.container_recharge
+    display: flex
+    width: 100%
+    align-items: center
+    height: 87vh
+    max-height: 87vh
+    flex-direction: column
+    padding-top: 2rem
+    .recharge_btn
+        margin-top: auto
+        margin-bottom: 3rem
+    .currency_box
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        min-width: 35%
+        padding: 0.3rem
+        .top
+            display: flex
+            align-items: center
+            width: 100%
+            margin-bottom: 0.3rem
+            justify-content: flex-start
+            .devise
+                font-size: 1rem
+                font-family: Sora_B
+                font-weight: bolder
+                margin-right: 1.5rem
+                @include breakpoints.break_XSM()
+                    font-size: 0.9rem
+            .flag
+                display: flex
+                justify-content: center
+                align-items: center
+                width: 1.2rem
+                @include breakpoints.break_XSM()
+                    width: 1rem
+
+        .bottom
+            width: 100%
+            display: flex
+            justify-content: flex-start
+            .text
+                font-family: Sora_R
+                color: #6f6d6d
+                @include breakpoints.break_XSM()
+                    font-size: 0.85rem
+
+    .money_details
+        display: flex
+        width: 100%
+        justify-content: space-between
+        max-width: 100%
+        margin-bottom: 1.5rem
+
+        .input_money
+            display: flex
+            justify-content: flex-end
+            margin-right: 0.5rem
+            align-items: flex-end
+            .money_input
+                background: transparent
+                border: none
+                outline: none
+                font-size: 3.1rem
+                transition: all 0.2s ease-in-out
+                text-align: right
+                height: 3.5rem
+                border-bottom: 1px solid #83828237
+                margin-right: 0.6rem
+                margin-left: auto
+                font-size: 3.4rem
+                width: 12rem
+                border-bottom: 1px solid #8988884d
+                @include breakpoints.break_XSM()
+                    font-size: 2.8rem
+
+            .unit
+                font-size: 1.2rem
+                font-family: Sora_R
+                margin: 0 0.3rem 0.7rem 0.3rem
+                @include breakpoints.break_XSM()
+                    font-size: 1rem

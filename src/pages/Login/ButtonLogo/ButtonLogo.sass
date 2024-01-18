@@ -1,0 +1,27 @@
+@use '../../../breakpoints'
+.button_logo
+    display: flex
+    align-items: center
+    width: 100%
+    box-shadow: 0 0 0.1rem 0.05rem #858484e8
+    padding: 0.8rem 1.2rem
+    border-radius: 0.2rem
+    cursor: pointer
+    justify-content: center
+    transition: all 0.2s ease-in-out
+    @include breakpoints.break_XSM()
+        padding: 0.74rem 1.2rem
+    &:hover
+        background: #f0f2f3
+    .icon
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 3rem
+        margin-left: -2rem
+    .text
+        font-size: 0.85rem
+        font-weight: bolder
+        color: #515050
+        @include breakpoints.break_XSM()
+            font-size: 0.78rem

@@ -1,0 +1,78 @@
+@use '../../../breakpoints'
+.filter_menu
+    position: fixed
+    z-index: 3
+    background: #fff
+    border-radius: 0.3rem
+    box-shadow: 0 0.2rem 0.4rem 0.1rem #c5c0c0
+    min-width: 10rem
+    padding: 0.75rem 0.6rem 0.15rem 0.8rem
+    animation: slide_up 0.2s forwards
+    max-height: 65vh
+    overflow: scroll
+    @include breakpoints.break_XSM()
+        min-width: 6rem
+        max-width: 75vw
+        max-height: 75vh
+    .title
+        font-size: 1.1rem
+        font-family: Sora_B
+        width: 15rem
+        font-weight: bolder
+        margin-top: 0.5rem
+        margin-bottom: 1rem
+        @include breakpoints.break_XSM()
+            margin-top: 0.3rem
+            font-size: 0.95rem
+            margin-bottom: 0.8rem
+    hr
+        width: 97%
+        margin: 0.1rem 0 0 0
+        height: 1px
+        background: #afadad9b
+        margin-bottom: 1rem
+        @include breakpoints.break_XSM()
+            margin-bottom: 0.7rem
+    .handler
+        width: 100%
+        display: flex
+        align-items: stretch
+        border-top: 1px solid #c4c3c39c
+        @include breakpoints.break_XSM()
+            height: 3rem
+        .item
+            width: 50%
+            text-align: center
+            align-items: center
+            justify-content: center
+            height: 3.3rem
+            display: flex
+            letter-spacing: 0.1rem
+            font-weight: bolder
+
+            justify-content: center
+            cursor: pointer
+            align-items: center
+            transition: all 0.2s ease-in-out
+            &:hover
+                background: #eff6fd
+            @include breakpoints.break_XSM()
+                height: 2.75rem
+                font-size: 0.8rem
+        .divider_handler
+            height: 3.1rem
+            margin-top: 0.2rem
+            min-width: 1px
+            background: #c4c3c39c
+        .cancel
+            color: var(--secondary)
+        .apply
+            color: var(--primary)
+
+@keyframes slide_up
+    from
+        opacity: 0.2
+        transform: translateY(1rem) scale(0.8)
+    to
+        opacity: 1
+        transform: translateY(0) scale(1)

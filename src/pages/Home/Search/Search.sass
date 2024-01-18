@@ -1,0 +1,57 @@
+@use '../../../breakpoints'
+.header_search_focused
+    transition: all 0.5s ease-in-out
+    overflow: hidden
+.header_search_hidden
+    height: 0
+    overflow: hidden
+    transition: all 0.5s ease-in-out
+.blurer
+    height: 100vh
+    width: 100vw
+    background: transparent
+    z-index: 1
+    position: fixed
+    left: 0
+    top: 0
+.search_content
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    padding-top: 1rem
+    max-height: 100vh
+    overflow: scroll
+    .btn
+        margin-top: 2rem
+        --padding-top: 1rem
+        --padding-bottom: 1rem
+        --border-radius: 2rem
+        text-transform: none
+        letter-spacing: normal
+        font-family: "Sora_R"
+    .block_search_icon
+        min-height: 15rem
+        height: 73vh
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+        margin-top: 4rem
+        svg
+            margin-bottom: 1rem
+            @include breakpoints.break_XSM()
+                width: 40vw
+                margin-bottom: 0
+
+        .text
+            font-family: "Sora_R"
+            font-size: 0.87rem
+            @include breakpoints.break_XSM()
+                font-size: 0.78rem
+    .block
+        width: 100%
+        min-height: 20rem
+        background: #ffadad
+        margin-bottom: 2rem

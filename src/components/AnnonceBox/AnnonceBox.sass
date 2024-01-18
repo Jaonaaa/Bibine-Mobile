@@ -1,0 +1,138 @@
+@use '../../breakpoints'
+.box_annonce
+    display: flex
+    transition: all 0.3s ease-in-out
+    flex-direction: column
+    min-width: 16rem
+    border-radius: 0.5rem 0.5rem 0 0
+    height: 18rem
+    @include breakpoints.break_XSM()
+        height: 15.6rem
+        min-width: 14.5rem
+
+    overflow: hidden
+    position: relative
+    margin-right: 0.4rem
+    .overlay
+        width: 100%
+        height: 100%
+        left: 0
+        top: 0
+        background: linear-gradient(177deg, transparent,#00000000,transparent,transparent,transparent,#00000050,#000000a1,#000000c8)
+        position: absolute
+        z-index: 2
+    .picture_box
+        width: 100%
+        display: flex
+        height: 100%
+        justify-content: center
+        align-items: center
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+    .details
+        position: absolute
+        bottom: 0
+        z-index: 3
+        width: 100%
+        color: #fff
+        padding: 0.2rem 1rem
+        @include breakpoints.break_XSM()
+
+            padding: 0.2rem 0.8rem
+        .details_content
+            position: relative
+            display: flex
+            align-items: flex-start
+            flex-direction: column
+            .title
+                font-size: 0.9rem
+                color: #fff
+                font-family: "Sora_R"
+                margin-bottom: 0.15rem
+                @include breakpoints.break_XSM()
+                    font-size: 0.82rem
+            .subtitle
+                font-size: 0.68rem
+                opacity: 0.8
+                margin-bottom: 0.4rem
+                @include breakpoints.break_XSM()
+                    font-size: 0.6rem
+            .price
+                font-size: 1rem
+                font-family: "Sora_SM"
+                margin-bottom: 0.3rem
+                display: flex
+                align-items: center
+                flex-wrap: nowrap
+                @include breakpoints.break_XSM()
+                    font-size: 0.92rem
+                .unit
+                    font-family: "Poppins_L"
+                    margin-left: 0.5rem
+                    @include breakpoints.break_XSM()
+                        margin-left: 0.35rem
+                        font-size: 0.83rem
+            .marchand
+                position: absolute
+                right: -0.5rem
+                display: flex
+                bottom: 0.3rem
+                flex-direction: row-reverse
+                align-items: center
+                align-items: flex-end
+                .name
+                    font-size: 0.75rem
+                    margin-right: 0.2rem
+                    width: 5rem
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    @include breakpoints.break_XSM()
+                        font-size: 0.67rem
+                        margin-right: 0.1rem
+
+                .avatar
+                    border-radius: 50%
+                    overflow: hidden
+                    width: 2rem
+                    height: 2rem
+                    @include breakpoints.break_XSM()
+                        width: 1.8rem
+                        height: 1.8rem
+                    img
+                        width: 100%
+                        height: 100%
+                        box-shadow: 0 0 0.1rem 0.1rem var(--primary)
+.skeleton_container
+    background: #bebdbdcc
+    .skeleton_title
+        height: 0.75rem
+        border-radius: 0.2rem
+        width: 70%
+        margin-bottom: 0.3rem
+    .skeleton_subtitle
+        height: 0.55rem
+        border-radius: 0.2rem
+        width: 50%
+        margin-bottom: 0.8rem
+    .skeleton_price
+        height: 1.2rem
+        border-radius: 0.2rem
+        width: 40%
+        margin-bottom: 0.6rem
+    .skeleton_marchand
+        position: absolute
+        bottom: 0.5rem
+        right: 1.85rem
+        width: 4.5rem
+        border-radius: 0.2rem
+        height: 0.55rem
+    .skeleton_avatar
+        position: absolute
+        bottom: 0.5rem
+        right: -0.5rem
+        width: 2rem
+        border-radius: 50%
+        height: 2rem

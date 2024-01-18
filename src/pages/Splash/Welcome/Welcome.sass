@@ -1,0 +1,85 @@
+@use '../../../breakpoints'
+
+.welcome_content
+    display: flex
+    flex-direction: column
+    align-items: center
+    height: 100vh
+
+    .splash
+        margin-top: 10%
+        display: flex
+        justify-content: center
+        align-items: center
+        @include breakpoints.break_XSM()
+            margin-top: 5%
+        .splash_bg
+            position: relative
+            // 
+            @include breakpoints.break_XSM()
+                display: flex
+                justify-content: center
+                align-items: center
+                width: 85%
+            .text
+                position: absolute
+                left: 50%
+                top: 70%
+                font-family: "Sora_B"
+                color: #fff
+                font-size: 3.2rem
+                transform: translate(-50%,-50%)
+                transition: all 0.2s ease-in-out
+                @include breakpoints.break_XSM()
+                    font-size: 2.75rem
+                .chez
+                    @include breakpoints.break_XSM()
+                        display: flex
+                        margin-top: 0.3rem
+                        justify-content: flex-start
+                        align-items: center
+                        img
+                            width: 6rem
+    .logo
+        margin-top: -2rem
+        @include breakpoints.break_XSM()
+            margin-top: -3.5rem
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 6rem
+    .desc
+        text-align: center
+        width: 85%
+        margin-top: 1.2rem
+        font-size: 0.8rem
+        margin-bottom: 1rem
+        transition: all 0.2s ease-in-out
+        @include breakpoints.break_XSM()
+            font-size: 0.74rem
+            margin-bottom: 1rem
+    .btn_long
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 92%
+        margin-top: auto
+        margin-bottom: 2rem
+        @include breakpoints.break_XSM()
+            margin-bottom: 1.5rem
+        button
+            padding: 1.32rem
+            width: 100%
+            display: flex
+            justify-content: center
+            align-items: center
+            background: #000000
+            border-radius: 2.2rem
+            font-size: 0.95rem
+            color: #fff
+            @include breakpoints.break_XSM()
+                padding: 1.2rem
+                font-size: 0.85rem
+
+    tspan 
+            font-family: "Sora_SM"

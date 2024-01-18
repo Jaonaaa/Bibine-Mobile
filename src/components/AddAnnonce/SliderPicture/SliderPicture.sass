@@ -1,0 +1,85 @@
+@use '../../../breakpoints'
+.list_cover
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    max-width: 100%
+    position: relative
+    width: 100%
+    &::before
+        content: ""
+        position: absolute
+        left: 0
+        top: 0
+        height: 100%
+        pointer-events: none
+        width: 10px
+        background: linear-gradient(90deg,#fff,#ffffffb4,transparent)
+        z-index: 2
+        &::after
+            content: ""
+            position: absolute
+            right: 0
+            top: 0
+            height: 100%
+            width: 10px
+            background: linear-gradient(92deg,transparent,#ffffffb4,#fff)
+            z-index: 2
+
+    .list_pic
+        display: flex
+        max-width: 100%
+        flex-wrap: nowrap
+        overflow-x: scroll
+        overflow-y: hidden
+        position: relative
+        width: 100%
+        padding: 0 1rem
+        scroll-behavior: smooth
+
+        .box_pic
+            display: flex
+            justify-content: center
+            margin-right: 0.6rem
+            align-items: center
+            min-width: 7rem
+            box-shadow: 0 0 0.05rem 0.05rem var(--ion-color-primary)
+            margin: 0.3rem 0.6rem 0.3rem 0
+            max-width: 7rem
+            height: 4.5rem
+            border-radius: 0.3rem
+            transition: all 0.2s ease-in-out
+            position: relative
+            overflow: hidden
+            @include breakpoints.break_XSM()
+                min-width: 6rem
+                height: 3.4rem
+            img
+                cursor: pointer
+                z-index: 0
+                width: 100%
+                height: 100%
+                object-fit: cover
+            .closer
+                position: absolute
+                right: 0
+                top: 0
+                min-width: 1.5rem
+                transform: translate(0%,0%)
+                min-height: 1.5rem
+                border-radius: 50%
+                background: #000000
+                color: #fff
+                display: flex
+                justify-content: center
+                align-items: center
+                svg
+                    transform: scale(0.6)
+                    line
+                        stroke-width: 4
+                        stroke: #fff
+
+        .selected_box_pic
+            z-index: 1
+            overflow: hidden
+            box-shadow: 0 0 0.1rem 0.2rem var(--ion-color-primary)

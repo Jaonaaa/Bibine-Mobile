@@ -1,0 +1,80 @@
+@use '../../breakpoints'
+.form_add_annonce
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 97%
+    min-width: 90vw
+    margin: auto
+    margin-top: -1rem
+    .buttons
+        display: flex
+        width: 97%
+        margin-top: 2vh
+        align-items: center
+        justify-content: space-between
+        margin-bottom: 1.5rem
+        .next
+            margin-left: auto
+
+        .btn_form
+            display: flex
+            justify-content: center
+            align-items: center
+            width: fit-content
+
+            button
+                padding: 0.8rem 1.8rem
+                border: 1.2px solid var(--ion-color-primary)
+
+                display: flex
+                justify-content: center
+                align-items: center
+                background: transparent
+                font-family: Sora_SM
+                color: var(--ion-color-primary)
+                font-size: 0.9rem
+                cursor: pointer
+                transition: all 0.2s ease-in-out
+                border-radius: 0.2rem
+                @include breakpoints.break_XSM()
+                    padding: 0.72rem 1.5rem
+                    font-size: 0.8rem
+
+                &:hover
+                 //   background: #f2ffff
+                .text
+                    margin-right: 0.1rem
+                svg
+                    margin-top: 0.1rem
+                    transform: scale(0.85)
+                    @include breakpoints.break_XSM()
+                        width: 1.4rem
+                    path
+                        stroke: var(--ion-color-primary)
+                        stroke-width: 1.7px
+        .back
+            button
+                border: 1.2px solid var(--ion-color-secondary)
+                color: var(--ion-color-secondary)
+.container_add_annonce_all
+    display: flex
+    flex-direction: row
+    width: 100%
+    max-width: calc(91vw )
+    overflow: hidden
+    flex-wrap: nowrap
+    align-items: flex-start
+    justify-content: flex-start
+    padding-left: 1vw
+
+    .form_add_annonce
+        transition: all 0.2s ease-in-out
+        padding: 0 2vw
+        &:last-child
+            margin-right: 0.2rem
+        .input_,.drop_down
+            margin-bottom: 0.5rem
+        .drop_down_container
+            margin-top: 1rem

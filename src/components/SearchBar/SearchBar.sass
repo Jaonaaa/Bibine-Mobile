@@ -1,0 +1,97 @@
+
+@use '../../breakpoints'
+.search_bar_box
+    display: flex
+    align-items: center
+    width: 92%
+    overflow: hidden
+    z-index: 3
+    box-shadow: 0 0.15rem 0.3rem 0.1rem #a09f9f68
+    border-radius: 0.3rem
+    max-height: 3.6rem
+    min-height: 3.2rem
+    @include breakpoints.break_XSM()
+        min-height: 3rem
+        height: 3rem
+    button
+        background: transparent
+        svg
+            @include breakpoints.break_XSM()
+                width: 1.2rem
+
+    .input
+        display: flex
+        justify-content: center
+        align-items: center
+        height: 100%
+        margin-left: 0.65rem
+        width: 100%
+        @include breakpoints.break_XSM()
+            margin-left: 0.4rem
+        input
+            background: transparent
+            outline: none
+            border: none
+            width: 100%
+            font-size: 0.91rem
+            height: 100%
+            @include breakpoints.break_XSM()
+                font-size: 0.85rem
+            &::placeholder
+                color: #a1a1a1
+                font-weight: bolder
+                font-size: 0.87rem
+                @include breakpoints.break_SM()
+                    font-size: 0.83rem
+                // font-family: "Poppins_B"
+
+    .icon_search
+        width: 3rem
+        height: 2rem
+        padding-left: 0.7rem !important
+        @include breakpoints.break_XSM()
+            padding-left: 0.35rem !important
+
+    .clear
+        width: 5.5rem
+        margin-left: 0rem
+        position: relative
+        display: flex
+        justify-content: center
+        align-items: center
+        svg
+            @include breakpoints.break_XSM()
+            width: 0.8rem
+
+        &::before
+            content: ""
+            position: absolute
+            left: 0
+            top: 0
+            height: 100%
+            width: 1px
+            background: #c4c2c2ad
+    .filter
+        width: 4.5rem
+        display: flex
+        justify-content: center
+        align-items: center
+        svg
+            @include breakpoints.break_XSM()
+                width: 1rem
+    .filter_on
+        svg
+
+            path
+                fill: #000000
+
+    .center
+        display: flex
+        cursor: pointer
+        justify-content: center
+        align-items: center
+        padding: 0.8rem 0
+        height: 3.3rem
+        transition: all 0.2s ease-in-out
+        &:hover
+            background: #f4ffffb8

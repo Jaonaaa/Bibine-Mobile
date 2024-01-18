@@ -1,0 +1,17 @@
+@use '../../../../breakpoints'
+.menu_section
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    .title_section
+        font-size: 0.82rem
+        color: #7c7c7c
+        margin-bottom: 0.4rem
+        font-weight: bolder
+        @include breakpoints.break_XSM()
+            font-size: 0.76rem
+    .content
+        margin-bottom: 1rem
+        @include breakpoints.break_XSM()
+            margin-bottom: 0.9rem

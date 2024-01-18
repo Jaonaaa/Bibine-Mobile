@@ -1,0 +1,81 @@
+@use '../../../breakpoints'
+#details_annonnce_container
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    min-height: 10rem
+    font-family: Sora_SM
+    width: 100%
+    padding: 2rem 0.5rem 1rem 0.5rem
+    margin-bottom: 5rem
+    .box
+
+        display: flex
+        justify-content: flex-start
+        align-items: flex-start
+        flex-direction: column
+        width: 100%
+        margin-bottom: 4.4rem
+        @include breakpoints.break_XSM()
+            margin-bottom: 3.8rem
+        .title
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            width: fit-content
+            position: relative
+            margin-bottom: 1.4rem
+            @include breakpoints.break_XSM()
+                margin-bottom: 1rem
+            .text
+                font-size: 1.5rem
+                font-weight: bolder
+                font-family: Sora_SM
+                position: relative
+                display: flex
+                align-items: flex-end
+                @include breakpoints.break_XSM()
+                    font-size: 1.2rem
+                &::before
+                    content: ""
+                    position: absolute
+                    bottom: -0.1rem
+                    left: 0
+                    width: 50%
+                    height: 0.1rem
+                    border-radius: 0.2rem
+                    background: linear-gradient(45deg,var(--ion-color-secondary),var(--ion-color-primary))
+                .user_seller
+                    font-size: 1rem
+                    margin-left: 0.6rem
+                    padding: 0.2rem 1rem
+                    background: #000000
+                    border-radius: 0.3rem
+                    display: flex
+                    font-family: Poppins_L
+                    font-weight: 100
+                    justify-content: center
+                    align-items: center
+                    color: #fff
+                    background: linear-gradient(125deg,var(--ion-color-secondary),var(--ion-color-primary))
+                    @include breakpoints.break_XSM()
+                        font-size: 0.85rem
+                        padding: 0.15rem 1rem
+
+            .icon
+                display: flex
+                justify-content: center
+                align-items: center
+                margin-right: 0.3rem
+                svg
+                    @include breakpoints.break_XSM()
+                        width: 1.6rem
+                        margin-right: 0.2rem
+
+        .description
+            display: flex
+            align-items: center
+            width: 100%
+            font-size: 0.82rem
+            @include breakpoints.break_XSM()
+                font-size: 0.7rem

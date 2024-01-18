@@ -1,0 +1,180 @@
+@use '../../breakpoints'
+ion-item
+    background: #ffffff00
+.profile_title
+    padding-inline-start: 0
+    margin-left: -1.3rem
+    width: fit-content
+    @include breakpoints.break_XSM()
+        font-size: 1.23rem
+.page_content
+    position: relative
+    .stat_user
+        margin-top: 1rem
+        display: flex
+        align-items: center
+        flex-wrap: nowrap
+        width: 100%
+        justify-content: space-evenly
+        @include breakpoints.break_XSM()
+            margin-top: 0.75rem
+        .col
+            width: 1px
+            height: 1.5rem
+            background: #b2afaf
+            @include breakpoints.break_XSM()
+                height: 1.4rem
+        .block_stat
+            width: 30%
+            display: flex
+            align-items: center
+            justify-content: center
+            flex-direction: column
+            .value
+                font-family: Poppins_B
+                font-weight: bolder
+                color: #000000
+                font-size: 1.3rem
+                margin-bottom: 0.3rem
+                @include breakpoints.break_XSM()
+                    font-size: 1.1rem
+            .label
+                color: #525151
+                font-size: 0.9rem
+                @include breakpoints.break_XSM()
+                    font-size: 0.76rem
+                    white-space: nowrap
+                    overflow: hidden
+                    text-overflow: ellipsis
+
+    .profile_box
+        position: relative
+        width: 100%
+        display: flex
+        padding: 1rem 0
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        padding-top: 2rem
+        @include breakpoints.break_XSM()
+            padding-top: 1rem
+        .username
+            font-family: "Sora_SM"
+            font-size: 1.2rem
+            margin-top: 1.8rem
+            @include breakpoints.break_XSM()
+                font-size: 1rem
+                margin-top: 1.5rem
+        .picture
+            width: 7rem
+            height: 7rem
+            position: relative
+            display: flex
+            justify-content: center
+            white-space: nowrap
+            align-items: center
+            color: #fff
+
+            font-size: 3.4rem
+            border-radius: 50%
+            background: linear-gradient(45deg,var(--ion-color-primary),var(--ion-color-secondary))
+            @include breakpoints.break_XSM()
+                width: 5.8rem
+                height: 5.8rem
+                font-size: 2.7rem
+            .add_annonce_btn
+                position: absolute
+                right: -0.3rem
+                bottom: 0.3rem
+                min-width: 2.2rem
+                min-height: 2.2rem
+                background: #fff
+                display: flex
+                justify-content: center
+                align-items: center
+                border-radius: 50%
+                @include breakpoints.break_XSM()
+                    min-width: 1.8rem
+                    min-height: 1.8rem
+                .circle
+                    min-width: 1.9rem
+                    min-height: 1.9rem
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    cursor: pointer
+                    background: #2d939b
+                    color: #fff
+                    border-radius: 50%
+                    font-size: 1.1rem
+                    transition: all 0.2s ease-in-out
+                    @include breakpoints.break_XSM()
+                        min-width: 1.5rem
+                        min-height: 1.5rem
+                        font-size: 0.95rem
+                    font-weight: bolder
+                    &:hover
+                        background: #10585d
+
+.header_slicer
+    width: 100vw
+    height: 1px
+    position: absolute
+    top: 0
+    left: 0
+    background: #303030b6
+
+.details_user
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    position: relative
+    margin-top: 1.5rem
+    ion-label
+        color: #000000
+        @include breakpoints.break_XSM()
+            font-size: 0.78rem
+
+    ion-segment-button 
+        background: #ffffff
+        color: #dbddde
+        --indicator-color: linear-gradient(70deg,var(--ion-color-primary),var(--ion-color-secondary))
+        --indicator-height: 2.1px
+    .divider
+        width: 100%
+        height: 1px
+        background: #817f7f99
+        margin-top: -0.05rem
+        z-index: 0
+    .container
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: flex-start
+        height: 50vh
+        max-height: 50vh
+        overflow-y: scroll
+        padding: 1rem 0.2rem
+        background: #ffffff
+        width: 100%
+        .list_annonce
+            display: flex
+            align-items: center
+            flex-wrap: wrap
+
+            justify-content: space-evenly
+            padding-bottom: 2rem
+            .micro_annonce_box
+                width: 49%
+                margin-bottom: 0.2rem
+
+                @include breakpoints.break_XSM()
+
+                    width: 47.5%
+                    height: 8.6rem
+                &:last-child
+                    margin-right: auto
+
+            .empty_box
+                margin-top: 13.5vh

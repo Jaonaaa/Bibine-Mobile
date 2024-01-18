@@ -1,0 +1,31 @@
+@use '../../../../breakpoints'
+.list
+    display: flex
+    flex-direction: column
+    width: 100%
+    align-items: flex-start
+    margin-top: -0.5rem
+    margin-bottom: 0.5rem
+    justify-content: center
+
+    .row
+        display: flex
+        align-items: center
+        padding: 1.5rem 0rem 1.5rem 0
+        position: relative
+        justify-content: space-between
+        width: 100%
+        @include breakpoints.break_XSM()
+            padding: 1.1rem 0
+        .label
+            font-size: 0.8rem
+            font-weight: bolder
+            font-family: Sora_SM
+            @include breakpoints.break_XSM()
+                font-size: 0.72rem
+        .value
+            font-size: 0.78rem
+            color: #656363
+            text-align: right
+            @include breakpoints.break_XSM()
+                font-size: 0.69rem

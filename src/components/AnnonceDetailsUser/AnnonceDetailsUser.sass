@@ -1,0 +1,30 @@
+@use '../../breakpoints'
+
+.details_content_page
+    .avatar
+        width: 2.2rem
+        height: 2.2rem
+        background: #c2c2c2
+    #edit_btn
+        position: fixed
+        bottom: 2rem
+        right: 0.1rem
+        width: 4rem
+        height: 4rem
+        z-index: 3
+        background: var(--ion-color-primary)
+        color: #fff
+        display: flex
+        cursor: pointer
+        justify-content: center
+        border-radius: 50%
+        align-items: center
+        transition: all 0.6s cubic-bezier(.45,.66,.02,1.28)
+        @include breakpoints.break_XSM()
+            width: 3rem
+            height: 3rem
+            svg
+                width: 1.6rem
+        &:hover
+            background: var(--primary-hovered)
+            transform: scale(0.95)

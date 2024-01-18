@@ -1,0 +1,88 @@
+@use '../../../breakpoints'
+.picture_swaper_container
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    width: 100%
+    .front_pic
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        overflow: hidden
+        height: 18rem
+        border-radius: 0.6rem
+        margin-bottom: 0.6rem
+        @include breakpoints.break_MD()
+            height: 16rem
+        .slide_pic
+            height: 18rem
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 100%
+            color: #fff
+            font-size: 2rem
+            @include breakpoints.break_MD()
+                height: 16rem
+
+    .list_cover
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        max-width: 100%
+        position: relative
+        width: 100%
+        &::before
+            content: ""
+            position: absolute
+            left: 0
+            top: 0
+            height: 100%
+            pointer-events: none
+            width: 10px
+            background: linear-gradient(90deg,#fff,#ffffffb4,transparent)
+            z-index: 2
+        &::after
+            content: ""
+            position: absolute
+            right: 0
+            top: 0
+            height: 100%
+            width: 10px
+            background: linear-gradient(92deg,transparent,#ffffffb4,#fff)
+            z-index: 2
+
+    .list_pic
+        display: flex
+        max-width: 100%
+        flex-wrap: nowrap
+        overflow-x: scroll
+        overflow-y: hidden
+        position: relative
+        width: 100%
+        padding: 0 1rem
+        scroll-behavior: smooth
+
+        .box_pic
+            display: flex
+            justify-content: center
+            margin-right: 0.6rem
+            align-items: center
+            min-width: 7rem
+            height: 4.5rem
+            border-radius: 0.3rem
+
+            transition: all 0.2s ease-in-out
+            @include breakpoints.break_XSM()
+                min-width: 6rem
+                height: 3.7rem
+            img
+                cursor: pointer
+                z-index: 0
+
+        .selected_box_pic
+            z-index: 1
+            overflow: hidden
+            // border: 4px solid var(--ion-color-secondary)

@@ -1,0 +1,35 @@
+.params
+    display: flex
+    width: 2rem
+    height: 2rem
+    margin-left: 1rem
+    margin-right: -1rem
+    justify-content: center
+    .button_params
+        font-size: 1.75rem
+.auto_height_modal
+    --backdrop-opacity: var(--ion-backdrop-opacity, 0.85)
+    opacity: 1 !important
+    .list_param
+        padding-top: 0.75rem
+    .item_row
+        min-height: 4rem
+        cursor: pointer
+        padding: 0.5rem
+        transition: all 0.2s ease-in-out
+        &:hover
+            background: #f0ffffa3
+        .icon
+            color: #545252
+            width: fit-content
+            height: fit-content
+            margin-inline-end: 1.2rem
+
+        .label
+            color: #545252
+            font-family: Poppins_L
+            font-size: 0.94rem
+            white-space: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
+            font-weight: bolder

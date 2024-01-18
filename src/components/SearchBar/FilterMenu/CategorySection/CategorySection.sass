@@ -1,0 +1,143 @@
+@use '../../../../breakpoints'
+
+.categories_containers
+    display: flex
+    align-items: stretch
+    width: 100%
+    .content_cat
+        width: 85%
+        display: flex
+        align-items: center
+        flex-wrap: wrap
+        max-width: 18rem
+        .categorie_item
+            width: fit-content
+            padding: 0.33rem 1rem 0.33rem 1.3rem
+            background: #000000 //var(--primary)// linear-gradient(45deg,var(--primary),var(--secondary) )
+            color: #fff
+            display: flex
+            align-items: center
+            flex-wrap: nowrap
+            margin: 0.1rem 0.3rem 0.2rem 0
+            border-radius: 2rem
+            @include breakpoints.break_XSM()
+                padding: 0.28rem 0.8rem 0.28rem 1.2rem
+
+            .text
+                white-space: nowrap
+                font-family: "Poppins_L"
+                font-size: 0.85rem
+                @include breakpoints.break_XSM()
+                    font-size: 0.8rem
+            .closer
+                margin-left: 0.65rem
+                @include breakpoints.break_XSM()
+                    margin-left: 0.5rem
+        .all
+            padding: 0.33rem 1.3rem 0.33rem 1.3rem
+            @include breakpoints.break_XSM()
+                padding: 0.28rem 0.8rem 0.28rem 1.2rem
+    .opener
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 15%
+.select_category
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    background: #fff
+    width: 77vw
+    max-height: 60vh
+    position: relative
+    padding: 1rem 0.8rem 1rem 1rem
+    @include breakpoints.break_XSM()
+        width: 70vw
+        padding: 0.9rem 0.7rem 0.9rem 0.9rem
+
+    .closer
+        position: absolute
+        right: 0.8rem
+        top: 1rem
+        svg
+            line
+                stroke: var(--ion-color-secondary)
+    hr
+        width: 100%
+        height: 1px
+        background: #b5b2b269
+    .title
+        font-size: 1.4rem
+        color: #424242
+        font-family: Sora_SM
+        width: 100%
+        margin-bottom: 1.2rem
+        @include breakpoints.break_XSM()
+            font-size: 1.1rem
+    .item
+        width: 100%
+        display: flex
+        align-items: center
+        height: 3rem
+        margin-left: 0.3rem
+        @include breakpoints.break_XSM()
+            height: 2rem
+        .label
+            color: #474646
+            font-weight: bolder
+            font-size: 1.05rem
+            white-space: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
+            @include breakpoints.break_XSM()
+                font-size: 0.9rem
+        .icon
+            width: 2.5rem
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            @include breakpoints.break_XSM()
+                width: 2rem
+            ion-checkbox
+                --size: 1.4rem
+                @include breakpoints.break_XSM()
+                    --size: 1.1rem
+
+    .list
+        display: flex
+        flex-direction: column
+        width: 100%
+        padding: 0.3rem
+        max-height: 80%
+        overflow-y: scroll
+        .row_item
+            width: 100%
+            display: flex
+            align-items: center
+            min-height: 3rem
+            @include breakpoints.break_XSM()
+                min-height: 2.8rem
+            .label
+                color: #474646
+                font-weight: bolder
+                font-size: 1.05rem
+                white-space: nowrap
+                text-overflow: ellipsis
+                overflow: hidden
+                @include breakpoints.break_XSM()
+                    font-size: 0.9rem
+            .icon
+                width: 2.5rem
+                display: flex
+                justify-content: flex-start
+                align-items: center
+                @include breakpoints.break_XSM()
+                    width: 2rem
+                ion-checkbox
+                    --size: 1.4rem
+                    --checkbox-background-checked: var(--ion-color-secondary)
+                    border: 2px solid #fc8b8b
+                    --border-color-checked: var(--ion-color-secondary, #fc8b8b)
+                    @include breakpoints.break_XSM()
+                        --size: 1.1rem

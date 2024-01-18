@@ -1,0 +1,27 @@
+#offline_container
+    position: fixed
+    z-index: 4
+    width: 3.2rem
+    height: 3.2rem
+    background: #000
+    border-radius: 50%
+    display: flex
+    justify-content: center
+    align-items: center
+    bottom: 4vh
+    left: 1rem
+    animation: show_block 0.2s ease-in-out
+    .icon
+        display: flex
+        justify-content: center
+        align-items: center
+        svg
+            width: 90%
+            height: 90%
+@keyframes show_block
+    from
+        opacity: 0.8
+        transform: scale(0.5)
+    to
+        transform: scale(1)
+        opacity: 1
