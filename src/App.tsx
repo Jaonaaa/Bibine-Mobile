@@ -1,6 +1,7 @@
 import { Redirect, Route } from "react-router-dom";
 import { useEffect } from "react";
 import useConnectServer from "./utils/useConnectServer";
+import useUserConnectivity from "./hooks/useUserConnectivity";
 
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -40,11 +41,13 @@ import "./index.css";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { connect } = useConnectServer();
+  const { connect, disconnect } = useConnectServer();
+  const { connected } = useUserConnectivity(false);
 
   useEffect(() => {
-    connect();
-  }, []);
+    if (connected) connect();
+    else disconnect();
+  }, [connected]);
 
   return (
     <IonApp>

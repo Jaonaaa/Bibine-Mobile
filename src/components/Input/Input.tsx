@@ -62,7 +62,7 @@ function Input({
     let newText = "";
     rows.forEach((row: string) => (newText += row + splitterTextArea));
     // use this for the default split .replace(/\\n/g, "\n")
-    return { target: { value: newText } };
+    return { target: { value: newText, name: e.target.name } };
   };
 
   return (

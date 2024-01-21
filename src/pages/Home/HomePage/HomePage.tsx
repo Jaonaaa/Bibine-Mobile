@@ -24,6 +24,8 @@ import useNotification from "../../../hooks/useNotifications";
 import useUserTime from "../../../hooks/useUserTime";
 
 import "./HomePage.sass";
+import DevPage from "../../../components/Parameter/DevPage/DevPage";
+import AchatAnnonce from "../../../components/AchatAnnonce/AchatAnnonce";
 
 interface HomePageProps {
   sendingMessage: Function;
@@ -69,15 +71,18 @@ const HomePage = (props: HomePageProps) => {
             <IonRouterOutlet>
               <Route path="/main/home" component={Home} exact />
               <Route path="/main/search" component={Search} exact />
+              <Route path="/main/parameter/devs" component={DevPage} />
 
               {pathsSideMenu.map((path, index) => {
                 return path.pageIn ? (
-                  <Route key={index} path={path.path} component={path.component} />
+                  <Route key={index} path={path.path} component={path.component} exact />
                 ) : (
                   <Route path="/main/home" key={index} component={Home} exact />
                 );
               })}
               <Route path="/main/annonce/:id" component={AnnonceDetails} exact />
+              <Route path="/main/annonce/achat/:id" component={AchatAnnonce} exact />
+
               <Redirect exact from="/main" to="/main/home" />
             </IonRouterOutlet>
 

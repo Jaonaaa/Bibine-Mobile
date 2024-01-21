@@ -3,12 +3,13 @@ import Modal from "../Modal";
 import Box from "../../Box/Box";
 
 import "./ValidationModal.sass";
+
 interface ValidationModalProps {
   content: React.ReactNode | string;
   closer?: MouseEventHandler<HTMLButtonElement>;
   callBack?: MouseEventHandler<HTMLButtonElement>;
   title?: string;
-  icon: React.ReactNode | string;
+  icon?: React.ReactNode | string;
 }
 
 const ValidationModal = (props: ValidationModalProps) => {
@@ -30,10 +31,10 @@ const ValidationModal = (props: ValidationModalProps) => {
               <div className="content">{props.content}</div>
               <div className="buttons">
                 <button onClick={props.closer} className="cancel">
-                  Cancel
+                  Annuler
                 </button>
                 <button onClick={props.callBack} className="confirm">
-                  Confirm
+                  Valider
                 </button>
               </div>
             </div>

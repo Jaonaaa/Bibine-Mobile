@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LogoDefault from "../../../assets/svg/LogoDefault";
 import RowInput from "../RowInput/RowInput";
 import "./FormSignUp.sass";
@@ -7,19 +7,40 @@ import Logo from "../../../assets/icons/Logo";
 import LogoBoxed from "../../../assets/icons/LogoBoxed";
 import { IonPage } from "@ionic/react";
 import useNav from "../../../hooks/useNav";
+import Hider from "../../../components/Hider/Hider";
+import { AnimatePresence } from "framer-motion";
 
 const FormSignUp = () => {
   const { to_forward } = useNav();
+  const [sending, setSending] = useState(false);
 
   const handleSubmit = async (props: any) => {
     // console.log("FormSignUp");
+    setSending(true);
+    setTimeout(() => {
+      setSending(false);
+    }, 3500);
+  };
+
+  const myAsyncFunction = async (formData: any) => {
+    return new Promise((resolve, reject) => {
+      if (isValidEmail(formData["email"])) resolve(true);
+      else resolve(false);
+    });
   };
 
   const { backStep, formData, nextStep, moveStep, handleForm, handleInputForm, step } = UseHandleForm(3, [
-    async () => {},
-    async () => {},
+    myAsyncFunction,
+    async () => {
+      return true;
+    },
     handleSubmit,
   ]);
+
+  const isValidEmail = (email: string): boolean => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
 
   return (
     <IonPage>
@@ -53,6 +74,7 @@ const FormSignUp = () => {
           <form action="" method="post" onSubmit={handleForm}>
             {step === 1 ? (
               <>
+                {/* ///check if email valid */}
                 <RowInput
                   title="Votre email"
                   type="email"
@@ -83,16 +105,36 @@ const FormSignUp = () => {
             {step === 2 ? (
               <>
                 <RowInput
-                  title="Hzllo world"
+                  title="Votre nom d'utilisateur"
                   type="text"
-                  value={formData.hello}
-                  id="hello"
-                  name="hello"
+                  value={formData.username}
+                  id="username"
+                  name="username"
                   fullWidth
                   onChange={handleInputForm}
                 />
                 <div className="button">
                   <button>Suivant</button>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+            {step === 3 ? (
+              <>
+                <RowInput
+                  title="Votre photo de profil (facultatif)"
+                  type="file"
+                  value={formData.picture && formData.picture.length > 0 ? formData.picture[0] : undefined}
+                  id="picture"
+                  name="picture"
+                  fullWidth
+                  onChange={handleInputForm}
+                />
+                <AnimatePresence>{sending && <Hider classCss="glassy" loader />}</AnimatePresence>
+
+                <div className="button">
+                  <button>Terminer</button>
                 </div>
               </>
             ) : (

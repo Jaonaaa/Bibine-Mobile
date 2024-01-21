@@ -14,6 +14,7 @@ import SearchPageIcon from "../../../assets/icons/SearchPageIcon";
 import Search from "../Search/Search";
 import Parameter from "../../../components/Parameter/Parameter";
 import { storage } from "../../../data/storage";
+import { URL_message } from "../../../utils/Alaivo";
 
 export const paths = [
   {
@@ -58,7 +59,7 @@ export const pathsSideMenu = [
     icon: <AddAnnonceIcon />,
   },
   {
-    path: "https://itworks.com/",
+    path: URL_message,
     page: "Messages",
     pageIn: false,
     component: Search,
@@ -84,6 +85,6 @@ export const pathsSideMenu = [
     page: localStorage.getItem(storage.user_connected) ? "  Se déconnecter" : "  Se connecter",
     pageIn: false,
     forced: true,
-    iconReversed: <ArrowLongRight />,
+    icon: <ArrowLongRight />,
   },
 ];

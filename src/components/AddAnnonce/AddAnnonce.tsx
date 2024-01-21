@@ -2,10 +2,10 @@ import { FormEvent, useEffect, useState } from "react";
 import PageTemplate from "../PageTemplate/PageTemplate";
 
 import FormAnnonce from "./FormAnnonce/FormAnnonce";
-import { inputsFirst, inputsSecond, inputsThird, inputsFifth, inputsFourth } from "./InputsData";
+import { inputsFirst, inputsSecond, inputsThird, inputsFifth, inputsFourth, inputsSix } from "./InputsData";
 import "./AddAnnonce.sass";
 import { alaivoPost } from "../../utils/Alaivo";
-import { getBase64, resizeFile } from "../../utils/Files";
+import { resizeFile } from "../../utils/Files";
 import HelperText from "./HelperText/HelperText";
 
 const AddAnnonce: React.FC = () => {
@@ -24,6 +24,10 @@ const AddAnnonce: React.FC = () => {
     } else setFormData((form: any) => ({ ...form, [e.target.name]: e.target.value }));
   };
 
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
+
   const next = (e: FormEvent) => {
     e.preventDefault();
     setPercent((percent) => percent + 100);
@@ -33,8 +37,8 @@ const AddAnnonce: React.FC = () => {
     e.preventDefault();
     let files = [];
 
-    for (let i = 0; i < formData[inputsThird[0].name].length; i++) {
-      let base64 = await resizeFile(formData[inputsThird[0].name][i]);
+    for (let i = 0; i < formData[inputsSix[0].name].length; i++) {
+      let base64 = await resizeFile(formData[inputsSix[0].name][i]);
       files.push(base64);
     }
     const fileData = JSON.stringify({
@@ -59,8 +63,8 @@ const AddAnnonce: React.FC = () => {
   };
 
   const removePicture = (indexPicture: any) => {
-    let filtredPicture = formData[inputsFifth[0].extra].filter((pic: any, index: number) => index !== indexPicture);
-    setFormData((form: any) => ({ ...form, [inputsFifth[0].extra]: filtredPicture }));
+    let filtredPicture = formData[inputsSix[0].extra].filter((pic: any, index: number) => index !== indexPicture);
+    setFormData((form: any) => ({ ...form, [inputsSix[0].extra]: filtredPicture }));
   };
 
   return (
@@ -96,6 +100,7 @@ const AddAnnonce: React.FC = () => {
           index={2}
           percent={percent}
         />
+
         <FormAnnonce
           callBack={handleInput}
           formData={formData}
@@ -109,8 +114,18 @@ const AddAnnonce: React.FC = () => {
           callBack={handleInput}
           formData={formData}
           back={back}
-          next={upload}
+          next={next}
           inputs={inputsFifth}
+          index={4}
+          percent={percent}
+        />
+
+        <FormAnnonce
+          callBack={handleInput}
+          formData={formData}
+          back={back}
+          next={upload}
+          inputs={inputsSix}
           index={-1}
           percent={percent}
           removePicture={removePicture}

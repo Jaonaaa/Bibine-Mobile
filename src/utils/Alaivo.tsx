@@ -1,6 +1,7 @@
 import { getHeader, getHeaderAuthJWT } from "../hooks/useIdentity";
 
-export const URL = "http://172.50.5.30:8080/";
+export const URL = "http://172.50.2.34:8080/";
+export const URL_message = "https://itworks.com/";
 
 const rebuildURL = (url = "") => {
   if (url.indexOf("new_url") !== -1) return url.replace("new_url", "");
@@ -77,7 +78,7 @@ export const alaivoPut = (url = "", data: any, options: any, noAuth = false) => 
 
 export const alaivoPost = (url = "", data: any, options: any, noAuth = false) => {
   let auth = !noAuth ? getHeaderAuthJWT() : getHeader();
-
+  console.log(rebuildURL(url));
   return new Promise((resolve, reject) => {
     fetch(rebuildURL(url), {
       method: "POST",

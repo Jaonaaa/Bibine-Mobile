@@ -35,12 +35,16 @@ const useNotification = () => {
   const scheduleNow = async (title: string, text: string, id: number | null, actionType: "first_time" | "openPage") => {
     try {
       let time = new Date(new Date().getTime());
+      console.log("Current Time : ", time);
+
       let currentSeconds = time.getSeconds();
       time.setSeconds(currentSeconds + 1);
+      console.log("Current Time advanced: ", time);
+
       const notification = {
         title: title,
         body: text,
-        id: id ? id : getRandomNumber(1, 10),
+        id: id ? id : getRandomNumber(1, 1000),
         actionTypeId: actionType,
         importance: 5,
         visibility: 1,
@@ -93,11 +97,6 @@ const useNotification = () => {
                 id: "view",
                 title: "Voir",
               },
-              {
-                id: "responde",
-                title: "Répondre ",
-                input: true,
-              },
             ],
           },
           {
@@ -116,10 +115,6 @@ const useNotification = () => {
         if (event.actionId === "view") {
           // Redirection vers la page spécifique lors du clic sur l'action "Voir"
           to("/main/home");
-        }
-        if (event.actionId === "responde") {
-          to("/main/home");
-          alert(event.inputValue);
         }
         if (event.actionId === "give_a_hug") {
         }

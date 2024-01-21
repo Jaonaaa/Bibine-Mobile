@@ -9,6 +9,8 @@ import { IonPage } from "@ionic/react";
 import useNav from "../../../hooks/useNav";
 import { storage } from "../../../data/storage";
 import "./FormSignIn.sass";
+import Hider from "../../../components/Hider/Hider";
+import { AnimatePresence } from "framer-motion";
 
 interface formSignIn {
   email: string;
@@ -17,15 +19,24 @@ interface formSignIn {
 
 const FormSignIn = () => {
   const [formData, setFormData] = useState<formSignIn>({ email: "", password: "" });
-  const { to_forward } = useNav();
+  const [sending, setSending] = useState(false);
+  const { to_forward, to_pop } = useNav();
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setSending(true);
     // base verfifcation
-    // redirection
-    // me
     localStorage.setItem(storage.user_name, formData.email);
     localStorage.setItem(storage.user_email, formData.email);
     localStorage.setItem(storage.user_connected, "true");
+    setTimeout(() => {
+      //me
+      // redirection
+      setTimeout(() => {
+        setSending(false);
+        window.location.href = "/main/home";
+      }, 200);
+    }, 2000);
   };
 
   const handleInput = (e: any) => {
@@ -42,7 +53,8 @@ const FormSignIn = () => {
           <div className="title">Connexion</div>
           <div className="subtitle">Plongeons ensemble dans cet incroyable voyage.</div>
           <form action="" method="post" onSubmit={handleSubmit}>
-            <RowInput title="Email" type="email" id="email" name="email" fullWidth onChange={handleInput} />
+            {/* /// check if the email valid */}
+            <RowInput title="Email" type="text" id="email" name="email" fullWidth onChange={handleInput} />
             <RowInput
               title="Mot de passe"
               type="password"
@@ -67,6 +79,8 @@ const FormSignIn = () => {
               </div>
             </div>
           </form>
+          <AnimatePresence>{sending && <Hider loader animate="showUp" />}</AnimatePresence>
+
           {/* <Divider text={"OR"} className={"divider_form"} /> */}
           {/* <ButtonLogo icon={<GoogleIcon />} text={"Continuer avec Google"} /> */}
           {/* <ButtonLogo icon={<AppleIcon />} text={"Continue with Apple"} /> */}

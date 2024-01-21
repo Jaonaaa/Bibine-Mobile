@@ -3,6 +3,7 @@ import ArrowRight from "../../../assets/icons/ArrowRight";
 import Select from "../../Select/Select";
 import Input from "../../Input/Input";
 import SliderPicture from "../SliderPicture/SliderPicture";
+import Details from "../Details/Details";
 
 interface FormProps {
   formData: any;
@@ -38,6 +39,15 @@ const FormAnnonce = (props: FormProps) => {
         <React.Fragment key={index}>
           {input.type === "dropdown" && input.options ? (
             <Select onChange={callBack} optionsType={input.options} fullWidth name={input.name} title={input.title} />
+          ) : input.type === "list" ? (
+            <Details
+              callBack={callBack}
+              type={input.type}
+              formData={formData}
+              name={input.name}
+              title={input.title}
+              key={index}
+            />
           ) : (
             <>
               <Input

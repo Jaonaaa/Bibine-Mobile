@@ -4,7 +4,7 @@ import "./ParamRow.sass";
 
 interface ParamRowProps {
   type: "clickable" | "toogler";
-  callback: MouseEventHandler<HTMLDivElement>;
+  callback?: MouseEventHandler<HTMLDivElement>;
   component: React.ReactNode;
   label: string;
 }

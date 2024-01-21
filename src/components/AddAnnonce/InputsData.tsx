@@ -50,20 +50,23 @@ export const inputsThird = [
   },
 ];
 
-export const inputsFourth = [
+export const inputsFifth = [
   {
     title: "Quantité en stock",
     type: "number",
-    name: "quanity",
+    name: "quantity",
   },
+];
+
+export const inputsFourth = [
   {
-    title: "Details",
+    title: "Détails",
     type: "list",
     name: "details",
   },
 ];
 
-export const inputsFifth = [
+export const inputsSix = [
   {
     title: "Photos",
     type: "file",

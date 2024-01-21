@@ -29,6 +29,7 @@ const SliderPicture = (props: SliderPictureProps) => {
   useEffect(() => {
     if (pictures) handleSelectBox(pictures.length - 1);
   }, [pictures]);
+
   const scrollList = () => {
     let widthBox = pictureBox.current?.getBoundingClientRect().width;
     if (widthBox) widthBox = widthBox / 4;

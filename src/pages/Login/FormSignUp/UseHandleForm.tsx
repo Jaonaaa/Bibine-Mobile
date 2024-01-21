@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-const UseHandleForm = (stepNumber = 1, formSubmit = [async (props: any) => {}]) => {
+const UseHandleForm = (
+  stepNumber = 1,
+  formSubmit = [
+    async (props: any) => {
+      return new Promise((resolve, reject) => {});
+    },
+  ]
+) => {
   const [formData, setFormData] = useState<any>({});
   const [step, setStep] = useState(1);
   const [charged, setCharged] = useState(false);
@@ -8,8 +15,10 @@ const UseHandleForm = (stepNumber = 1, formSubmit = [async (props: any) => {}]) 
   const handleInputForm = (e: any) => {
     setFormData((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const handleForm = async (e: any) => {
     e.preventDefault();
+    console.log(step, stepNumber);
     if (step < stepNumber) nextStep();
     else await formSubmit[formSubmit.length - 1](formData);
   };
@@ -39,6 +48,7 @@ const UseHandleForm = (stepNumber = 1, formSubmit = [async (props: any) => {}]) 
     if (!charged) {
       setCharged(true);
       const result = formSubmit[step - 1] !== null ? await formSubmit[step - 1](formData) : true;
+
       setCharged(false);
       return result;
     }

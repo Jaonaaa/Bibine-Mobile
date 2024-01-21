@@ -57,6 +57,83 @@
             font-weight: bolder
             @include breakpoints.break_XSM()
             top: -5%
+        .up_no
+            top: 0%
+            left: 0.2rem
+            font-size: 0.75rem
+            font-weight: bolder
+            @include breakpoints.break_XSM()
+                top: -3%
 
+    .label_file_container
+        margin: 1rem auto
+        width: 19rem
+        height: 19rem
+        display: flex
+        position: relative
+        justify-content: center
+        cursor: pointer
+        transition: all 0.2s ease-in-out
+        align-items: center
+        overflow: hidden
+        flex-direction: column
+        border-radius: 50%
+
+        // padding: 0.3rem
+        background: var(--bg-color-body)
+        box-shadow: 0 0 0rem 0.1rem #6765655a
+        @include breakpoints.break_XSM()
+            width: 15.5rem
+            margin-top: 0.2rem
+            height: 15.5rem
+
+        &:hover
+            .span
+                transform: scale(1.03)
+            .icon_container
+                transform: scale(1.13)
+        .icon_container
+            height: 6rem
+            width: 6rem
+            display: flex
+            transform: scale(1.1)
+            justify-content: center
+            align-items: center
+            transition: all 0.2s ease-in-out
+            margin-bottom: 0rem
+        .span
+            font-weight: bolder
+            font-size: 0.9rem
+            margin-top: 0.5rem
+            color: #5d5c5c
+            transition: all 0.2s ease-in-out
+            @include breakpoints.break_XSM()
+                font-size: 0.8rem
+
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+        .icon
+            display: flex
+            justify-content: center
+            align-items: center
+            svg
+                @include breakpoints.break_XSM()
+                    width: 3rem
+    .add_file
+        position: absolute
+        z-index: 2
+        pointer-events: none
+        right: 40%
+        top: 40%
+        width: 3rem
+        height: 3rem
+        display: flex
+        justify-content: center
+        align-items: center
+        background: #ffffff2f
+        border-radius: 50%
+        padding: 0.6rem
 .fullWidth
     width: 100%

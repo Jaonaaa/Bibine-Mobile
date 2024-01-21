@@ -6,10 +6,16 @@ import ArrowDownBoxIcon from "../../assets/icons/ArrowDownBoxIcon";
 import SubDetails from "./SubDetails/SubDetails";
 
 import Picture from "../../assets/img/cat.jpg";
+import { useParams } from "react-router-dom";
 
 import "./AnnonceDetails.sass";
 
+interface AnnonceDetailsProps {
+  id: string;
+}
 const AnnonceDetails = () => {
+  const { id } = useParams<AnnonceDetailsProps>();
+
   const scrollToDetails = () => {
     let details = document.getElementById("details_annonnce_container");
     let container = document.querySelector(".details_content_page");
@@ -37,7 +43,7 @@ const AnnonceDetails = () => {
         </div>
         <PictureSwaper pictures={["", ""]} />
         <hr />
-        <SubDetails />
+        <SubDetails id={id} />
         <DetailsAnnonce />
       </div>
     </PageTemplate>
