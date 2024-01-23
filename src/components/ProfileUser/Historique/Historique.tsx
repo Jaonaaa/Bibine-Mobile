@@ -1,8 +1,8 @@
 import React from "react";
 import PageTemplate from "../../PageTemplate/PageTemplate";
 import ArrowDownIcon from "../../../assets/icons/ArrowDownIcon";
-import "./Historique.sass";
 import PriceParser, { getRandomNumber } from "../../../utils/Format";
+import "./Historique.sass";
 
 const Historique = () => {
   return (
