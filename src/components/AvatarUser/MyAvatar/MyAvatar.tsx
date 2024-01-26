@@ -1,13 +1,20 @@
 import { IonAvatar } from "@ionic/react";
+import { useEffect, useState } from "react";
+import { getUser, storage } from "../../../data/storage";
 
 const MyAvatar = () => {
+  const [userPicture, setUserPicture] = useState<any>("https://media2.giphy.com/media/tN1YiOeZmIRKE/200_s.gif");
+
+  useEffect(() => {
+    let user = getUser();
+    if (user) {
+      if (user.profile) setUserPicture(user.profile);
+    }
+  }, []);
   return (
     <div className="my_avatar">
       <IonAvatar className="avatar">
-        <img
-          alt="Avatar"
-          src="https://ih1.redbubble.net/image.3319898950.8330/raf,360x360,075,t,fafafa:ca443f4786.jpg"
-        />
+        <img alt="Avatar" src={userPicture} />
       </IonAvatar>
     </div>
   );

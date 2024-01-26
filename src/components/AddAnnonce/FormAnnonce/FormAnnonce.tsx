@@ -1,9 +1,11 @@
-import React, { FormEventHandler, useEffect } from "react";
+import React, { FormEventHandler, useEffect, useState } from "react";
 import ArrowRight from "../../../assets/icons/ArrowRight";
 import Select from "../../Select/Select";
 import Input from "../../Input/Input";
 import SliderPicture from "../SliderPicture/SliderPicture";
 import Details from "../Details/Details";
+import Selection from "../Selection/Selection";
+import { options } from "ionicons/icons";
 
 interface FormProps {
   formData: any;
@@ -28,6 +30,8 @@ interface InputProps {
   title: string;
   options?: OptionsProps[];
   extra?: string;
+  constraint: (val: any) => boolean;
+  options_src?: any;
 }
 
 const FormAnnonce = (props: FormProps) => {
@@ -37,8 +41,8 @@ const FormAnnonce = (props: FormProps) => {
     <form className="form_add_annonce" style={{ transform: `translateX(${-percent}%)` }} onSubmit={next}>
       {inputs.map((input: InputProps, index) => (
         <React.Fragment key={index}>
-          {input.type === "dropdown" && input.options ? (
-            <Select onChange={callBack} optionsType={input.options} fullWidth name={input.name} title={input.title} />
+          {input.type === "dropdown" ? (
+            <SelectOptions callBack={callBack} input={input} key={index} />
           ) : input.type === "list" ? (
             <Details
               callBack={callBack}
@@ -48,6 +52,18 @@ const FormAnnonce = (props: FormProps) => {
               title={input.title}
               key={index}
             />
+          ) : input.type === "selection" ? (
+            <>
+              <Selection
+                callBack={callBack}
+                type={input.type}
+                formData={formData}
+                name={input.name}
+                title={input.title}
+                key={index}
+                options_src={input.options_src}
+              />
+            </>
           ) : (
             <>
               <Input
@@ -57,6 +73,13 @@ const FormAnnonce = (props: FormProps) => {
                 type={input.type}
                 name={input.name}
                 title={input.title}
+                constraint={
+                  input.constraint
+                    ? input.constraint
+                    : (e: any) => {
+                        return true;
+                      }
+                }
               />
               {input.extra && removePicture && (
                 <SliderPicture
@@ -88,6 +111,32 @@ const FormAnnonce = (props: FormProps) => {
       </div>
       {helper}
     </form>
+  );
+};
+
+interface SelectOptionsProps {
+  input: InputProps;
+  callBack: Function;
+}
+
+const SelectOptions = (props: SelectOptionsProps) => {
+  const { input, callBack } = props;
+  const [options, setOptions] = useState([]);
+  useEffect(() => {
+    getOptions();
+  }, []);
+
+  const getOptions = async () => {
+    if (input.options_src) {
+      let res = await input.options_src();
+      console.log(res);
+      setOptions(res);
+    }
+  };
+  return (
+    <>
+      <Select onChange={callBack} optionsType={options} fullWidth name={input.name} title={input.title} />
+    </>
   );
 };
 

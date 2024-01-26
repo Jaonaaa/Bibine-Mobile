@@ -16,6 +16,9 @@ function Input({
   fullWidth = false,
   splitterTextArea = "\\n",
   rows = 10,
+  constraint = (val: any) => {
+    return true;
+  },
 }) {
   const [value, setValue] = useState(defaultValue);
   const [fileLoaded, setFileLoaded] = useState(false);
@@ -54,8 +57,10 @@ function Input({
 
   const handleNumeric = (e: any) => {
     if (isNaN(+e.target.value)) return "";
-    setValue(e.target.value);
-    onChange(e);
+    if (constraint(+e.target.value)) {
+      setValue(e.target.value);
+      onChange(e);
+    }
   };
   const handleTextArea = (e: any) => {
     let rows = e.target.value.split("\n");
@@ -139,7 +144,7 @@ function Input({
             required={required}
             id={name}
             pattern={pattern ? pattern : undefined}
-            onChange={type === "numeric" ? handleNumeric : handleValue}
+            onChange={type === "number" ? handleNumeric : handleValue}
             placeholder={placeholder}
             value={value}
             disabled={disabled}

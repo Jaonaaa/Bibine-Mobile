@@ -2,18 +2,21 @@ import { useState } from "react";
 import SockJS from "sockjs-client";
 import { URL, alaivoPost } from "./Alaivo";
 import Stomp from "webstomp-client";
-import { messageStruct, storage } from "../data/storage";
+import { getUser, messageStruct, storage } from "../data/storage";
 import useNotification from "../hooks/useNotifications";
 import { getRandomNumber } from "./Format";
+import useBubbleNotif from "../hooks/useBubbleNotif";
 
 export const useConnectServer = () => {
   const [socket, setSocket] = useState<any>(null);
   const { scheduleNow } = useNotification();
   const [stompClient, setStompClient] = useState<any>(null);
+  const { showBubbleMessage } = useBubbleNotif();
 
   const connect = () => {
-    if (localStorage.getItem(storage.user_email) == null) return;
-    const sock = SockJS(URL + "websocket?id_user_socket=" + localStorage.getItem(storage.user_email));
+    if (localStorage.getItem(storage.user) == null) return;
+    let user = getUser() as any;
+    const sock = SockJS(URL + "websocket?id_user_socket=" + user.email);
 
     sock.onopen = handleOpen;
     sock.onclose = handleClose;
@@ -27,6 +30,7 @@ export const useConnectServer = () => {
       stompClient.subscribe("/user/topic/private-messages", (message: any) => {
         console.log("Private message ___");
         let data = JSON.parse(message.body) as messageStruct;
+        showBubbleMessage();
         scheduleNow(data.sender.username, data.content, getRandomNumber(8, 2000), "openPage");
       });
     });
@@ -42,8 +46,9 @@ export const useConnectServer = () => {
   };
 
   const connectSpecicifed = async (URL: string) => {
-    if (localStorage.getItem(storage.user_email) == null) return;
-    const sock = SockJS("http://" + URL + "/websocket?id_user_socket=" + localStorage.getItem(storage.user_email));
+    let user = getUser();
+    if (user == null) return;
+    const sock = SockJS("https://" + URL + "/websocket?id_user_socket=" + user.email);
     sock.onopen = handleOpen;
     sock.onclose = handleClose;
     sock.onmessage = handleMessage;
@@ -59,7 +64,8 @@ export const useConnectServer = () => {
           stompClient.subscribe("/user/topic/private-messages", (message: any) => {
             console.log(JSON.parse(message.body));
             let data = JSON.parse(message.body) as messageStruct;
-            scheduleNow(data.sender.username, data.content, getRandomNumber(8, 2000), "openPage");
+            ///
+            scheduleNow(data.receiver_id, data.content, getRandomNumber(8, 2000), "openPage");
           });
           resolve(true);
         },
@@ -86,16 +92,16 @@ export const useConnectServer = () => {
 
   const sendPrivateMessage = (message: string, receiver: string | null, URL: string) => {
     if (stompClient) {
+      let user = getUser();
       let messageToSent = {
         content: message,
-        sender: {
-          id: "",
-          username: localStorage.getItem(storage.user_name),
-          picturePath: "",
-        },
+        sender_id: user.id,
+        sender_name: localStorage.getItem(storage.user_name),
+        picturePath: user.profile,
+        receiver_email: receiver,
       };
       /////
-      alaivoPost(`new_url${URL}send-private-message/` + receiver, JSON.stringify(messageToSent), null, true);
+      alaivoPost(`new_url${URL}send-message`, JSON.stringify(messageToSent), null, false);
     } else alert("Connection au serveur non établie ￣へ￣ ");
   };
 

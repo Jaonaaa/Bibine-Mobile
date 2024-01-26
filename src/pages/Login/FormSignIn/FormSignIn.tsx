@@ -11,6 +11,8 @@ import { storage } from "../../../data/storage";
 import "./FormSignIn.sass";
 import Hider from "../../../components/Hider/Hider";
 import { AnimatePresence } from "framer-motion";
+import useIdentity from "../../../hooks/useIdentity";
+import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
 
 interface formSignIn {
   email: string;
@@ -19,24 +21,25 @@ interface formSignIn {
 
 const FormSignIn = () => {
   const [formData, setFormData] = useState<formSignIn>({ email: "", password: "" });
+  const { addNotifs, notifs } = useMyNotifs();
   const [sending, setSending] = useState(false);
-  const { to_forward, to_pop } = useNav();
+  const { signIn } = useIdentity(addNotifs);
+  const { to_forward } = useNav();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setSending(true);
     // base verfifcation
-    localStorage.setItem(storage.user_name, formData.email);
-    localStorage.setItem(storage.user_email, formData.email);
-    localStorage.setItem(storage.user_connected, "true");
-    setTimeout(() => {
-      //me
-      // redirection
+    let res = await signIn(formData).catch((error: any) => {
+      console.log(error);
+    });
+
+    setSending(false);
+    if (res) {
       setTimeout(() => {
-        setSending(false);
         window.location.href = "/main/home";
-      }, 200);
-    }, 2000);
+      }, 80);
+    }
   };
 
   const handleInput = (e: any) => {
@@ -45,6 +48,7 @@ const FormSignIn = () => {
 
   return (
     <IonPage>
+      {notifs.map((notif) => notif)}
       <div id="login_container">
         <div className="sign_in_form">
           <div className="logo">

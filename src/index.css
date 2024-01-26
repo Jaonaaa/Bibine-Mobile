@@ -64,6 +64,68 @@ ion-tab-bar {
   position: relative;
 }
 
+#bubble_notif {
+  z-index: 198;
+  position: relative;
+}
+
+#bubble_notif .bubble_in {
+  right: 1rem;
+  top: 8vh;
+  position: fixed;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--ion-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  animation: slide_right 0.2s cubic-bezier(0.52, 0.68, 0.38, 1.46);
+}
+#bubble_notif .bubble_out {
+  pointer-events: none;
+  top: 4vh;
+  right: -5rem;
+  transform: scale(0.1);
+}
+
+@keyframes slide_right {
+  0% {
+    right: -3rem;
+    transform: scale(0.5);
+    top: 2vh;
+  }
+  100% {
+    right: 0.8rem;
+    top: 8vh;
+    transform: scale(1);
+  }
+}
+
+.bubble_in .number {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: #1c4271;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.5rem;
+  font-family: "Sora_R";
+}
+
+.bubble_in .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+}
+
 ion-item::part(native) {
   border-color: #fff;
   border-width: 0;
@@ -103,4 +165,8 @@ ion-toggle::part(track) {
 
   /* Required for iOS handle to overflow the height of the track */
   overflow: visible;
+}
+
+img {
+  text-indent: -1000px;
 }

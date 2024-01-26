@@ -16,6 +16,24 @@
             padding: 1.4rem 0 0 0
         @include breakpoints.break_XSM()
             padding: 1.2rem 0 0 0
+        .icon_calendar
+            position: absolute
+            right: 1rem
+            top: 55%
+            background: #fff
+            z-index: 2
+            pointer-events: none
+            &::after
+                content: ""
+                position: absolute
+                right: -65%
+                top: -5%
+                width: 0.77rem
+                z-index: 1
+                background: red
+                height: 100%
+                background: #fff
+                pointer-events: none
 
         input
             width: 100%

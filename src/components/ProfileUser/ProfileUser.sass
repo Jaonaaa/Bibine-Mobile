@@ -4,6 +4,7 @@ ion-item
 .profile_title
     padding-inline-start: 0
     margin-left: -1.3rem
+    z-index: 4
     width: fit-content
     @include breakpoints.break_XSM()
         font-size: 1.23rem
@@ -82,6 +83,28 @@ ion-item
                 width: 5.8rem
                 height: 5.8rem
                 font-size: 2.7rem
+            .name
+                position: absolute
+                left: 50%
+                top: 50%
+                transform: translate(-50%,-50%)
+            .picture_box
+                position: absolute
+                width: 7rem
+                height: 7rem
+                left: 50%
+                display: flex
+                justify-content: center
+                align-items: center
+                top: 50%
+                border-radius: 50%
+                overflow: hidden
+                transform: translate(-50%,-50%)
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
+
             .add_annonce_btn
                 position: absolute
                 right: -0.3rem
@@ -90,6 +113,7 @@ ion-item
                 min-height: 2.2rem
                 background: #fff
                 display: flex
+                z-index: 3
                 justify-content: center
                 align-items: center
                 border-radius: 50%
@@ -178,3 +202,28 @@ ion-item
 
             .empty_box
                 margin-top: 13.5vh
+.picture_container
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 70vw
+    height: 70vw
+    max-width: 25rem
+    height: 25rem
+    img
+        width: 100%
+        object-fit: cover
+.closer_picture
+    position: absolute
+    right: 1rem
+    top: 1rem
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 2rem
+    height: 2rem
+    svg
+        transform: scale(1.5)
+        line
+            stroke: #fff
+            stroke-width: 1.5

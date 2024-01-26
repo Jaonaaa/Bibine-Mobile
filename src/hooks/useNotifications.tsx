@@ -35,11 +35,11 @@ const useNotification = () => {
   const scheduleNow = async (title: string, text: string, id: number | null, actionType: "first_time" | "openPage") => {
     try {
       let time = new Date(new Date().getTime());
-      console.log("Current Time : ", time);
+      // console.log("Current Time : ", time);
 
       let currentSeconds = time.getSeconds();
       time.setSeconds(currentSeconds + 1);
-      console.log("Current Time advanced: ", time);
+      //  console.log("Current Time advanced: ", time);
 
       const notification = {
         title: title,

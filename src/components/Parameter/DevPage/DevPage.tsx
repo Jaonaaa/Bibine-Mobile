@@ -11,7 +11,6 @@ import CheckIcon from "../../../assets/icons/CheckIcon";
 import CrossDevIcon from "../../../assets/icons/CrossDevIcon";
 import Hider from "../../Hider/Hider";
 import { AnimatePresence } from "framer-motion";
-import useNotification from "../../../hooks/useNotifications";
 import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
 
 const DevPage = () => {
@@ -27,7 +26,7 @@ const DevPage = () => {
 
 const BonusDev = () => {
   const { connectSpecicifed, sendPrivateMessage, stompClient, disconnect } = useConnectServer();
-  const [formData, setFormData] = useState({ URL: "172.50.2.34:8080", target: "", message: "" });
+  const [formData, setFormData] = useState({ URL: "car-production-005c.up.railway.app", target: "", message: "" });
   const [hiderOn, setHiderOn] = useState(false);
   const { notifs, addNotifs } = useMyNotifs();
   useEffect(() => {
@@ -39,7 +38,7 @@ const BonusDev = () => {
   const sendToSpecified = () => {
     if (stompClient) {
       let message = formData.message.replace(/\\n/g, "\n");
-      sendPrivateMessage(message, formData.target, "http://" + formData.URL + "/");
+      sendPrivateMessage(message, formData.target, "https://" + formData.URL + "/");
     } else {
       addNotifs("error", "Stomp client is not available", 2000);
     }

@@ -1,39 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Cat from "../../assets/img/cat.jpg";
 import useNav from "../../hooks/useNav";
 import "./AnnonceBox.sass";
-import { getNumberPrice } from "../../utils/Format";
+import PriceParser, { getNumberPrice } from "../../utils/Format";
+import { AnnonceData } from "../../data/Types";
 
 const detailsPage = "/main/annonce/";
 
-interface AnnonceBoxProps {
-  loadedContent?: boolean;
-  id_annonce?: string;
-  callback?: Function;
-}
-const AnnonceBox = (props: AnnonceBoxProps) => {
+const AnnonceBox = (props: AnnonceData) => {
   const { to_forward } = useNav();
+  const [loadedPicture, setLoadedPicture] = useState(false);
 
+  const year = () => {
+    if (props.year) {
+      let yearTab = props.year.split("-");
+      return yearTab[1] + "/" + yearTab[0];
+    } else return "XX/XXXX";
+  };
   return (
     <div
       className={`box_annonce ${props.loadedContent ? "" : "skeleton_container"}`}
       onClick={() => {
-        if (props.callback) props.callback();
-        to_forward(detailsPage + (props.id_annonce ? props.id_annonce : "-1"));
+        if (props.id)
+          if (+props.id !== -1) {
+            if (props.callback) props.callback();
+            to_forward(detailsPage + (props.id ? props.id : "-1"));
+          }
       }}
     >
       <div className="overlay"></div>
-      <div className="picture_box">{props.loadedContent ? <img src={Cat} alt="" /> : ""}</div>
+      <div className="picture_box">
+        {props.loadedContent ? (
+          <img
+            onLoad={() => {
+              setLoadedPicture(true);
+            }}
+            className={loadedPicture ? "" : "skeleton"}
+            //Cat
+            src={props.pictures ? props.pictures[0] : Cat}
+            alt=""
+          />
+        ) : (
+          ""
+        )}
+      </div>
       <div className="details">
         <div className="details_content">
           {props.loadedContent ? (
             <>
-              <div className="title"> AUDI T9 AZ-REIM </div>
-              <div className="subtitle">12/2010 | Essence | Plaisir </div>
+              {/* //AUDI T9 AZ-REIM */}
+              <div className="title">
+                {props.modele?.nom} {props.brand?.nom}
+              </div>
+              <div className="subtitle">
+                {year()} | {props.motor?.nom} | {props.modele?.type.nom}
+              </div>
               <div className="price">
-                {" "}
-                {getNumberPrice(10000, 500000)} <div className="unit"> Ar </div>
-              </div>{" "}
+                {props.prix ? PriceParser(props.prix) : getNumberPrice(10000, 500000)} <div className="unit"> Ar </div>
+              </div>
               <div className="marchand">
                 <div className="avatar">
                   <img

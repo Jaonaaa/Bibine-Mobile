@@ -1,11 +1,11 @@
 import { IonContent, IonHeader, IonItem, IonLabel, IonMenu, IonMenuToggle, IonToolbar } from "@ionic/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MyAvatar from "../AvatarUser/MyAvatar/MyAvatar";
 import "./SideMenu.sass";
 import AddAnnonceIcon from "../../assets/icons/AddAnnonceIcon";
 import useViewPort from "../../hooks/useViewPort";
 import useNav from "../../hooks/useNav";
-import { storage } from "../../data/storage";
+import { getUser, storage } from "../../data/storage";
 
 interface SideMenuProps {
   path: string;
@@ -30,13 +30,24 @@ const SideMenu = (paths: SideMenuTabProps) => {
   const isTabSelected = (tab: string) => {
     return window.location.pathname === tab;
   };
+  const [username, setUsername] = useState<string>("Unknown");
+
+  useEffect(() => {
+    let user = getUser();
+    if (user) {
+      setUsername(user.name);
+    }
+  }, []);
 
   const handleDeconnect = (path: any) => {
     if (path === "/log" && localStorage.getItem(storage.user_connected) !== null) {
       localStorage.removeItem(storage.user_connected);
-      localStorage.removeItem(storage.user_email);
       localStorage.removeItem(storage.token);
       localStorage.removeItem(storage.user_name);
+      localStorage.removeItem(storage.user);
+      localStorage.removeItem(storage.refresh_token);
+      localStorage.removeItem(storage.details_user);
+
       window.location.href = "/main/home";
       return true;
     } else return false;
@@ -56,7 +67,7 @@ const SideMenu = (paths: SideMenuTabProps) => {
               >
                 <MyAvatar />
                 <IonLabel className="title_avatar">
-                  <div className="name_user"> Peter Parker</div>
+                  <div className="name_user"> {username}</div>
                   <div className="action_title">Voir le profile</div>
                 </IonLabel>
               </IonItem>

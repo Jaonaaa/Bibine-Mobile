@@ -8,8 +8,6 @@ interface PictureSwaperProps {
   pictures: string[];
 }
 
-let colors = [Cat, Cat, Cat, Cat, Cat, Cat];
-
 const PictureSwaper = (props: PictureSwaperProps) => {
   const [selectedBox, setSelectedBox] = useState(0);
   const [direction, setDirection] = useState("");
@@ -62,10 +60,10 @@ const PictureSwaper = (props: PictureSwaperProps) => {
           // onSwiper={(swiper: any) => ""}
         >
           <SwiperHandler indexPicture={selectedBox} />
-          {colors.map((key, index) => (
+          {props.pictures.map((key, index) => (
             <SwiperSlide key={index}>
               <div className="slide_pic">
-                <img src={Cat} alt="" />
+                <img src={key} alt="" />
               </div>
             </SwiperSlide>
           ))}
@@ -73,7 +71,7 @@ const PictureSwaper = (props: PictureSwaperProps) => {
       </div>
       <div className="list_cover">
         <div className="list_pic" ref={listSlider}>
-          {colors.map((key, index) => (
+          {props.pictures.map((key, index) => (
             <div
               ref={index === selectedBox ? pictureBox : null}
               key={index}
@@ -82,7 +80,7 @@ const PictureSwaper = (props: PictureSwaperProps) => {
                 handleSelectBox(index);
               }}
             >
-              <img src={Cat} alt="" />
+              <img src={key} alt="" />
             </div>
           ))}
         </div>

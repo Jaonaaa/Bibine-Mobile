@@ -18,7 +18,7 @@ const UseHandleForm = (
 
   const handleForm = async (e: any) => {
     e.preventDefault();
-    console.log(step, stepNumber);
+    //+console.log(step, stepNumber);
     if (step < stepNumber) nextStep();
     else await formSubmit[formSubmit.length - 1](formData);
   };

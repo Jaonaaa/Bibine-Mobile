@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./RowInput.sass";
 import PictureIcon from "../../../assets/icons/PictureIcon";
+import CalendarIcon from "../../../assets/icons/CalendarIcon";
 
 const RowInput = ({
   name = "",
@@ -79,6 +80,11 @@ const RowInput = ({
           </>
         ) : (
           <>
+            {type === "date" && (
+              <label htmlFor={name} className="icon_calendar">
+                <CalendarIcon />
+              </label>
+            )}
             <input
               className={`${focused ? "input_focused" : ""}`}
               type={type}

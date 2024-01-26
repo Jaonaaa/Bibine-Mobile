@@ -15,9 +15,9 @@ import AnnonceSlider from "../../../components/AnnonceSlider/AnnonceSlider";
 import { useEffect, useState } from "react";
 import AnnonceInfinity from "../../../components/AnnonceInfinity/AnnonceInfinity";
 
-import "./Home.sass";
 import useUserConnectivity from "../../../hooks/useUserConnectivity";
 import OfflineIndicator from "../../../components/OfflineIndicator/OfflineIndicator";
+import "./Home.sass";
 
 const categories = [
   {
@@ -29,25 +29,17 @@ const categories = [
   {
     tag: "Plaisir",
   },
-  {
-    tag: "IDK",
-  },
-  {
-    tag: "Test",
-  },
+  // {
+  //   tag: "IDK",
+  // },
+  // {
+  //   tag: "Test",
+  // },
 ];
 
 const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>(categories[0].tag);
-  const [loadedContent, setLoadedConted] = useState(false);
   const { connected, notifs } = useUserConnectivity(true);
-
-  const handleContentLoaded = () => {
-    setLoadedConted(false);
-    setTimeout(() => {
-      setLoadedConted(true);
-    }, 2000);
-  };
 
   const handleTab = (tag: string) => {
     setActiveTab(tag);
@@ -59,10 +51,6 @@ const Home: React.FC = () => {
     }, 2000);
   };
 
-  useEffect(() => {
-    handleContentLoaded();
-  }, [activeTab]);
-
   return (
     <IonPage>
       <IonHeader>
@@ -73,7 +61,7 @@ const Home: React.FC = () => {
           <IonTitle className="title_bar">
             <div className="filter_annonce">
               {categories.map((category, index) => (
-                <div className="chip" key={index} onClick={handleContentLoaded}>
+                <div className="chip" key={index}>
                   <IonChip
                     className={category.tag === activeTab ? "active-chip" : ""}
                     onClick={() => {
@@ -97,10 +85,10 @@ const Home: React.FC = () => {
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
-        <AnnonceSlider loadedContent={loadedContent} title="Nouveautés" context="news" />
-        <AnnonceSlider loadedContent={loadedContent} title="Meilleurs ventes" context="bestSellers" />
-        <AnnonceSlider loadedContent={loadedContent} title="Populaire" context="popular" />
-        <AnnonceInfinity loadedContent={loadedContent} />
+        <AnnonceSlider title="Nouveautés" context="news" category={activeTab} />
+        <AnnonceSlider title="Meilleurs ventes" context="bestSellers" category={activeTab} />
+        <AnnonceSlider title="Populaire" context="popular" category={activeTab} />
+        <AnnonceInfinity category={activeTab} />
       </IonContent>
     </IonPage>
   );

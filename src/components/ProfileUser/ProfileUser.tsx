@@ -19,6 +19,12 @@ import MyAnnoncesSelled from "./MyAnnoncesSelled/MyAnnoncesSelled";
 import Favori from "./Favori/Favori";
 import useNav from "../../hooks/useNav";
 import ParamsUser from "./ParamsUser/ParamsUser";
+import { getUser } from "../../data/storage";
+import Hider from "../Hider/Hider";
+import useMyNotifs from "../../utilsComponent/Notif/useNotifs";
+import { AnimatePresence } from "framer-motion";
+import CrossIcon from "../../assets/icons/CrossIcon";
+import useBackHandler from "../../hooks/useBackHandler";
 
 const statBlocks = [
   {
@@ -52,13 +58,37 @@ const sections = [
 
 const ProfileUser = () => {
   const [content, setContent] = useState(sections[0]);
+  const [hiderOn, setHiderOn] = useState(false);
+  const { addNotifs, notifs } = useMyNotifs();
+  const {} = useBackHandler();
   const { to_forward } = useNav();
   const handleContent = (e: CustomEvent<SegmentChangeEventDetail>) => {
     const sec = sections.filter((section) => section.value === e.detail.value)[0];
     setContent(sec);
   };
+
+  const handleHider = () => {
+    setHiderOn(!hiderOn);
+  };
+
+  const user = getUser();
+
   return (
     <>
+      {notifs.map((notif) => notif)}
+      <AnimatePresence>
+        {hiderOn && (
+          <Hider classCss="glassy" animate="showUp">
+            <div className="closer_picture" onClick={handleHider}>
+              <CrossIcon />
+            </div>
+            <div className="picture_container">
+              <img src={user.profile} alt="" />
+            </div>
+          </Hider>
+        )}
+      </AnimatePresence>
+
       <IonPage>
         <IonHeader>
           <IonToolbar>
@@ -74,18 +104,28 @@ const ProfileUser = () => {
         <IonContent className="ion-padding page_content">
           <div className="profile_box">
             <div className="picture">
-              A
-              <img src="" alt="" />
+              <div className="name">{user ? user.name[0] : "<3"}</div>
+              <div
+                className="picture_box"
+                onClick={() => {
+                  if (user.profile === null) {
+                    addNotifs("info", "Vous n'avez pas de photo de profile :( ", 1500);
+                  } else handleHider();
+                }}
+              >
+                <img src={user ? user.profile : ""} alt="" />
+              </div>
               <div
                 className="add_annonce_btn"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   to_forward("/main/addAnnonce");
                 }}
               >
                 <div className="circle">+</div>
               </div>
             </div>
-            <div className="username">Peter Parker</div>
+            <div className="username">{user ? user.name : "￣へ￣"}</div>
           </div>
 
           <div className="stat_user">

@@ -1,31 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnnonceBox from "../AnnonceBox/AnnonceBox";
-import "./AnnonceInfinity.sass";
 import ButtonCartoon from "../AnnonceDetails/ButtonCartoon/ButtonCartoon";
 import AddIcon from "../../assets/icons/AddIcon";
+import { alaivoGet } from "../../utils/Alaivo";
+import { AnnonceData } from "../../data/Types";
+import "./AnnonceInfinity.sass";
 
 interface AnnonceBox {
-  loadedContent?: boolean;
+  category?: string;
 }
 
 const AnnonceInfinity = (props: AnnonceBox) => {
   const [count, setCount] = useState(4);
-
+  const { annonces, load, getAnnonces } = useGetData();
   const addNewAnnonce = () => {
     setTimeout(() => {
       setCount((countInitial) => countInitial + 2);
     }, 400);
   };
+  useEffect(() => {
+    getAnnonces();
+  }, [props.category]);
   return (
     <div className="annonce_infinity_container">
-      {[...Array(count).keys()].map((k, index) => (
-        <AnnonceBox loadedContent={props.loadedContent} key={index} />
-      ))}
+      {!load
+        ? [...Array(5).keys()].map((k, index) => <AnnonceBox key={index} loadedContent={load} />)
+        : annonces.map((k, index) => <AnnonceBox {...k} key={index} loadedContent={load} />)}
+
       <div className="add_new_annonce">
         <ButtonCartoon callback={addNewAnnonce} text="Afficher plus" icon={<AddIcon />} />
       </div>
     </div>
   );
+};
+
+const useGetData = () => {
+  const [annonces, setAnnonces] = useState<AnnonceData[]>([]);
+  const [load, setLoaded] = useState(false);
+
+  useEffect(() => {
+    getAnnonces();
+  }, []);
+
+  const getAnnonces = async () => {
+    setLoaded(false);
+    let res = (await alaivoGet("bibine/actu/annonces", null, true)) as any;
+    setLoaded(true);
+    let annocs = res.data as AnnonceData[];
+    setAnnonces(annocs);
+  };
+  return { annonces, load, getAnnonces };
 };
 
 export default AnnonceInfinity;

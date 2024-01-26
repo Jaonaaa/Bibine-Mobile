@@ -1,77 +1,31 @@
-import { FormEvent, useEffect, useState } from "react";
 import PageTemplate from "../PageTemplate/PageTemplate";
-
 import FormAnnonce from "./FormAnnonce/FormAnnonce";
-import { inputsFirst, inputsSecond, inputsThird, inputsFifth, inputsFourth, inputsSix } from "./InputsData";
-import "./AddAnnonce.sass";
-import { alaivoPost } from "../../utils/Alaivo";
-import { resizeFile } from "../../utils/Files";
+import {
+  inputsFirst,
+  inputsSecond,
+  inputsThird,
+  inputsFifth,
+  inputsFourth,
+  inputsSeventh,
+  inputsEighth,
+  inputsSixth,
+  inputsNineth,
+} from "./InputsData";
 import HelperText from "./HelperText/HelperText";
+import useAddAnnonce from "./useAddAnnonce";
+import Hider from "../Hider/Hider";
+import "./AddAnnonce.sass";
 
 const AddAnnonce: React.FC = () => {
-  const [formData, setFormData] = useState<any>({});
-  const [percent, setPercent] = useState(0);
-
-  const handleInput = (e: any) => {
-    if (e.target.type === "file") {
-      let currentFile = formData[e.target.name];
-      if (currentFile === "") setFormData((form: any) => ({ ...form, [e.target.name]: [...e.target.value] }));
-      else {
-        if (e.target.value[0] === undefined) return;
-        let data = [...currentFile, ...e.target.value];
-        setFormData((form: any) => ({ ...form, [e.target.name]: data }));
-      }
-    } else setFormData((form: any) => ({ ...form, [e.target.name]: e.target.value }));
-  };
-
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
-
-  const next = (e: FormEvent) => {
-    e.preventDefault();
-    setPercent((percent) => percent + 100);
-  };
-
-  const upload = async (e: FormEvent) => {
-    e.preventDefault();
-    let files = [];
-
-    for (let i = 0; i < formData[inputsSix[0].name].length; i++) {
-      let base64 = await resizeFile(formData[inputsSix[0].name][i]);
-      files.push(base64);
-    }
-    const fileData = JSON.stringify({
-      files: files,
-    });
-    try {
-      alaivoPost("upload/file", fileData, null, true)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    } catch (error) {
-      alert(error);
-    }
-  };
-
-  const back = (e: FormEvent) => {
-    e.preventDefault();
-    setPercent((percent) => percent - 100);
-  };
-
-  const removePicture = (indexPicture: any) => {
-    let filtredPicture = formData[inputsSix[0].extra].filter((pic: any, index: number) => index !== indexPicture);
-    setFormData((form: any) => ({ ...form, [inputsSix[0].extra]: filtredPicture }));
-  };
+  const { back, formData, handleInput, next, notifs, removePicture, sending, percent, sendAll } = useAddAnnonce();
 
   return (
     <PageTemplate
       tiltePage={"Faire une annonce"}
       subtitle="Veuillez remplir ce qui est demander pour valider et publier votre annonce"
     >
+      {notifs.map((notif) => notif)}
+      {sending && <Hider classCss="glassy" loader />}
       <div className="container_add_annonce_all">
         <FormAnnonce
           callBack={handleInput}
@@ -119,14 +73,23 @@ const AddAnnonce: React.FC = () => {
           index={4}
           percent={percent}
         />
+        <FormAnnonce
+          callBack={handleInput}
+          formData={formData}
+          back={back}
+          next={next}
+          inputs={inputsSixth}
+          index={5}
+          percent={percent}
+        />
 
         <FormAnnonce
           callBack={handleInput}
           formData={formData}
           back={back}
-          next={upload}
-          inputs={inputsSix}
-          index={-1}
+          next={next}
+          inputs={inputsSeventh}
+          index={6}
           percent={percent}
           removePicture={removePicture}
           helper={
@@ -139,6 +102,26 @@ const AddAnnonce: React.FC = () => {
               }
             />
           }
+        />
+
+        <FormAnnonce
+          callBack={handleInput}
+          formData={formData}
+          back={back}
+          next={next}
+          inputs={inputsEighth}
+          index={7}
+          percent={percent}
+        />
+
+        <FormAnnonce
+          callBack={handleInput}
+          formData={formData}
+          back={back}
+          next={sendAll}
+          inputs={inputsNineth}
+          index={-1}
+          percent={percent}
         />
       </div>
     </PageTemplate>
