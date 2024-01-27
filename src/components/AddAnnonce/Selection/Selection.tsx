@@ -11,6 +11,7 @@ interface SelectionProps {
   formData: any;
   type: string;
   options_src: Function;
+  upLoaded?: Function;
 }
 
 interface Item {
@@ -19,7 +20,7 @@ interface Item {
 }
 
 const Selection = (props: SelectionProps) => {
-  const { callBack, name, title, formData, type, options_src } = props;
+  const { callBack, name, title, formData, type, options_src, upLoaded } = props;
   const [listForm, setListForm] = useState<any[]>([]);
   const [modalOn, setModalOn] = useState(false);
 
@@ -32,6 +33,7 @@ const Selection = (props: SelectionProps) => {
   const getOptions = async () => {
     if (options_src) {
       let res = await options_src();
+      if (upLoaded) upLoaded();
       setMaintenances(res);
     }
   };
@@ -49,7 +51,6 @@ const Selection = (props: SelectionProps) => {
   }, [listForm]);
 
   const deleteItem = (index: number) => {
-    console.log(index);
     const newListForm = listForm.filter((row, indice) => indice !== index);
     setListForm(newListForm);
     callBack({ target: { name: name, value: newListForm, type: type } });

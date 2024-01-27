@@ -1,6 +1,3 @@
-////
-//
-
 import { alaivoGet } from "../../utils/Alaivo";
 
 //
@@ -15,7 +12,6 @@ let brands = async () => {
 let modele = async () => {
   return new Promise(async (resolve, reject) => {
     let res = (await alaivoGet("bibine/actu/brand/MKE1/models", null, true)) as any;
-    // console.log(res.data);
     res = res.data.map((re: any) => ({ label: re.nom, value: re.id }));
     resolve(res);
   });
@@ -24,7 +20,6 @@ let modele = async () => {
 let motor = async () => {
   return new Promise(async (resolve, reject) => {
     let res = (await alaivoGet("bibine/actu/motors", null, true)) as any;
-    // console.log(res.data);
     res = res.data.map((re: any) => ({ label: re.nom, value: re.id }));
     resolve(res);
   });
@@ -41,7 +36,6 @@ let localisations = async () => {
 let maintenance = async () => {
   return new Promise(async (resolve, reject) => {
     let res = (await alaivoGet("bibine/actu/maintains", null, true)) as any;
-    console.log(res.data);
     res = res.data.map((re: any) => ({ label: re.nom, value: re.id }));
     resolve(res);
   });

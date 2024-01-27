@@ -6,6 +6,7 @@ import "./PictureSwaper.sass";
 
 interface PictureSwaperProps {
   pictures: string[];
+  loaded: boolean;
 }
 
 const PictureSwaper = (props: PictureSwaperProps) => {
@@ -50,7 +51,7 @@ const PictureSwaper = (props: PictureSwaperProps) => {
 
   return (
     <div className="picture_swaper_container">
-      <div className="front_pic">
+      <div className={`front_pic ${props.loaded ? "" : "skeleton"}`}>
         <Swiper
           spaceBetween={0}
           slidesPerView={1}
@@ -75,7 +76,9 @@ const PictureSwaper = (props: PictureSwaperProps) => {
             <div
               ref={index === selectedBox ? pictureBox : null}
               key={index}
-              className={`box_pic ${index === selectedBox ? "selected_box_pic" : ""}`}
+              className={`box_pic  ${index === selectedBox ? "selected_box_pic" : ""} ${
+                props.loaded ? "" : "skeleton"
+              }`}
               onClick={() => {
                 handleSelectBox(index);
               }}

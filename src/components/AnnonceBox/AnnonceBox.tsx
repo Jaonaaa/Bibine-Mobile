@@ -61,11 +61,15 @@ const AnnonceBox = (props: AnnonceData) => {
               <div className="marchand">
                 <div className="avatar">
                   <img
-                    src="https://ih1.redbubble.net/image.3319898950.8330/raf,360x360,075,t,fafafa:ca443f4786.jpg"
+                    src={
+                      props.vendeur
+                        ? props.vendeur.profile
+                        : "https://ih1.redbubble.net/image.3319898950.8330/raf,360x360,075,t,fafafa:ca443f4786.jpg"
+                    }
                     alt=""
                   />
                 </div>
-                <div className="name">Anderson Albert</div>
+                <div className="name">{props.vendeur?.nom}</div>
               </div>
             </>
           ) : (

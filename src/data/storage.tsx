@@ -11,15 +11,11 @@ export const storage = {
   details_user: "details_user",
 };
 
-export interface userStruct {
-  id: string;
-  username: string;
-  picturePath: string;
-}
 export interface messageStruct {
-  sender: userStruct;
+  senderName: string;
   content: string;
-  receiver_id: string;
+  senderId: string;
+  picturePath: string;
 }
 
 export const getUser = (): any => {

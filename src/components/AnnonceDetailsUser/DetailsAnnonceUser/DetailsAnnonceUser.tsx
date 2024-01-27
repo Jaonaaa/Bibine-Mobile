@@ -2,8 +2,17 @@ import React from "react";
 import List from "../../AnnonceDetails/DetailsAnnonce/List/List";
 import PerfIcon from "../../../assets/icons/PerfIcon";
 import InfoIcon from "../../../assets/icons/InfoIcon";
+import { AnnonceData } from "../../../data/Types";
+import MaintenanceIcon from "../../../assets/icons/MaintenanceIcon";
+import ListMaintenance from "../../AnnonceDetails/DetailsAnnonce/ListMaintenance/ListMaintenance";
 
-const DetailsAnnonceUser = () => {
+const DetailsAnnonceUser = (props: AnnonceData) => {
+  const { description, loaded } = props;
+
+  const desc = () => {
+    return { __html: ("" + description?.replace(/\\n/g, "\n <br>")) as any };
+  };
+
   return (
     <div id="details_annonnce_container">
       <div className="box">
@@ -13,11 +22,10 @@ const DetailsAnnonceUser = () => {
           </div>
           <div className="text">Description</div>
         </div>
-        <div className="description">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita autem eius quisquam voluptates laborum esse
-          explicabo consequuntur eum commodi enim quam accusantium, iusto veritatis, incidunt eos, rem perspiciatis ut.
-          Ullam.
-        </div>
+        <div
+          className={`description ${loaded ? "" : "skeleton blank_desc"}`}
+          dangerouslySetInnerHTML={loaded ? desc() : { __html: "" }}
+        ></div>
       </div>
       <div className="box">
         <div className="title">
@@ -26,7 +34,16 @@ const DetailsAnnonceUser = () => {
           </div>
           <div className="text">Details</div>
         </div>
-        <List />
+        <List {...props} loaded={loaded} />
+      </div>
+      <div className="box">
+        <div className="title">
+          <div className="icon">
+            <MaintenanceIcon />
+          </div>
+          <div className="text">Maintenance</div>
+        </div>
+        <ListMaintenance {...props} loaded={loaded} />
       </div>
     </div>
   );

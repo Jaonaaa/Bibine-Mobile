@@ -18,30 +18,23 @@ import AnnonceInfinity from "../../../components/AnnonceInfinity/AnnonceInfinity
 import useUserConnectivity from "../../../hooks/useUserConnectivity";
 import OfflineIndicator from "../../../components/OfflineIndicator/OfflineIndicator";
 import "./Home.sass";
+import { alaivoGet } from "../../../utils/Alaivo";
+import Loader from "../../../components/Loader/Loader";
+import { capitalizeFirstLetter } from "../../../utils/Format";
 
-const categories = [
+const types_predef = [
   {
-    tag: "Tous",
+    id: "*",
+    nom: "Tous",
   },
-  {
-    tag: "Sport",
-  },
-  {
-    tag: "Plaisir",
-  },
-  // {
-  //   tag: "IDK",
-  // },
-  // {
-  //   tag: "Test",
-  // },
 ];
 
 const Home: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>(categories[0].tag);
+  const [activeTab, setActiveTab] = useState<any>(types_predef[0]);
   const { connected, notifs } = useUserConnectivity(true);
+  const { types, loaded } = useGetData();
 
-  const handleTab = (tag: string) => {
+  const handleTab = (tag: any) => {
     setActiveTab(tag);
   };
 
@@ -60,19 +53,36 @@ const Home: React.FC = () => {
           </IonButtons>
           <IonTitle className="title_bar">
             <div className="filter_annonce">
-              {categories.map((category, index) => (
-                <div className="chip" key={index}>
-                  <IonChip
-                    className={category.tag === activeTab ? "active-chip" : ""}
-                    onClick={() => {
-                      handleTab(category.tag);
-                    }}
-                    outline
-                  >
-                    {category.tag}
-                  </IonChip>
+              <div className="chip">
+                <IonChip
+                  className={types_predef[0].id === activeTab.id ? "active-chip" : ""}
+                  onClick={() => {
+                    handleTab(types_predef[0]);
+                  }}
+                  outline
+                >
+                  {types_predef[0].nom}
+                </IonChip>
+              </div>
+              {loaded ? (
+                types.map((type, index) => (
+                  <div className="chip" key={index}>
+                    <IonChip
+                      className={type.id === activeTab.id ? "active-chip" : ""}
+                      onClick={() => {
+                        handleTab(type);
+                      }}
+                      outline
+                    >
+                      {capitalizeFirstLetter(type.nom)}
+                    </IonChip>
+                  </div>
+                ))
+              ) : (
+                <div className="loading_menu">
+                  <Loader size="2rem" weigth="4px" />
                 </div>
-              ))}
+              )}
             </div>
           </IonTitle>
         </IonToolbar>
@@ -84,14 +94,36 @@ const Home: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
-        <AnnonceSlider title="Nouveautés" context="news" category={activeTab} />
-        <AnnonceSlider title="Meilleurs ventes" context="bestSellers" category={activeTab} />
-        <AnnonceSlider title="Populaire" context="popular" category={activeTab} />
+        {activeTab.id === "*" ? (
+          <>
+            <AnnonceSlider title="Nouveautés" context="news" />
+            <AnnonceSlider title="Meilleurs ventes" context="bestSellers" />
+            <AnnonceSlider title="Populaire" context="popular" />
+          </>
+        ) : (
+          ""
+        )}
         <AnnonceInfinity category={activeTab} />
       </IonContent>
     </IonPage>
   );
+};
+
+const useGetData = () => {
+  const [types, setTypes] = useState<any[]>([]);
+  const [loaded, setloaded] = useState(false);
+
+  useEffect(() => {
+    getAllTypes();
+  }, []);
+
+  const getAllTypes = async () => {
+    setloaded(false);
+    let res = (await alaivoGet("bibine/actu/types", null, true)) as any;
+    setloaded(true);
+    setTypes(res.data);
+  };
+  return { types, loaded };
 };
 
 export default Home;

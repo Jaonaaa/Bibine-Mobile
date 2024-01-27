@@ -1,3 +1,4 @@
+@use '../../breakpoints'
 #hider
     background: #ffffff
     position: fixed
@@ -9,7 +10,15 @@
     display: flex
     justify-content: center
     align-items: center
-
+    flex-direction: column
+    .text_hider
+        font-size: 1rem
+        margin-top: 1rem
+        color: #333232
+        transition: all 0.2s ease-in-out
+        @include breakpoints.break_XSM()
+            font-size: 0.85rem
+            margin-top: 0.6rem
 .glassy
     background: #00000025 !important
     backdrop-filter: blur(0.1rem)

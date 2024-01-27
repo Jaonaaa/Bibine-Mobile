@@ -35,6 +35,8 @@ interface LocalisationData {
 interface VendeurData {
   idvendeur: number;
   proprietaire: number;
+  profile: string;
+  nom: string;
 }
 interface MotorData {
   id: string;
@@ -46,6 +48,7 @@ export interface AnnonceData {
   loadedContent?: boolean;
   id_annonce?: string;
   callback?: Function;
+  loaded?: boolean;
   ///
   id?: string;
   brand?: BrandData;

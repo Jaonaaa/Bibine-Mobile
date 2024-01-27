@@ -4,13 +4,10 @@ import PictureSwaper from "./PictureSwaper/PictureSwaper";
 import DetailsAnnonce from "./DetailsAnnonce/DetailsAnnonce";
 import ArrowDownBoxIcon from "../../assets/icons/ArrowDownBoxIcon";
 import SubDetails from "./SubDetails/SubDetails";
-
-import Picture from "../../assets/img/cat.jpg";
 import { useParams } from "react-router-dom";
-
-import "./AnnonceDetails.sass";
 import { AnnonceData } from "../../data/Types";
 import { alaivoGet } from "../../utils/Alaivo";
+import "./AnnonceDetails.sass";
 
 interface AnnonceDetailsProps {
   id: string;
@@ -37,17 +34,35 @@ const AnnonceDetails = () => {
 
   return (
     <PageTemplate
-      tiltePage={annonce !== null ? annonce.modele?.nom + " " + annonce.brand?.nom : ""}
-      subtitle={annonce !== null ? `${year()} | ${annonce.motor?.nom}  ${annonce.modele?.type.nom}` : ""}
+      tiltePage={
+        annonce !== null ? (
+          annonce.modele?.nom + " " + annonce.brand?.nom
+        ) : (
+          <div className="skeleton full_bar_title"></div>
+        )
+      }
+      subtitle={
+        annonce !== null ? (
+          `${year()} | ${annonce.motor?.nom}| ${annonce.modele?.type.nom}`
+        ) : (
+          <div className="skeleton full_bar_subtitle"></div>
+        )
+      }
     >
       <div className="details_content_page">
         <div className="annonce_user">
           <div className="profile">
             <div className="avatar">
-              <img src={Picture} />
+              {annonce !== null ? (
+                <img src={annonce.vendeur?.profile} />
+              ) : (
+                <div className="avatar_blank skeleton"></div>
+              )}
             </div>
             <div className="user_data">
-              <div className="name"> Jean Mark</div>
+              <div className="name">
+                {annonce !== null ? annonce.vendeur?.nom : <div className="name_blank skeleton"></div>}
+              </div>
             </div>
           </div>
           <div className="see_details" onClick={scrollToDetails}>
@@ -55,10 +70,10 @@ const AnnonceDetails = () => {
             <ArrowDownBoxIcon />
           </div>
         </div>
-        <PictureSwaper pictures={annonce?.pictures ? annonce?.pictures : [""]} />
+        <PictureSwaper loaded={annonce ? true : false} pictures={annonce?.pictures ? annonce?.pictures : [""]} />
         <hr />
-        <SubDetails {...annonce} />
-        <DetailsAnnonce {...annonce} />
+        <SubDetails loaded={annonce ? true : false} {...annonce} />
+        <DetailsAnnonce loaded={annonce ? true : false} {...annonce} />
       </div>
     </PageTemplate>
   );

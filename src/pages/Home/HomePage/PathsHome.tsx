@@ -41,6 +41,7 @@ export const pathsSideMenu = [
     pageIn: true,
     icon: <HomePageIcon />,
     size: "md",
+    connected: false,
   },
   {
     path: "/main/search",
@@ -49,14 +50,15 @@ export const pathsSideMenu = [
     pageIn: true,
     icon: <SearchPageIcon />,
     size: "md",
+    connected: false,
   },
-
   {
     path: "/main/addAnnonce",
     page: "Faire une annonce",
     component: AddAnnonce,
     pageIn: true,
     icon: <AddAnnonceIcon />,
+    connected: true,
   },
   {
     path: URL_message,
@@ -65,6 +67,7 @@ export const pathsSideMenu = [
     component: Search,
     icon: <MessageIcon />,
     external: true,
+    connected: true,
   },
   {
     path: "/main/notifs",
@@ -72,6 +75,16 @@ export const pathsSideMenu = [
     pageIn: true,
     component: NotificationsList,
     icon: <BellIcon />,
+    connected: true,
+  },
+
+  {
+    path: "/log",
+    page: localStorage.getItem(storage.user_connected) ? "  Se déconnecter" : "  Se connecter",
+    pageIn: false,
+    forced: true,
+    icon: <ArrowLongRight />,
+    connected: false,
   },
   {
     path: "/main/parameter",
@@ -79,12 +92,6 @@ export const pathsSideMenu = [
     pageIn: true,
     component: Parameter,
     icon: <ParameterIcon />,
-  },
-  {
-    path: "/log",
-    page: localStorage.getItem(storage.user_connected) ? "  Se déconnecter" : "  Se connecter",
-    pageIn: false,
-    forced: true,
-    icon: <ArrowLongRight />,
+    connected: false,
   },
 ];

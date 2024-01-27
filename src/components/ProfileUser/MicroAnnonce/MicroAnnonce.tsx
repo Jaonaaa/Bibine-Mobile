@@ -1,28 +1,29 @@
 import React from "react";
 import Cat from "../../../assets/img/cat.jpg";
-import "./MicroAnnonce.sass";
 import useNav from "../../../hooks/useNav";
+import { AnnonceData } from "../../../data/Types";
+import "./MicroAnnonce.sass";
+import { getUser } from "../../../data/storage";
 
-interface MicroAnnonceProps {
-  pictureFirst?: string;
-  id: number;
-  name?: string;
-  price?: string;
-}
-const MicroAnnonce = (props: MicroAnnonceProps) => {
+const MicroAnnonce = (props: AnnonceData) => {
   const { to_forward } = useNav();
+  let user = getUser();
   return (
     <div
       className="micro_annonce_box"
       onClick={() => {
-        to_forward("/profile/annonce/" + props.id);
+        if (props.vendeur?.idvendeur === user.id) to_forward("/profile/annonce/" + props.id);
+        else to_forward("/main/annonce/" + props.id);
       }}
     >
-      <img src={props.pictureFirst ? props.pictureFirst : Cat} alt="" />
+      <img src={props.pictures ? props.pictures[0] : Cat} alt="" />
       <div className="overlay"></div>
       <div className="about">
-        <div className="name"> {props.name}</div>
-        <div className="price">{props.price} Ar </div>
+        <div className="name">
+          {" "}
+          {props.modele?.nom} {props.brand?.nom}{" "}
+        </div>
+        <div className="price">{props.prix} Ar </div>
       </div>
     </div>
   );

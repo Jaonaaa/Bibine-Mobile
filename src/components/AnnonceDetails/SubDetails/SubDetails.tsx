@@ -10,11 +10,11 @@ import { URL_message } from "../../../utils/Alaivo";
 import ValidationModal from "../../../utilsComponent/Modal/Validation/ValidationModal";
 import { AnimatePresence } from "framer-motion";
 import { AnnonceData } from "../../../data/Types";
-import "./SubDetails.sass";
 import { getUser } from "../../../data/storage";
+import "./SubDetails.sass";
 
 const SubDetails = (props: AnnonceData) => {
-  const { vendeur, stock, state, prix, favoris } = props;
+  const { vendeur, stock, state, prix, favoris, loaded } = props;
   const user = getUser();
   const { to_forward } = useNav();
 
@@ -24,18 +24,20 @@ const SubDetails = (props: AnnonceData) => {
         {state === 0 ? (
           <div className="state sold_out">Article non disponible </div>
         ) : (
-          <div className="state in_stock">Article disponible </div>
+          <div className={`state in_stock ${loaded ? "" : "skeleton"}`}>Article disponible </div>
         )}
 
         <div className="text">
-          En stock : <span className="quantity"> {stock} </span>
+          En stock : <span className="quantity"> {loaded ? stock : 0} </span>
         </div>
       </div>
 
       <div className="header">
         <div className="price_box">
           <div className="upper">
-            <div className="price_text"> {PriceParser(prix)} </div>
+            <div className="price_text">
+              {loaded ? PriceParser(prix) : <span className="blank_price skeleton"> </span>}{" "}
+            </div>
             <div className="unit"> Ar </div>
           </div>
           <div className="under">
@@ -43,7 +45,7 @@ const SubDetails = (props: AnnonceData) => {
           </div>
         </div>
         <div className="icon">
-          <Message />
+          <Message loaded={loaded} />
           <div className={`fav ico ${favoris?.includes(user.id) ? "fav_on" : ""}`}>
             <FavoriIcon />
           </div>
@@ -51,11 +53,11 @@ const SubDetails = (props: AnnonceData) => {
       </div>
       <div className="content_sub">
         <ButtonCartoon
-          icon={<CartIcon />}
+          icon={loaded ? <CartIcon /> : null}
           callback={() => {
-            to_forward("/main/annonce/achat/" + vendeur?.idvendeur);
+            if (loaded) to_forward("/main/annonce/achat/" + vendeur?.idvendeur);
           }}
-          text="Acheter"
+          text={loaded ? "Acheter" : "(* ￣︿￣)"}
         />
       </div>
     </div>
@@ -66,6 +68,7 @@ interface MessageProps {
   idUser?: string;
   idSeller?: string;
   idAnnonce?: string;
+  loaded?: boolean;
 }
 const Message = (props: MessageProps) => {
   const [messageRedirectionOn, setMessageRedirection] = useState(false);
@@ -91,7 +94,7 @@ const Message = (props: MessageProps) => {
       <div
         className="message ico"
         onClick={() => {
-          setMessageRedirection(true);
+          if (props.loaded) setMessageRedirection(true);
         }}
       >
         <MessageAnnonceIcon />

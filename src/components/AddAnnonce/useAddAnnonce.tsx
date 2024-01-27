@@ -10,10 +10,20 @@ const useAddAnnonce = () => {
   const [formData, setFormData] = useState<any>({});
   const [percent, setPercent] = useState(0);
   const [sending, setSending] = useState(false);
+  //
+  const targetLoadContent = 5;
+  const [loadedAll, setLoadedAll] = useState(false);
+  const [count_loaded, setCountLoaded] = useState(0);
+  //
+
+  const upLoaded = () => {
+    setCountLoaded((count: number) => count + 1);
+  };
 
   useEffect(() => {
     // console.log(formData);
-  }, [formData]);
+    if (count_loaded === targetLoadContent) setLoadedAll(true);
+  }, [count_loaded]);
 
   const handleInput = (e: any) => {
     if (e.target.type === "file") {
@@ -97,7 +107,7 @@ const useAddAnnonce = () => {
     return data;
   };
 
-  return { formData, handleInput, next, back, removePicture, sending, notifs, percent, sendAll };
+  return { formData, handleInput, next, loadedAll, upLoaded, back, removePicture, sending, notifs, percent, sendAll };
 };
 
 export default useAddAnnonce;

@@ -26,12 +26,12 @@ export const useConnectServer = () => {
     stompClient.connect({}, function () {
       setSocket(sock);
       setStompClient(stompClient);
-      console.log("Connected");
+      //  console.log("Connected");
       stompClient.subscribe("/user/topic/private-messages", (message: any) => {
         console.log("Private message ___");
         let data = JSON.parse(message.body) as messageStruct;
         showBubbleMessage();
-        scheduleNow(data.sender.username, data.content, getRandomNumber(8, 2000), "openPage");
+        scheduleNow(data.senderName, data.content, getRandomNumber(8, 2000), "openPage");
       });
     });
   };
@@ -65,7 +65,7 @@ export const useConnectServer = () => {
             console.log(JSON.parse(message.body));
             let data = JSON.parse(message.body) as messageStruct;
             ///
-            scheduleNow(data.receiver_id, data.content, getRandomNumber(8, 2000), "openPage");
+            scheduleNow(data.senderName, data.content, getRandomNumber(8, 2000), "openPage");
           });
           resolve(true);
         },
@@ -95,10 +95,10 @@ export const useConnectServer = () => {
       let user = getUser();
       let messageToSent = {
         content: message,
-        sender_id: user.id,
-        sender_name: localStorage.getItem(storage.user_name),
+        senderId: user.id,
+        senderName: localStorage.getItem(storage.user_name),
         picturePath: user.profile,
-        receiver_email: receiver,
+        receiverEmail: receiver,
       };
       /////
       alaivoPost(`new_url${URL}send-message`, JSON.stringify(messageToSent), null, false);

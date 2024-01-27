@@ -1,45 +1,51 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import MicroAnnonce from "../MicroAnnonce/MicroAnnonce";
-import { getNumberPrice } from "../../../utils/Format";
+import { alaivoGet } from "../../../utils/Alaivo";
+import Loader from "../../Loader/Loader";
+import { getUser } from "../../../data/storage";
+import Empty from "../Empty/Empty";
 
-const annonces = [
-  {
-    name: "Audio Poro",
-    price: getNumberPrice(100000, 500000),
-  },
-  {
-    name: "Audio ADSD",
-    price: getNumberPrice(100000, 500000),
-  },
-  {
-    name: "Audio ADSD",
-    price: getNumberPrice(100000, 500000),
-  },
-  {
-    name: "Audio ADSD",
-    price: getNumberPrice(100000, 500000),
-  },
-  {
-    name: "Audio ADSD",
-    price: getNumberPrice(100000, 500000),
-  },
-  {
-    name: "Audio ADSD",
-    price: getNumberPrice(100000, 500000),
-  },
-  {
-    name: "Audio ADSD",
-    price: getNumberPrice(100000, 500000),
-  },
-];
+import "./MyAnnonces.sass";
+
 const MyAnnonces = () => {
+  const { annonces, loaded } = useGetData();
   return (
-    <div className="list_annonce">
-      {annonces.map((annonce, index) => (
-        <MicroAnnonce key={index} {...annonce} id={index} />
-      ))}
-    </div>
+    <>
+      {loaded ? (
+        annonces.length === 0 ? (
+          <Empty remark="Vous n'avez pas encore publier d'annonce " />
+        ) : (
+          <div className="list_annonce">
+            {annonces.map((annonce, index) => (
+              <MicroAnnonce key={index} {...annonce} />
+            ))}
+          </div>
+        )
+      ) : (
+        <div className="loader_container_in">
+          <Loader size="4.5rem" />
+        </div>
+      )}
+    </>
   );
+};
+
+const useGetData = () => {
+  const [annonces, setAnnonces] = useState<any[]>([]);
+  const [loaded, setloaded] = useState(false);
+
+  useEffect(() => {
+    getAllTypes();
+  }, []);
+
+  const getAllTypes = async () => {
+    setloaded(false);
+    let user = getUser();
+    let res = (await alaivoGet("bibine/user/" + user.id + "/own_annonces", null, false)) as any;
+    setloaded(true);
+    setAnnonces(res.data);
+  };
+  return { annonces, loaded };
 };
 
 export default MyAnnonces;

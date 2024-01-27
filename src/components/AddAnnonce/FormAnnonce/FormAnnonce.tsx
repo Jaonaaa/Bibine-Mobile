@@ -18,6 +18,7 @@ interface FormProps {
   // picturesCallBack
   removePicture?: React.MouseEventHandler<HTMLDivElement>;
   helper?: React.ReactNode;
+  uploaded?: Function;
 }
 
 interface OptionsProps {
@@ -35,14 +36,14 @@ interface InputProps {
 }
 
 const FormAnnonce = (props: FormProps) => {
-  const { formData, inputs, callBack, next, back, index, percent, removePicture, helper } = props;
+  const { formData, inputs, callBack, next, back, index, percent, removePicture, helper, uploaded } = props;
 
   return (
     <form className="form_add_annonce" style={{ transform: `translateX(${-percent}%)` }} onSubmit={next}>
       {inputs.map((input: InputProps, index) => (
         <React.Fragment key={index}>
           {input.type === "dropdown" ? (
-            <SelectOptions callBack={callBack} input={input} key={index} />
+            <SelectOptions uploaded={uploaded} callBack={callBack} input={input} key={index} />
           ) : input.type === "list" ? (
             <Details
               callBack={callBack}
@@ -60,6 +61,7 @@ const FormAnnonce = (props: FormProps) => {
                 formData={formData}
                 name={input.name}
                 title={input.title}
+                upLoaded={uploaded}
                 key={index}
                 options_src={input.options_src}
               />
@@ -117,10 +119,11 @@ const FormAnnonce = (props: FormProps) => {
 interface SelectOptionsProps {
   input: InputProps;
   callBack: Function;
+  uploaded?: Function;
 }
 
 const SelectOptions = (props: SelectOptionsProps) => {
-  const { input, callBack } = props;
+  const { input, callBack, uploaded } = props;
   const [options, setOptions] = useState([]);
   useEffect(() => {
     getOptions();
@@ -129,7 +132,7 @@ const SelectOptions = (props: SelectOptionsProps) => {
   const getOptions = async () => {
     if (input.options_src) {
       let res = await input.options_src();
-      console.log(res);
+      if (uploaded) uploaded();
       setOptions(res);
     }
   };

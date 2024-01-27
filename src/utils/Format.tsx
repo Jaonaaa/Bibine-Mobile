@@ -34,3 +34,11 @@ export const getNumberPrice = (min: number, max: number) => {
   let res = first + "" + total;
   return PriceParser(res).replace(" ", ".");
 };
+
+export const capitalizeFirstLetter = (text: string) => {
+  if (text && typeof text === "string") {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  } else {
+    return text;
+  }
+};

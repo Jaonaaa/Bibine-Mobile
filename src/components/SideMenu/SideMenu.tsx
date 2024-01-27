@@ -18,6 +18,7 @@ interface SideMenuProps {
   iconReversed?: React.ReactNode;
   external?: boolean;
   size?: string;
+  connected?: boolean;
 }
 
 interface SideMenuTabProps {
@@ -31,6 +32,8 @@ const SideMenu = (paths: SideMenuTabProps) => {
     return window.location.pathname === tab;
   };
   const [username, setUsername] = useState<string>("Unknown");
+
+  let user = getUser();
 
   useEffect(() => {
     let user = getUser();
@@ -62,13 +65,13 @@ const SideMenu = (paths: SideMenuTabProps) => {
               <IonItem
                 className="profile_box"
                 onClick={() => {
-                  to_forward("/profile");
+                  if (user) to_forward("/profile");
                 }}
               >
                 <MyAvatar />
                 <IonLabel className="title_avatar">
                   <div className="name_user"> {username}</div>
-                  <div className="action_title">Voir le profile</div>
+                  <div className="action_title">{user ? "Voir le profile" : ""}</div>
                 </IonLabel>
               </IonItem>
             </IonMenuToggle>
@@ -78,7 +81,9 @@ const SideMenu = (paths: SideMenuTabProps) => {
         <IonContent className="content_side" fullscreen>
           <IonMenuToggle>
             {paths.paths.map((path: SideMenuProps, index) => {
+              if (path.connected && !user) return;
               let mdShow = path.size === "md" && md;
+
               return mdShow || path.size === undefined ? (
                 <IonItem
                   lines="none"

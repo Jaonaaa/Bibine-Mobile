@@ -5,8 +5,8 @@ import "./PageTemplate.sass";
 
 interface PageTemplateProps {
   children?: React.ReactNode;
-  tiltePage?: string;
-  subtitle?: string;
+  tiltePage?: string | React.ReactNode;
+  subtitle?: string | React.ReactNode;
   contentAllScreen?: boolean;
   redirect?: string;
   rightItem?: React.ReactNode;

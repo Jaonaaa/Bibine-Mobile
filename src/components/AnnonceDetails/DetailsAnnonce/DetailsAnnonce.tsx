@@ -5,9 +5,10 @@ import SimpleAnnonceSlider from "../../SimpleAnnonceSlider/SimpleAnnonceSlider";
 import { AnnonceData } from "../../../data/Types";
 import ListMaintenance from "./ListMaintenance/ListMaintenance";
 import "./DetailsAnnonce.sass";
+import MaintenanceIcon from "../../../assets/icons/MaintenanceIcon";
 
 const DetailsAnnonce = (props: AnnonceData) => {
-  const { description } = props;
+  const { description, loaded } = props;
 
   const desc = () => {
     return { __html: ("" + description?.replace(/\\n/g, "\n <br>")) as any };
@@ -21,7 +22,10 @@ const DetailsAnnonce = (props: AnnonceData) => {
           </div>
           <div className="text">Description</div>
         </div>
-        <div className="description" dangerouslySetInnerHTML={desc()}></div>
+        <div
+          className={`description ${loaded ? "" : "skeleton blank_desc"}`}
+          dangerouslySetInnerHTML={loaded ? desc() : { __html: "" }}
+        ></div>
       </div>
       <div className="box">
         <div className="title">
@@ -30,26 +34,26 @@ const DetailsAnnonce = (props: AnnonceData) => {
           </div>
           <div className="text">Details</div>
         </div>
-        <List {...props} />
+        <List {...props} loaded={loaded} />
       </div>
 
       <div className="box">
         <div className="title">
           <div className="icon">
-            <PerfIcon />
+            <MaintenanceIcon />
           </div>
           <div className="text">Maintenance</div>
         </div>
-        <ListMaintenance {...props} />
+        <ListMaintenance {...props} loaded={loaded} />
       </div>
 
       <div className="box">
         <div className="title">
           <div className="text">
-            Annonces de <div className="user_seller"> Jean Mark </div>
+            Annonces de <div className="user_seller"> {props.vendeur?.nom} </div>
           </div>
         </div>
-        <SimpleAnnonceSlider id_user="45" />
+        {loaded ? <SimpleAnnonceSlider id_user={props.vendeur?.idvendeur + ""} /> : ""}
       </div>
       <div className="box">
         <div className="title">

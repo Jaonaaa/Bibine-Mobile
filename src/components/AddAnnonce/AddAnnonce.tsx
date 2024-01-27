@@ -14,20 +14,31 @@ import {
 import HelperText from "./HelperText/HelperText";
 import useAddAnnonce from "./useAddAnnonce";
 import Hider from "../Hider/Hider";
+import { AnimatePresence } from "framer-motion";
 import "./AddAnnonce.sass";
 
 const AddAnnonce: React.FC = () => {
-  const { back, formData, handleInput, next, notifs, removePicture, sending, percent, sendAll } = useAddAnnonce();
+  const { back, formData, handleInput, next, loadedAll, upLoaded, notifs, removePicture, sending, percent, sendAll } =
+    useAddAnnonce();
 
   return (
     <PageTemplate
       tiltePage={"Faire une annonce"}
       subtitle="Veuillez remplir ce qui est demander pour valider et publier votre annonce"
     >
+      <AnimatePresence>
+        {!loadedAll && (
+          <Hider classCss="white" loader animate="showUp">
+            <div className="text_hider">Veuillez patienter...</div>
+          </Hider>
+        )}
+      </AnimatePresence>
+
       {notifs.map((notif) => notif)}
       {sending && <Hider classCss="glassy" loader />}
       <div className="container_add_annonce_all">
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -37,6 +48,7 @@ const AddAnnonce: React.FC = () => {
           percent={percent}
         />
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -46,6 +58,7 @@ const AddAnnonce: React.FC = () => {
           percent={percent}
         />
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -56,6 +69,7 @@ const AddAnnonce: React.FC = () => {
         />
 
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -65,6 +79,7 @@ const AddAnnonce: React.FC = () => {
           percent={percent}
         />
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -74,6 +89,7 @@ const AddAnnonce: React.FC = () => {
           percent={percent}
         />
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -84,6 +100,7 @@ const AddAnnonce: React.FC = () => {
         />
 
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -105,6 +122,7 @@ const AddAnnonce: React.FC = () => {
         />
 
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
@@ -115,6 +133,7 @@ const AddAnnonce: React.FC = () => {
         />
 
         <FormAnnonce
+          uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
           back={back}
