@@ -45,8 +45,8 @@
 .select_category
     display: flex
     flex-direction: column
-    align-items: center
-    justify-content: center
+    align-items: flex-start
+    justify-content: flex-start
     background: #fff
     width: 77vw
     max-height: 60vh
@@ -101,6 +101,8 @@
                 width: 2rem
             ion-checkbox
                 --size: 1.4rem
+                border: 2px solid var(--ion-color-primary)
+                border-radius: 0.32rem
                 @include breakpoints.break_XSM()
                     --size: 1.1rem
 
@@ -109,6 +111,8 @@
         flex-direction: column
         width: 100%
         padding: 0.3rem
+        align-items: flex-start
+        justify-content: flex-start
         max-height: 80%
         overflow-y: scroll
         .row_item
@@ -138,6 +142,7 @@
                     --size: 1.4rem
                     --checkbox-background-checked: var(--ion-color-secondary)
                     border: 2px solid #fc8b8b
+                    border-radius: 0.32rem
                     --border-color-checked: var(--ion-color-secondary, #fc8b8b)
                     @include breakpoints.break_XSM()
                         --size: 1.1rem

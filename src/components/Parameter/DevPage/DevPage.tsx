@@ -64,7 +64,6 @@ const BonusDev = () => {
               if (result === true) addNotifs("OK", "Connecté au serveur", 1500);
               setHiderOn(false);
             } else {
-              console.log("Atoo");
               disconnect();
             }
           }}

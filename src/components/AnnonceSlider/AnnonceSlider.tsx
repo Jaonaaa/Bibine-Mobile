@@ -17,16 +17,14 @@ interface AnnonceSliderProps {
 
 const AnnonceSlider = (props: AnnonceSliderProps) => {
   const modal = useRef<HTMLIonModalElement>(null);
-  const { annonces, load, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp } = useGetData();
+  const { annonces, load, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } = useGetData();
 
   const close = () => {
     modal.current?.dismiss();
   };
 
   const onWillDismiss = (ev: CustomEvent<OverlayEventDetail>) => {
-    if (ev.detail.role === "confirm") {
-      console.log(ev.detail.data);
-    }
+    resetPlus();
   };
 
   useEffect(() => {
@@ -124,6 +122,10 @@ const useGetData = () => {
     setOffset((old) => [old[0] + 1, old[1]]);
   };
 
+  const resetPlus = () => {
+    setOffset([0, 5]);
+  };
+
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
     let res = (await alaivoGet(
@@ -136,7 +138,7 @@ const useGetData = () => {
     setAnnoncesSupp(annocs);
   };
 
-  return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp };
+  return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus };
 };
 
 export default AnnonceSlider;

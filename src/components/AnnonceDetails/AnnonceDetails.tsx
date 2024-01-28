@@ -43,7 +43,7 @@ const AnnonceDetails = () => {
       }
       subtitle={
         annonce !== null ? (
-          `${year()} | ${annonce.motor?.nom}| ${annonce.modele?.type.nom}`
+          `${year()} | ${annonce.motor?.nom} | ${annonce.modele?.type.nom}`
         ) : (
           <div className="skeleton full_bar_subtitle"></div>
         )
@@ -92,7 +92,6 @@ const useGetData = (id: any) => {
     let res = (await alaivoGet("bibine/actu/annonces/" + id, null, true)) as any;
     setLoaded(true);
     let annoc = res.data as AnnonceData;
-    console.log(annoc);
     setAnnonce(annoc);
   };
 

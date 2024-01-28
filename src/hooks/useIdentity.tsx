@@ -106,7 +106,6 @@ const useIdentity = (addNotifs: any) => {
     )
       .then((res) => {
         localStorage.removeItem(refreshTokenStocked);
-        console.log(res);
       })
       .catch((err) => {
         console.error(err);
@@ -117,7 +116,6 @@ const useIdentity = (addNotifs: any) => {
     return new Promise((resolve, reject) => {
       alaivoPost(authenticateURL, JSON.stringify(formData), null, true)
         .then((response) => {
-          console.log(response);
           addNotifs("OK", "Connecté");
           setUpStorageConnect(response);
           resolve(refreshTokenStocked);

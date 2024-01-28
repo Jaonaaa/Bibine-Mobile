@@ -44,7 +44,7 @@ const AnnonceDetailsUser = () => {
       }
       subtitle={
         annonce !== null ? (
-          `${year()} | ${annonce.motor?.nom}| ${annonce.modele?.type.nom}`
+          `${year()} | ${annonce.motor?.nom} | ${annonce.modele?.type.nom}`
         ) : (
           <div className="skeleton full_bar_subtitle"></div>
         )

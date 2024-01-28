@@ -54,7 +54,6 @@ const Details = (props: DetailsProps) => {
   };
 
   const deleteItem = (index: number) => {
-    console.log(index);
     const newListForm = listForm.filter((row, indice) => indice !== index);
     setListForm(newListForm);
     callBack({ target: { name: name, value: newListForm, type: type } });

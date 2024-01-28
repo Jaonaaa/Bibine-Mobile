@@ -1,10 +1,10 @@
 import SearchIcon from "../../assets/icons/SearchIcon";
 import FilterIcon from "../../assets/icons/FilterIcon";
-import "./SearchBar.sass";
 import CrossIcon from "../../assets/icons/CrossIcon";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import usePosition from "../../hooks/usePosition";
 import FilterMenu from "./FilterMenu/FilterMenu";
+import "./SearchBar.sass";
 
 interface SearchBarProps {
   hideHeader: (state: boolean) => {};

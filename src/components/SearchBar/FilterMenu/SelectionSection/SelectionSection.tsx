@@ -1,53 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Hider from "../../../Hider/Hider";
 import ArrowSwipeRight from "../../../../assets/icons/ArrowSwipeRight";
 import { IonCheckbox } from "@ionic/react";
 import CrossIcon from "../../../../assets/icons/CrossIcon";
-import "./CategorySection.sass";
+import Loader from "../../../Loader/Loader";
+import "./SelectionSection.sass";
 
 interface Categorie {
   label: string;
   id: number;
+  value: any;
 }
 
 // misy options all all
-const cats = [
-  { id: 1, label: "Sport" },
-  { id: 2, label: "Plaisir" },
-  { id: 3, label: "Electronics" },
-  { id: 4, label: "Luxe" },
-];
 
-const CategorySection = () => {
-  const [catSelected, setCatSelected] = useState<Categorie[]>([]);
+interface SelectionProps {
+  name: string;
+  selection_origin: Function;
+  callback: Function;
+}
+
+const SelectionSection = (props: SelectionProps) => {
+  const [element, setElement] = useState<Categorie[]>([]);
   const [openModal, setOpenModal] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [allElements, setAllElements] = useState<Categorie[]>([]);
+
+  const getElements = async () => {
+    setLoaded(false);
+    let res = await props.selection_origin();
+    setLoaded(true);
+    setAllElements(res);
+  };
 
   const removeCat = (cat_id: number) => {
-    let filtred = catSelected?.filter((cat) => cat.id != cat_id);
-    setCatSelected(filtred);
+    let filtred = element?.filter((cat) => cat.id != cat_id);
+    setElement(filtred);
   };
   const addCat = (cat: Categorie) => {
-    setCatSelected((cats) => [...cats, cat]);
+    setElement((cats) => [...cats, cat]);
   };
 
   const handleModal = () => {
     setOpenModal(!openModal);
   };
   const removeAll = () => {
-    setCatSelected([]);
+    setElement([]);
   };
+
+  useEffect(() => {
+    props.callback({ name: props.name, value: element });
+  }, [element]);
+
+  useEffect(() => {
+    getElements();
+  }, []);
 
   return (
     <div className={"categories_containers"}>
       <div className="content_cat">
-        {catSelected.length === 0 ? (
+        {element.length === 0 ? (
           <div className="categorie_item all" onClick={handleModal}>
             <div className="text"> Tous </div>
           </div>
         ) : (
           <>
-            {catSelected.map((cat: Categorie, index) => (
+            {element.map((cat: Categorie, index) => (
               <div className="categorie_item" key={index}>
                 <div className="text">{cat.label}</div>
                 <div
@@ -70,13 +89,15 @@ const CategorySection = () => {
       <AnimatePresence>
         {openModal && (
           <Hider animate="showUp" classCss="glassy">
-            <SelectCategory
+            <SelectPaper
+              loaded={loaded}
               clearSelectedCategory={removeAll}
-              allCategory={cats}
+              allCategory={allElements}
               removeCat={removeCat}
               addCat={addCat}
-              selectedCategory={catSelected}
+              selectedCategory={element}
               closer={handleModal}
+              name={props.name}
             />
           </Hider>
         )}
@@ -85,16 +106,18 @@ const CategorySection = () => {
   );
 };
 
-interface SelectCategoryProps {
+interface SelectPaperProps {
   allCategory: Categorie[];
   selectedCategory: Categorie[];
   removeCat: (id: number) => void;
   addCat: (cat: Categorie) => void;
   closer: () => void;
   clearSelectedCategory: () => void;
+  name: string;
+  loaded: boolean;
 }
 
-const SelectCategory = (props: SelectCategoryProps) => {
+const SelectPaper = (props: SelectPaperProps) => {
   const isIn = (cat: Categorie) => {
     let isIn = props.selectedCategory.filter((catOne) => catOne.id === cat.id).length === 1;
     return isIn;
@@ -106,7 +129,7 @@ const SelectCategory = (props: SelectCategoryProps) => {
         <div className="closer" onClick={props.closer}>
           <CrossIcon />
         </div>
-        <div className="title">Category</div>
+        <div className="title">{props.name}</div>
         <div className="fixed_item item ">
           <div className="icon">
             <IonCheckbox checked={props.selectedCategory.length === 0} onClick={props.clearSelectedCategory} />
@@ -114,25 +137,29 @@ const SelectCategory = (props: SelectCategoryProps) => {
           <div className="label"> Tous </div>
         </div>
         <hr />
-        <div className="list">
-          {props.allCategory.map((category: Categorie) => {
-            let inCat = isIn(category);
-            return (
-              <div className="row_item" key={category.id}>
-                <div className="icon">
-                  <IonCheckbox
-                    checked={inCat}
-                    onClick={(e) => {
-                      if (e.currentTarget.checked) props.addCat(category);
-                      else props.removeCat(category.id);
-                    }}
-                  />
+        {props.loaded ? (
+          <div className="list">
+            {props.allCategory.map((category: Categorie) => {
+              let inCat = isIn(category);
+              return (
+                <div className="row_item" key={category.id}>
+                  <div className="icon">
+                    <IonCheckbox
+                      checked={inCat}
+                      onClick={(e) => {
+                        if (e.currentTarget.checked) props.addCat(category);
+                        else props.removeCat(category.id);
+                      }}
+                    />
+                  </div>
+                  <div className="label">{category.label}</div>
                 </div>
-                <div className="label">{category.label}</div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          <Loader />
+        )}
       </div>
     </>
   );
@@ -171,4 +198,4 @@ const CrossSmallIcon = () => {
   );
 };
 
-export default CategorySection;
+export default SelectionSection;

@@ -69,10 +69,8 @@ const useAddAnnonce = () => {
     setSending(true);
     let data = { ...formData };
     data = await reformData(data);
-    console.log(data);
     let user = getUser();
     let res = await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false);
-    console.log(res);
     addNotifs("OK", "Annonce enregistré", 2000);
     setSending(false);
     setTimeout(() => {

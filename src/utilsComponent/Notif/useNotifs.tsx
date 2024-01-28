@@ -38,7 +38,6 @@ export const useMyNotifs = () => {
       " Star boyy (￣y▽￣)╭ Ohohoho.....",
     ];
     let index = Math.floor(Math.random() * status.length);
-    console.log(index);
     setNotifs([
       ...notifs,
       <Notifs key={getUid()} notif={{ status: status[index], details: words[index], timer: 10000 }} />,

@@ -52,7 +52,6 @@ const useGetData = (vendeur_id: string) => {
     if (vendeur_id !== "*") res = (await alaivoGet("bibine/user/" + vendeur_id + "/own_annonces", null, false)) as any;
     else res = (await alaivoGet("bibine/actu/annonces", null, true)) as any;
     setLoaded(true);
-    console.log(res.data);
     let annocs = res.data as AnnonceData[];
     setAnnonces(annocs);
   };
