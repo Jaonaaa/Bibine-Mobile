@@ -13,7 +13,7 @@ import {
   SegmentChangeEventDetail,
 } from "@ionic/react";
 import "./ProfileUser.sass";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyAnnonces from "./MyAnnonces/MyAnnonces";
 import MyAnnoncesSelled from "./MyAnnoncesSelled/MyAnnoncesSelled";
 import Favori from "./Favori/Favori";
@@ -25,21 +25,7 @@ import useMyNotifs from "../../utilsComponent/Notif/useNotifs";
 import { AnimatePresence } from "framer-motion";
 import CrossIcon from "../../assets/icons/CrossIcon";
 import useBackHandler from "../../hooks/useBackHandler";
-
-const statBlocks = [
-  {
-    label: "Mes Annonces",
-    value: "20",
-  },
-  {
-    label: "Ventes",
-    value: "0",
-  },
-  {
-    label: "Favoris",
-    value: "1.2k",
-  },
-];
+import { alaivoGet } from "../../utils/Alaivo";
 
 const sections = [
   {
@@ -59,11 +45,20 @@ const sections = [
 const ProfileUser = () => {
   const [content, setContent] = useState(sections[0]);
   const [hiderOn, setHiderOn] = useState(false);
+
+  const [statUser, setStatUser] = useState({
+    favoris: 0,
+    own_annonce: 0,
+    vendu: 0,
+  });
+
   const { addNotifs, notifs } = useMyNotifs();
   const {} = useBackHandler();
   const { to_forward } = useNav();
   const handleContent = (e: CustomEvent<SegmentChangeEventDetail>) => {
-    const sec = sections.filter((section) => section.value === e.detail.value)[0];
+    const sec = sections.filter(
+      (section) => section.value === e.detail.value
+    )[0];
     setContent(sec);
   };
 
@@ -71,7 +66,20 @@ const ProfileUser = () => {
     setHiderOn(!hiderOn);
   };
 
+  const getStat = async () => {
+    let res = (await alaivoGet(
+      "bibine/actu/user/" + user.id + "/count",
+      null,
+      true
+    )) as any; // 3 chose
+    setStatUser(res.data);
+  };
+
   const user = getUser();
+  useEffect(() => {
+    // alaivoGet("bibine/user/" + user.id + "/solde", null, false);
+    getStat();
+  }, []);
 
   return (
     <>
@@ -109,7 +117,11 @@ const ProfileUser = () => {
                 className="picture_box"
                 onClick={() => {
                   if (user.profile === null) {
-                    addNotifs("info", "Vous n'avez pas de photo de profile :( ", 1500);
+                    addNotifs(
+                      "info",
+                      "Vous n'avez pas de photo de profile :( ",
+                      1500
+                    );
                   } else handleHider();
                 }}
               >
@@ -129,18 +141,21 @@ const ProfileUser = () => {
           </div>
 
           <div className="stat_user">
-            {statBlocks.map((statBlock, index) => {
-              let col = index < statBlocks.length - 1 ? <div className="col"></div> : "";
-              return (
-                <React.Fragment key={index}>
-                  <div className="block_stat">
-                    <div className="value"> {statBlock.value} </div>
-                    <div className="label"> {statBlock.label} </div>
-                  </div>
-                  {col}
-                </React.Fragment>
-              );
-            })}
+            <div className="block_stat">
+              <div className="value"> {statUser.own_annonce} </div>
+              <div className="label"> Mes annonces </div>
+            </div>
+            <div className="col"></div>
+
+            <div className="block_stat">
+              <div className="value"> {statUser.vendu} </div>
+              <div className="label"> Ventes </div>
+            </div>
+            <div className="col"></div>
+            <div className="block_stat">
+              <div className="value"> {statUser.favoris} </div>
+              <div className="label"> Favoris </div>
+            </div>
           </div>
 
           <div className="details_user">

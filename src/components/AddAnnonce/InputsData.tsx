@@ -9,9 +9,9 @@ let brands = async () => {
   });
 };
 
-let modele = async () => {
+let modele = async (brand: any) => {
   return new Promise(async (resolve, reject) => {
-    let res = (await alaivoGet("bibine/actu/brand/MKE1/models", null, true)) as any;
+    let res = (await alaivoGet(`bibine/actu/brand/${brand}/models`, null, true)) as any;
     res = res.data.map((re: any) => ({ label: re.nom, value: re.id }));
     resolve(res);
   });
@@ -56,6 +56,7 @@ export const inputsSecond = [
     type: "dropdown",
     name: "modele",
     options_src: modele,
+    formdata_name: "brand",
   },
   {
     title: "Année de sortie",

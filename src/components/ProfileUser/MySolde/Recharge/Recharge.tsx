@@ -1,4 +1,10 @@
-import { IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import {
+  IonContent,
+  IonHeader,
+  IonModal,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import "./Recharge.sass";
 import ButtonCartoon from "../../../AnnonceDetails/ButtonCartoon/ButtonCartoon";
@@ -8,6 +14,8 @@ import HelperText from "../../../AddAnnonce/HelperText/HelperText";
 import Loader from "../../../Loader/Loader";
 import Hider from "../../../Hider/Hider";
 import { AnimatePresence } from "framer-motion";
+import { alaivoPost } from "../../../../utils/Alaivo";
+import { getUser } from "../../../../data/storage";
 
 interface RechargeProps {
   callBack: Function;
@@ -24,24 +32,30 @@ const Recharge = (props: RechargeProps) => {
     setAmount(value);
   };
 
-  const handleForm = (e: FormEvent) => {
+  const user = getUser();
+
+  const handleForm = async (e: FormEvent) => {
     e.preventDefault();
     setTransactionOn(true);
-    setTimeout(() => {
-      setTransactionOn(false);
-      // no error
 
-      setTimeout(() => {
-        if (amount > 0) {
-          props.callBack(null, amount);
-          modal.current?.dismiss();
-        } else {
-          if (props.errorCallback) props?.errorCallback();
-        }
-      }, 200);
-    }, 2500);
+    let res = (await alaivoPost(
+      `bibine/user/${user.id}/recharge?montant=${amount}`,
+      null,
+      null,
+      false
+    ).catch((a: any) => {
+      setTransactionOn(false);
+    })) as any;
+
+    console.log(res);
+    setTransactionOn(false);
+    if (res.status.status === "ok") {
+      props.callBack(null, amount);
+      modal.current?.dismiss();
+    } else {
+      if (props.errorCallback) props?.errorCallback();
+    }
   };
-  useEffect(() => {}, []);
 
   const focusInput = () => {
     if (inputPay.current != null) inputPay.current?.focus();
@@ -58,7 +72,9 @@ const Recharge = (props: RechargeProps) => {
     >
       <IonHeader>
         <IonToolbar>
-          <IonTitle className="title_modal_content">Recharger mon compte</IonTitle>
+          <IonTitle className="title_modal_content">
+            Recharger mon compte
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
@@ -89,9 +105,20 @@ const Recharge = (props: RechargeProps) => {
               <div className="unit"> Ar </div>
             </div>
           </div>
-          <HelperText textHelp={"Veuillez entrer la somme que vous souhaitez rechar ger sur votre compte."} />
-          <AnimatePresence>{transactionOn && <Hider classCss="glassy" loader />}</AnimatePresence>
-          <ButtonCartoon className="recharge_btn" callback={() => {}} icon={<MoneyBagIcon />} text="Recharger" />
+          <HelperText
+            textHelp={
+              "Veuillez entrer la somme que vous souhaitez rechar ger sur votre compte."
+            }
+          />
+          <AnimatePresence>
+            {transactionOn && <Hider classCss="glassy" loader />}
+          </AnimatePresence>
+          <ButtonCartoon
+            className="recharge_btn"
+            callback={() => {}}
+            icon={<MoneyBagIcon />}
+            text="Recharger"
+          />
         </form>
       </IonContent>
     </IonModal>

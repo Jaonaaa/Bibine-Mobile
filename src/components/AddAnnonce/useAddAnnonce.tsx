@@ -11,7 +11,7 @@ const useAddAnnonce = () => {
   const [percent, setPercent] = useState(0);
   const [sending, setSending] = useState(false);
   //
-  const targetLoadContent = 5;
+  const targetLoadContent = 4;
   const [loadedAll, setLoadedAll] = useState(false);
   const [count_loaded, setCountLoaded] = useState(0);
   //
@@ -105,7 +105,20 @@ const useAddAnnonce = () => {
     return data;
   };
 
-  return { formData, handleInput, next, loadedAll, upLoaded, back, removePicture, sending, notifs, percent, sendAll };
+  return {
+    formData,
+    handleInput,
+    next,
+    loadedAll,
+    upLoaded,
+    back,
+    removePicture,
+    sending,
+    notifs,
+    percent,
+    sendAll,
+    setLoadedAll,
+  };
 };
 
 export default useAddAnnonce;

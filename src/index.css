@@ -2,41 +2,52 @@
   font-family: "Poppins_L";
   src: url(./assets/fonts/Poppins-Light.ttf);
 }
+
 @font-face {
   font-family: "Poppins_B";
   src: url(./assets/fonts/Poppins-Bold.ttf);
 }
+
 @font-face {
   font-family: "Sora_R";
   src: url(./assets/fonts/Sora-Regular.ttf);
 }
+
 @font-face {
   font-family: "Sora_L";
   src: url(./assets/fonts/Sora-Light.ttf);
 }
+
 @font-face {
   font-family: "Sora_SM";
   src: url(./assets/fonts/Sora-SemiBold.ttf);
 }
+
 @font-face {
   font-family: "Sora_B";
   src: url(./assets/fonts/Sora-Bold.ttf);
 }
+
 @font-face {
   font-family: "Salsa";
   src: url(./assets/fonts/Salsa-Regular.ttf);
 }
+
 :root {
   --primary: #3a4ac4;
   --primary-hovered: rgb(18, 77, 165);
   --secondary: #f72222;
   --secondary-hovered: #bd0f0f;
+  --text-bold-color: #000;
+  --text-color: #242424;
   /* ///// */
 }
+
 ::selection {
   background-color: var(--primary);
   color: #fff;
 }
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   appearance: none;
@@ -53,6 +64,7 @@
   box-sizing: border-box;
   font-family: Poppins_L;
 }
+
 ion-tab-bar {
   opacity: 1;
   padding-top: 0.4rem;
@@ -83,6 +95,7 @@ ion-tab-bar {
   transition: all 0.3s ease-in-out;
   animation: slide_right 0.2s cubic-bezier(0.52, 0.68, 0.38, 1.46);
 }
+
 #bubble_notif .bubble_out {
   pointer-events: none;
   top: 4vh;
@@ -96,6 +109,7 @@ ion-tab-bar {
     transform: scale(0.5);
     top: 2vh;
   }
+
   100% {
     right: 0.8rem;
     top: 8vh;

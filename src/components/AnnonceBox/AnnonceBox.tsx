@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Cat from "../../assets/img/cat.jpg";
 import useNav from "../../hooks/useNav";
-import "./AnnonceBox.sass";
 import PriceParser, { getNumberPrice } from "../../utils/Format";
 import { AnnonceData } from "../../data/Types";
+import { getUser } from "../../data/storage";
+import "./AnnonceBox.sass";
 
 const detailsPage = "/main/annonce/";
+const profilePage = "/profile/annonce/";
 
 const AnnonceBox = (props: AnnonceData) => {
   const { to_forward } = useNav();
   const [loadedPicture, setLoadedPicture] = useState(false);
+  const user = getUser();
 
   const year = () => {
     if (props.year) {
@@ -24,7 +27,11 @@ const AnnonceBox = (props: AnnonceData) => {
         if (props.id)
           if (+props.id !== -1) {
             if (props.callback) props.callback();
-            to_forward(detailsPage + (props.id ? props.id : "-1"));
+            if (user) {
+              if (props.vendeur?.idvendeur + "" === user.id + "") {
+                to_forward(profilePage + props.id);
+              } else to_forward(detailsPage + (props.id ? props.id : "-1"));
+            } else to_forward(detailsPage + (props.id ? props.id : "-1"));
           }
       }}
     >

@@ -6,12 +6,32 @@ import BbRotatedIcon from "../../../assets/icons/BbRotatedIcon";
 import Recharge from "./Recharge/Recharge";
 import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
 import PriceParser from "../../../utils/Format";
+import Hider from "../../Hider/Hider";
+import { alaivoGet } from "../../../utils/Alaivo";
+import { getUser } from "../../../data/storage";
+import { AnimatePresence } from "framer-motion";
 
 const MySolde = () => {
   const { addNotifs, notifs } = useMyNotifs();
-  const [amount, setAmount] = useState(12000);
+  const [amount, setAmount] = useState(0);
+  const [onSend, setOnSend] = useState(false);
+  const user = getUser();
 
-  useEffect(() => {}, []);
+  const getAmout = async () => {
+    setOnSend(true);
+    let res = (await alaivoGet(
+      `bibine/user/${user.id}/solde`,
+      null,
+      false
+    )) as any;
+    console.log(res.data);
+    setOnSend(false);
+
+    setAmount(res.data);
+  };
+  useEffect(() => {
+    getAmout();
+  }, []);
 
   const succes = (res: any, value: number) => {
     addNotifs("OK", "Rechargement reussi ! ", 2000);
@@ -27,6 +47,9 @@ const MySolde = () => {
       tiltePage="Mon Solde"
       subtitle="La somme de votre solde utilisable dans l'application Bibine sera affcihé ici"
     >
+      <AnimatePresence>
+        {onSend && <Hider loader classCss="glassy" />}
+      </AnimatePresence>
       {notifs.map((notif) => notif)}
       <div className="solde_container">
         <div className="carte_solde" id="recharge_modal">
@@ -59,7 +82,12 @@ const MySolde = () => {
 
 const SmallArrowRightIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="4.479" height="7.453" viewBox="0 0 4.479 7.453">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="4.479"
+      height="7.453"
+      viewBox="0 0 4.479 7.453"
+    >
       <path
         id="Tracé_356"
         data-name="Tracé 356"

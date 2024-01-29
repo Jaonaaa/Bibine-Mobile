@@ -61,7 +61,11 @@ const AnnonceDetails = () => {
             </div>
             <div className="user_data">
               <div className="name">
-                {annonce !== null ? annonce.vendeur?.nom : <div className="name_blank skeleton"></div>}
+                {annonce !== null ? (
+                  annonce.vendeur?.nom
+                ) : (
+                  <div className="name_blank skeleton"></div>
+                )}
               </div>
             </div>
           </div>
@@ -70,7 +74,10 @@ const AnnonceDetails = () => {
             <ArrowDownBoxIcon />
           </div>
         </div>
-        <PictureSwaper loaded={annonce ? true : false} pictures={annonce?.pictures ? annonce?.pictures : [""]} />
+        <PictureSwaper
+          loaded={annonce ? true : false}
+          pictures={annonce?.pictures ? annonce?.pictures : [""]}
+        />
         <hr />
         <SubDetails loaded={annonce ? true : false} {...annonce} />
         <DetailsAnnonce loaded={annonce ? true : false} {...annonce} />
@@ -89,7 +96,11 @@ const useGetData = (id: any) => {
 
   const getAnnonce = async () => {
     setLoaded(false);
-    let res = (await alaivoGet("bibine/actu/annonces/" + id, null, true)) as any;
+    let res = (await alaivoGet(
+      "bibine/actu/annonces/" + id,
+      null,
+      true
+    )) as any;
     setLoaded(true);
     let annoc = res.data as AnnonceData;
     setAnnonce(annoc);

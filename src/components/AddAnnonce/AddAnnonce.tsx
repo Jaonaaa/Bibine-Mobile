@@ -18,8 +18,20 @@ import { AnimatePresence } from "framer-motion";
 import "./AddAnnonce.sass";
 
 const AddAnnonce: React.FC = () => {
-  const { back, formData, handleInput, next, loadedAll, upLoaded, notifs, removePicture, sending, percent, sendAll } =
-    useAddAnnonce();
+  const {
+    back,
+    formData,
+    handleInput,
+    next,
+    loadedAll,
+    upLoaded,
+    notifs,
+    removePicture,
+    setLoadedAll,
+    sending,
+    percent,
+    sendAll,
+  } = useAddAnnonce();
 
   return (
     <PageTemplate
@@ -48,6 +60,7 @@ const AddAnnonce: React.FC = () => {
           percent={percent}
         />
         <FormAnnonce
+          setLoading={setLoadedAll}
           uploaded={upLoaded}
           callBack={handleInput}
           formData={formData}
@@ -113,8 +126,8 @@ const AddAnnonce: React.FC = () => {
             <HelperText
               textHelp={
                 <>
-                  Vos photos devraient être d'un <span> ratio [ 3 / 2.4 ] </span> pour avoir une meilleur aperçue lors
-                  de leur exposition dans l'annonce.
+                  Vos photos devraient être d'un <span> ratio [ 3 / 2.4 ] </span> pour avoir une meilleur aperçue lors de
+                  leur exposition dans l'annonce.
                 </>
               }
             />

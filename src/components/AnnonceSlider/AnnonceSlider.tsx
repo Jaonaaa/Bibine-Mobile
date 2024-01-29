@@ -63,12 +63,7 @@ const AnnonceSlider = (props: AnnonceSliderProps) => {
           {!loadSupp
             ? [...Array(4).keys()].map((k, index) => (
                 <div key={index}>
-                  <AnnonceBox
-                    callback={close}
-                    key={index}
-                    loadedContent={props.loadedContent}
-                    id_annonce={index + ""}
-                  />
+                  <AnnonceBox callback={close} key={index} loadedContent={props.loadedContent} id_annonce={index + ""} />
                   <hr />
                 </div>
               ))
@@ -102,17 +97,13 @@ const useGetData = () => {
   }, [offset]);
 
   const getPagesCount = async () => {
-    let res = (await alaivoGet("bibine/actu/annonces/pagination?limit=10", null, true)) as any;
+    let res = (await alaivoGet("bibine/actu/valid_annonces/pagination?limit=5", null, true)) as any;
     setCountPages(res.data);
   };
 
   const getAnnonces = async () => {
     setLoaded(false);
-    let res = (await alaivoGet(
-      `bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`,
-      null,
-      true
-    )) as any;
+    let res = (await alaivoGet(`bibine/actu/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
     setLoaded(true);
     let annocs = res.data as AnnonceData[];
     setAnnonces(annocs);
@@ -128,14 +119,10 @@ const useGetData = () => {
 
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
-    let res = (await alaivoGet(
-      `bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`,
-      null,
-      true
-    )) as any;
+    let res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
-    setAnnoncesSupp(annocs);
+    setAnnoncesSupp((ans) => [...ans, ...annocs]);
   };
 
   return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus };

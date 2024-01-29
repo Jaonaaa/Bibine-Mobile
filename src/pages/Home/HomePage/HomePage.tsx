@@ -32,12 +32,21 @@ interface HomePageProps {
 }
 const HomePage = (props: HomePageProps) => {
   useExit();
-  const { closeFirstTime } = useUserTime();
+  const { closeFirstTime, firstTime } = useUserTime();
   const { changeStatusBar } = useStatusBar();
   const { scheduleNow, askPermission } = useNotification();
 
   const { md } = useViewPort();
   useEffect(() => {
+    if (firstTime()) {
+      WelcomeUser();
+    }
+    setTimeout(() => {
+      changeStatusBar();
+    }, 750);
+  }, []);
+
+  const WelcomeUser = () => {
     closeFirstTime();
     setTimeout(() => {
       askPermission(() => {
@@ -50,11 +59,7 @@ const HomePage = (props: HomePageProps) => {
         );
       });
     }, 1000);
-
-    setTimeout(() => {
-      changeStatusBar();
-    }, 750);
-  }, []);
+  };
 
   const isTabSelected = (tab: string) => {
     return window.location.pathname === tab;
@@ -75,13 +80,26 @@ const HomePage = (props: HomePageProps) => {
 
               {pathsSideMenu.map((path, index) => {
                 return path.pageIn ? (
-                  <Route key={index} path={path.path} component={path.component} exact />
+                  <Route
+                    key={index}
+                    path={path.path}
+                    component={path.component}
+                    exact
+                  />
                 ) : (
                   <Route path="/main/home" key={index} component={Home} exact />
                 );
               })}
-              <Route path="/main/annonce/:id" component={AnnonceDetails} exact />
-              <Route path="/main/annonce/achat/:id" component={AchatAnnonce} exact />
+              <Route
+                path="/main/annonce/:id"
+                component={AnnonceDetails}
+                exact
+              />
+              <Route
+                path="/main/annonce/achat/:id"
+                component={AchatAnnonce}
+                exact
+              />
 
               <Redirect exact from="/main" to="/main/home" />
             </IonRouterOutlet>
@@ -92,10 +110,19 @@ const HomePage = (props: HomePageProps) => {
                   key={index}
                   tab={path.page}
                   href={path.path}
-                  className={`${isTabSelected(path.path) ? "selected" : "tab_nav"}`}
+                  className={`${
+                    isTabSelected(path.path) ? "selected" : "tab_nav"
+                  }`}
                   selected={isTabSelected(path.path)}
                 >
-                  <IonIcon className="tab_icon" icon={isTabSelected(path.path) ? path.iconFilled : path.iconOutline} />
+                  <IonIcon
+                    className="tab_icon"
+                    icon={
+                      isTabSelected(path.path)
+                        ? path.iconFilled
+                        : path.iconOutline
+                    }
+                  />
                   <IonLabel className="tab_label"> {path.page}</IonLabel>
                 </IonTabButton>
               ))}

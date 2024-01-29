@@ -119,7 +119,9 @@ interface SelectPaperProps {
 
 const SelectPaper = (props: SelectPaperProps) => {
   const isIn = (cat: Categorie) => {
-    let isIn = props.selectedCategory.filter((catOne) => catOne.id === cat.id).length === 1;
+    let isIn =
+      props.selectedCategory.filter((catOne) => catOne.id === cat.id).length ===
+      1;
     return isIn;
   };
 
@@ -132,7 +134,10 @@ const SelectPaper = (props: SelectPaperProps) => {
         <div className="title">{props.name}</div>
         <div className="fixed_item item ">
           <div className="icon">
-            <IonCheckbox checked={props.selectedCategory.length === 0} onClick={props.clearSelectedCategory} />
+            <IonCheckbox
+              checked={props.selectedCategory.length === 0}
+              onClick={props.clearSelectedCategory}
+            />
           </div>
           <div className="label"> Tous </div>
         </div>
@@ -158,7 +163,9 @@ const SelectPaper = (props: SelectPaperProps) => {
             })}
           </div>
         ) : (
-          <Loader />
+          <div className="container_loader_in">
+            <Loader />
+          </div>
         )}
       </div>
     </>
@@ -168,8 +175,17 @@ const SelectPaper = (props: SelectPaperProps) => {
 const CrossSmallIcon = () => {
   return (
     <>
-      <svg xmlns="http://www.w3.org/2000/svg" width="8.763" height="8.763" viewBox="0 0 8.763 8.763">
-        <g id="Groupe_175" data-name="Groupe 175" transform="translate(-70.651 -158.651)">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="8.763"
+        height="8.763"
+        viewBox="0 0 8.763 8.763"
+      >
+        <g
+          id="Groupe_175"
+          data-name="Groupe 175"
+          transform="translate(-70.651 -158.651)"
+        >
           <line
             id="Ligne_14"
             data-name="Ligne 14"

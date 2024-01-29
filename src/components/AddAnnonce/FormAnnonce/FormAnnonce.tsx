@@ -19,6 +19,7 @@ interface FormProps {
   removePicture?: React.MouseEventHandler<HTMLDivElement>;
   helper?: React.ReactNode;
   uploaded?: Function;
+  setLoading?: Function;
 }
 
 interface OptionsProps {
@@ -33,17 +34,25 @@ interface InputProps {
   extra?: string;
   constraint: (val: any) => boolean;
   options_src?: any;
+  formdata_name: any;
 }
 
 const FormAnnonce = (props: FormProps) => {
-  const { formData, inputs, callBack, next, back, index, percent, removePicture, helper, uploaded } = props;
+  const { formData, inputs, callBack, next, back, index, percent, removePicture, helper, uploaded, setLoading } = props;
 
   return (
     <form className="form_add_annonce" style={{ transform: `translateX(${-percent}%)` }} onSubmit={next}>
       {inputs.map((input: InputProps, index) => (
         <React.Fragment key={index}>
           {input.type === "dropdown" ? (
-            <SelectOptions uploaded={uploaded} callBack={callBack} input={input} key={index} />
+            <SelectOptions
+              uploaded={uploaded}
+              setLoading={setLoading ? setLoading : () => {}}
+              callBack={callBack}
+              input={input}
+              key={index}
+              formData={formData}
+            />
           ) : input.type === "list" ? (
             <Details
               callBack={callBack}
@@ -120,18 +129,27 @@ interface SelectOptionsProps {
   input: InputProps;
   callBack: Function;
   uploaded?: Function;
+  formData?: any;
+  setLoading: Function;
 }
 
 const SelectOptions = (props: SelectOptionsProps) => {
-  const { input, callBack, uploaded } = props;
+  const { input, callBack, uploaded, formData, setLoading } = props;
   const [options, setOptions] = useState([]);
+
   useEffect(() => {
     getOptions();
-  }, []);
+  }, [formData[input.formdata_name]]);
 
   const getOptions = async () => {
     if (input.options_src) {
-      let res = await input.options_src();
+      let res = [];
+      if (!input.formdata_name) res = await input.options_src();
+      else {
+        setLoading(false);
+        res = await input.options_src(formData[input.formdata_name]);
+        setLoading(true); // ye hafahafa oe mifamadika le izy XD
+      }
       if (uploaded) uploaded();
       setOptions(res);
     }

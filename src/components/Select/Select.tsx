@@ -9,8 +9,10 @@ interface SelectProps {
   title?: string;
   caretIcon?: React.ReactNode;
 }
+
 const Select = (props: SelectProps) => {
   const { optionsType, name, onChange, fullWidth, title, caretIcon = <CaretDownIcon /> } = props;
+
   const [selectedOption, setSelectedOption] = useState(
     optionsType.length > 0
       ? {
@@ -19,6 +21,7 @@ const Select = (props: SelectProps) => {
         }
       : { value: "", label: "" }
   );
+
   const longContent = useRef<any>(null);
   const [openOptions, setOpenOptions] = useState(false);
   const heightNecessary = 16 * 2.6 * optionsType.length;
@@ -111,9 +114,17 @@ const Select = (props: SelectProps) => {
 };
 
 // use only for { value , label } Array
-const getMaxLenghtText = (optionsType: any) => {
+const getMaxLenghtText = (optionsType: any[]) => {
+  optionsType.forEach((element:any,index:number) => {
+    if(element.label===null) 
+      optionsType.splice(index,1)
+  });
+  
   let textArray = optionsType.filter((option: any, i: number, array: any[]) => {
-    return option.label.length === Math.max(...array.map((option_in) => option_in.label.length));
+    
+    return option.label.length === Math.max(...array.map((option_in) => 
+    
+    option_in.label.length));
   });
 
   if (textArray.length > 0) return textArray[0].label;

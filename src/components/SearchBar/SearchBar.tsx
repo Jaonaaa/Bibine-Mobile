@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import usePosition from "../../hooks/usePosition";
 import FilterMenu from "./FilterMenu/FilterMenu";
 import "./SearchBar.sass";
+import { setUpFormData } from "./SearchFunc";
+import { alaivoPost } from "../../utils/Alaivo";
 
 interface SearchBarProps {
   hideHeader: (state: boolean) => {};
@@ -38,7 +40,12 @@ const SearchBar = (props: SearchBarProps) => {
     setFilterOn(!filterOn);
   };
 
-  const searchFiltred = () => {};
+  const searchFiltred = async (form: any) => {
+    let newForm = setUpFormData(form);
+    console.log(newForm);
+    let res = await alaivoPost("bibine/actu/annonces/search", JSON.stringify(newForm), null, true);
+    console.log(res);
+  };
 
   const hideFilter = () => {
     setFilterOn(false);
