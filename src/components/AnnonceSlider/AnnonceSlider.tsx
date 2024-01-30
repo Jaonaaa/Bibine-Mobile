@@ -8,6 +8,7 @@ import { AnnonceData } from "../../data/Types";
 import { alaivoGet } from "../../utils/Alaivo";
 import ButtonCartoon from "../AnnonceDetails/ButtonCartoon/ButtonCartoon";
 import AddIcon from "../../assets/icons/AddIcon";
+import Loader from "../Loader/Loader";
 
 interface AnnonceSliderProps {
   title: string;
@@ -19,7 +20,7 @@ interface AnnonceSliderProps {
 
 const AnnonceSlider = (props: AnnonceSliderProps) => {
   const modal = useRef<HTMLIonModalElement>(null);
-  const { annonces, load, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } = useGetData();
+  const { annonces, load, getAnnonces, getAnnoncesSupp, btnAddOn, annoncesSupp, loadSupp, resetPlus } = useGetData();
 
   const close = () => {
     modal.current?.dismiss();
@@ -62,27 +63,30 @@ const AnnonceSlider = (props: AnnonceSliderProps) => {
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding" fullscreen>
-          {!loadSupp
-            ? [...Array(4).keys()].map((k, index) => (
-                <div key={index}>
-                  <AnnonceBox
-                    callback={close}
-                    key={index}
-                    loadedContent={props.loadedContent}
-                    id_annonce={index + ""}
-                  />
-                  <hr />
-                </div>
-              ))
-            : annoncesSupp.map((k, index) => (
-                <div key={index}>
-                  <AnnonceBox {...k} callback={close} key={index} loadedContent={load} />
-                  <hr />
-                </div>
-              ))}
-          <div className="add_new_annonce">
-            <ButtonCartoon callback={() => {}} text="Voir plus" icon={<AddIcon />} />
-          </div>
+          {!loadSupp &&
+            [...Array(4).keys()].map((k, index) => (
+              <div key={index}>
+                <AnnonceBox callback={close} key={index} loadedContent={props.loadedContent} id_annonce={index + ""} />
+                <hr />
+              </div>
+            ))}
+          {annoncesSupp.map((k, index) => (
+            <div key={index}>
+              <AnnonceBox {...k} callback={close} key={index} loadedContent={load} />
+              <hr />
+            </div>
+          ))}
+          {!loadSupp ? (
+            <div className="loader_supp_container">
+              <Loader />
+            </div>
+          ) : btnAddOn ? (
+            <div className="add_new_annonce">
+              <ButtonCartoon callback={getAnnoncesSupp} text="Afficher plus" icon={<AddIcon />} />
+            </div>
+          ) : (
+            ""
+          )}
           <hr />
         </IonContent>
       </IonModal>
@@ -97,6 +101,7 @@ const useGetData = () => {
   const [countPages, setCountPages] = useState(1);
   const [load, setLoaded] = useState(false);
   const [loadSupp, setLoadedSupp] = useState(false);
+  const [btnAddOn, setBtnAddOn] = useState(true);
 
   useEffect(() => {
     getPagesCount();
@@ -122,25 +127,26 @@ const useGetData = () => {
 
   const getAnnoncesSupp = () => {
     setOffset((old) => [old[0] + 1, old[1]]);
+    if (offset[0] + 2 >= countPages) {
+      setBtnAddOn(false);
+    }
   };
 
   const resetPlus = () => {
     setOffset([0, 5]);
+    setAnnoncesSupp([]);
+    setBtnAddOn(true);
   };
 
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
-    let res = (await alaivoGet(
-      `bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`,
-      null,
-      true
-    )) as any;
+    let res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
     setAnnoncesSupp((ans) => [...ans, ...annocs]);
   };
 
-  return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus };
+  return { annonces, annoncesSupp, load, getAnnonces, btnAddOn, getAnnoncesSupp, loadSupp, resetPlus };
 };
 
 export default AnnonceSlider;

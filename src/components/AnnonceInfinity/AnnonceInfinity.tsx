@@ -13,8 +13,9 @@ interface AnnonceBox {
 
 const AnnonceInfinity = (props: AnnonceBox) => {
   const [count, setCount] = useState(4);
-  const { annonces, load, offset, btnAddOn, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } =
-    useGetData(props.category);
+  const { annonces, load, offset, btnAddOn, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } = useGetData(
+    props.category
+  );
   const addNewAnnonce = () => {
     getAnnoncesSupp();
   };
@@ -96,11 +97,7 @@ const useGetData = (props: any) => {
 
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
-    let res = (await alaivoGet(
-      `bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`,
-      null,
-      true
-    )) as any;
+    let res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
     // ampio anleh pagination par type eto /: condition or * sa typer
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
