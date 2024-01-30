@@ -6,7 +6,7 @@
     height: 5.54rem
     display: flex
     align-items: center
-    justify-content: center
+    justify-content: flex-start
     width: 100%
     padding: 0.5rem 1rem
     flex-wrap: nowrap
@@ -30,12 +30,21 @@
         font-size: 1.8rem
         background: #ffefd8
         font-family: Sora_B
+        position: relative
         color: #2a2929
         font-weight: bolder
         @include breakpoints.break_XSM()
             min-width: 3.4rem
             min-height: 3.4rem
             font-size: 1.5rem
+        .picture
+            width: 100%
+            height: 100%
+            display: flex
+            justify-content: center
+            align-items: center
+            border-radius: 50%
+            overflow: hidden
 
     .details_notifs
         display: flex
@@ -43,6 +52,11 @@
         justify-content: flex-start
         padding-left: 0.5rem
         flex-direction: column
+        width: 100%
+        .long
+            width: 20%
+            height: 0.8rem
+            border-radius: 0.2rem
         .title
             padding-left: 0
             font-size: 0.8rem
@@ -77,6 +91,14 @@
             margin-block-end: 0.1rem
             @include breakpoints.break_XSM()
                 font-size: 0.68rem
+        .action-long
+            width: 100%
+            height: 0.6rem
+            border-radius: 0.2rem
+        .action-long-semi
+            width: 80%
+            height: 0.6rem
+            border-radius: 0.2rem
         .time
             width: 100%
             text-align: right
@@ -87,6 +109,11 @@
             @include breakpoints.break_XSM()
                 font-size: 0.62rem
                 margin-top: 0.2rem
+        .skeleton-time
+            width: 15%
+            height: 0.6rem
+            border-radius: 0.2rem
+            margin-left: auto
 
 .unread
-    background: #ebf5ff
+    background: #ebf5ff92
