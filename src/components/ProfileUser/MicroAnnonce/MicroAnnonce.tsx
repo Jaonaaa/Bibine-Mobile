@@ -4,6 +4,7 @@ import useNav from "../../../hooks/useNav";
 import { AnnonceData } from "../../../data/Types";
 import "./MicroAnnonce.sass";
 import { getUser } from "../../../data/storage";
+import PriceParser from "../../../utils/Format";
 
 const MicroAnnonce = (props: AnnonceData) => {
   const { to_forward } = useNav();
@@ -23,7 +24,7 @@ const MicroAnnonce = (props: AnnonceData) => {
           {" "}
           {props.modele?.nom} {props.brand?.nom}{" "}
         </div>
-        <div className="price">{props.prix} Ar </div>
+        <div className="price">{PriceParser(props.prix)} Ar </div>
       </div>
     </div>
   );

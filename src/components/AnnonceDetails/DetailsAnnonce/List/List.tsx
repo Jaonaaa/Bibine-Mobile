@@ -22,6 +22,18 @@ const List = (props: AnnonceData) => {
             <div className="label">LOCALISATION</div>
             <div className="value"> {props.localisation ? props.localisation.nom + "" : ""} </div>
           </div>
+          <div className="row">
+            <div className="label">COULEUR</div>
+            <div className="value"> {props.couleur ? props.couleur.nom + "" : ""} </div>
+          </div>
+          <div className="row">
+            <div className="label">KILOMETRAGE</div>
+            <div className="value"> {props.kilometre ? props.kilometre + "" : ""} </div>
+          </div>
+          <div className="row">
+            <div className="label">ETAT</div>
+            <div className="value"> {props.etat ? props.etat + " / 10" : ""} </div>
+          </div>
         </>
       ) : (
         [...Array(2).keys()].map((key, index) => (

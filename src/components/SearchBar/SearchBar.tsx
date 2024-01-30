@@ -4,16 +4,18 @@ import CrossIcon from "../../assets/icons/CrossIcon";
 import { useEffect, useRef, useState } from "react";
 import usePosition from "../../hooks/usePosition";
 import FilterMenu from "./FilterMenu/FilterMenu";
-import "./SearchBar.sass";
 import { setUpFormData } from "./SearchFunc";
 import { alaivoPost } from "../../utils/Alaivo";
+import "./SearchBar.sass";
 
 interface SearchBarProps {
   hideHeader: (state: boolean) => {};
   focusedHeader: boolean;
+  setFetching: Function;
+  addAnnonces: Function;
 }
 const SearchBar = (props: SearchBarProps) => {
-  const { hideHeader, focusedHeader } = props;
+  const { hideHeader, focusedHeader, setFetching, addAnnonces } = props;
   const [searchText, setSearchText] = useState("");
   const [filterOn, setFilterOn] = useState(false);
   const filterBox = useRef<HTMLDivElement>(null);
@@ -42,9 +44,10 @@ const SearchBar = (props: SearchBarProps) => {
 
   const searchFiltred = async (form: any) => {
     let newForm = setUpFormData(form);
-    console.log(newForm);
-    let res = await alaivoPost("bibine/actu/annonces/search", JSON.stringify(newForm), null, true);
-    console.log(res);
+    setFetching(true);
+    let res = (await alaivoPost("bibine/actu/annonces/search", JSON.stringify(newForm), null, true)) as any;
+    setFetching(false);
+    addAnnonces(res.data);
   };
 
   const hideFilter = () => {

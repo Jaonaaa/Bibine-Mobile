@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useNav from "../../../hooks/useNav";
 import CartIcon from "../../../assets/icons/CartIcon";
 import FavoriIcon from "../../../assets/icons/FavoriIcon";
@@ -11,29 +11,58 @@ import ValidationModal from "../../../utilsComponent/Modal/Validation/Validation
 import { AnimatePresence } from "framer-motion";
 import { AnnonceData } from "../../../data/Types";
 import { getUser } from "../../../data/storage";
+import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
+
 import "./SubDetails.sass";
+import Loader from "../../Loader/Loader";
 
 const SubDetails = (props: AnnonceData) => {
   const { vendeur, stock, state, prix, favoris, loaded } = props;
+  const { addNotifs, notifs } = useMyNotifs();
+  const [fav, setFav] = useState(false);
   const user = getUser();
+  const [loadFav, setLoadFav] = useState(false);
   const { to_forward } = useNav();
 
   const addToFavorites = async () => {
     if (user) {
+      setLoadFav(true);
       let res = (await alaivoPost(`bibine/user/${user.id}/annonces_favoris/${props.id}`, null, true)) as any;
-      console.log(res);
+      setLoadFav(false);
+      addNotifs("star", "Ajouté aux favoris", 1500);
+      setFav(true);
     }
   };
 
   const removeFromFavorites = async () => {
     if (user) {
+      setLoadFav(true);
       let res = (await alaivoDelete(`bibine/user/${user.id}/annonces_favoris/${props.id}`, null, true)) as any;
-      console.log(res);
+      setLoadFav(false);
+      addNotifs("info", "Enlever des favoris", 1500);
+      setFav(false);
     }
   };
 
+  const checkFav = () => {
+    if (user) {
+      if (favoris?.includes(user.id)) {
+        setFav(true);
+      }
+    }
+  };
+
+  const handleLoadFav = () => {
+    setLoadFav(!loadFav);
+  };
+
+  useEffect(() => {
+    checkFav();
+  }, [loaded]);
+
   return (
     <div className="sub_container">
+      {notifs.map((notif) => notif)}
       <div className="state_product">
         {state === 0 ? (
           <div className="state sold_out">Article non disponible </div>
@@ -49,7 +78,9 @@ const SubDetails = (props: AnnonceData) => {
       <div className="header">
         <div className="price_box">
           <div className="upper">
-            <div className="price_text">{loaded ? PriceParser(prix) : <span className="blank_price skeleton"> </span>} </div>
+            <div className="price_text">
+              {loaded ? PriceParser(prix) : <span className="blank_price skeleton"> </span>}{" "}
+            </div>
             <div className="unit"> Ar </div>
           </div>
           <div className="under">
@@ -59,17 +90,18 @@ const SubDetails = (props: AnnonceData) => {
         <div className="icon">
           <Message loaded={loaded} />
           <div
-            className={`fav ico ${user ? (favoris?.includes(user.id) ? "fav_on" : "") : ""}`}
+            className={`fav ico ${user ? (fav ? "fav_on" : "") : ""}`}
             onClick={() => {
-              if (user) {
-                if (favoris?.includes(user.id)) {
-                  //
+              if (user && !loadFav) {
+                if (fav) {
                   removeFromFavorites();
-                } else addToFavorites();
+                } else {
+                  addToFavorites();
+                }
               }
             }}
           >
-            <FavoriIcon />
+            {loadFav ? <Loader size="1.2rem" /> : <FavoriIcon />}
           </div>
         </div>
       </div>

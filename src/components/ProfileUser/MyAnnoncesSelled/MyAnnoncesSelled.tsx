@@ -41,7 +41,8 @@ const useGetData = () => {
     setloaded(false);
     let user = getUser();
     let res = (await alaivoGet(
-      "bibine/actu/user/" + user.id + "/own_annonces",
+      `bibine/actu/user/${user.id}/annonces_vendu`,
+      // "bibine/actu/user/" + user.id + "/own_annonces",
       null,
       true
     )) as any;

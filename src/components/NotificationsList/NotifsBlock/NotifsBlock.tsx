@@ -16,7 +16,7 @@ const NotifsBlock = (props: NotifsBlockProps) => {
           ? notifs?.map((notif: Notif) => {
               return <NotifItem data={notif} read={false} key={notif.id} />;
             })
-          : [...Array(5).keys()].map((notif, i) => <NotifItem key={i} template read={i % 2 === 0 ? false : true} />)}
+          : [...Array(8).keys()].map((notif, i) => <NotifItem key={i} template read={i % 2 === 0 ? false : true} />)}
       </div>
     </div>
   );

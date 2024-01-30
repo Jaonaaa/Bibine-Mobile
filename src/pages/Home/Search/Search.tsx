@@ -7,11 +7,15 @@ import useUserConnectivity from "../../../hooks/useUserConnectivity";
 import OfflineIndicator from "../../../components/OfflineIndicator/OfflineIndicator";
 
 import "./Search.sass";
+import Loader from "../../../components/Loader/Loader";
+import SearchResult from "../../../components/SearchResult/SearchResult";
 
 const Search: React.FC = () => {
   const [hideHeader, setHideHeader] = useState(false);
   const [res, setRes] = useState(null);
   const { connected, notifs } = useUserConnectivity(false);
+  const [annoncesResult, setAnnoncesResult] = useState([]);
+  const [fecthing, setFectching] = useState(false);
 
   const handleHeader = (state: boolean) => {
     setHideHeader(state);
@@ -32,30 +36,33 @@ const Search: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <div className="search_content">
-          {!res ? (
-            <>
-              <SearchBar hideHeader={handleHeader} focusedHeader={hideHeader} />
-              <div
-                className="blurer"
-                onClick={() => {
-                  setHideHeader(false);
-                }}
-              ></div>
+          <>
+            <SearchBar
+              hideHeader={handleHeader}
+              setFetching={setFectching}
+              addAnnonces={setAnnoncesResult}
+              focusedHeader={hideHeader}
+            />
+            <div
+              className="blurer"
+              onClick={() => {
+                setHideHeader(false);
+              }}
+            ></div>
+
+            {fecthing ? (
+              <div className="container_search_loader">
+                <Loader />
+              </div>
+            ) : annoncesResult.length > 0 ? (
+              <SearchResult annonces={annoncesResult} />
+            ) : (
               <div className="block_search_icon">
                 <SearchBlockIcon />
                 <div className="text">Rechercher la voiture qui vous définis.</div>
               </div>
-            </>
-          ) : (
-            <>
-              <div className="block"></div>
-              <div className="block"></div>
-              <div className="block"></div>
-              <div className="block"></div>
-              <div className="block"></div>
-              <div className="block"></div>
-            </>
-          )}
+            )}
+          </>
         </div>
       </IonContent>
     </IonPage>

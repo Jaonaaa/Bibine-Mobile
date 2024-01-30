@@ -59,7 +59,7 @@ const DetailsAnnonce = (props: AnnonceData) => {
         <div className="title">
           <div className="text">Autres annonces</div>
         </div>
-        <SimpleAnnonceSlider id_user="*" />
+        {loaded ? <SimpleAnnonceSlider id_user="*" /> : ""}
       </div>
     </div>
   );

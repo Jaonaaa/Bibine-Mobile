@@ -11,10 +11,6 @@ interface SimpleAnnonceSliderProps {
 const SimpleAnnonceSlider = (props: SimpleAnnonceSliderProps) => {
   const { annonces, getAnnonces, load } = useGetData(props.id_user);
 
-  useEffect(() => {
-    console.log(props);
-  }, [props.id_user]);
-
   return (
     <div className="container_slider">
       <div className="annonce_slider_container">
@@ -49,8 +45,9 @@ const useGetData = (vendeur_id: string) => {
   const getAnnonces = async () => {
     setLoaded(false);
     let res = "" as any;
-    if (vendeur_id !== "*") res = (await alaivoGet("bibine/user/" + vendeur_id + "/own_annonces", null, false)) as any;
-    else res = (await alaivoGet("bibine/actu/annonces", null, true)) as any;
+    if (vendeur_id !== "*")
+      res = (await alaivoGet("bibine/actu/user/" + vendeur_id + "/own_annonces", null, false)) as any;
+    else res = (await alaivoGet("bibine/actu/annonces/recentes", null, true)) as any;
     setLoaded(true);
     let annocs = res.data as AnnonceData[];
     setAnnonces(annocs);

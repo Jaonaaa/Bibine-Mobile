@@ -40,9 +40,11 @@ const useGetData = () => {
   const getAllSelledAnnonce = async () => {
     setloaded(false);
     let user = getUser();
-    let res = (await alaivoGet("bibine/actu/annonces", null, true)) as any;
+    if (user) {
+      let res = (await alaivoGet(`bibine/actu/user/${user.id}/annonces_favoris`, null, false)) as any;
+      setAnnonces(res.data);
+    }
     setloaded(true);
-    setAnnonces(res.data);
   };
   return { annonces, loaded };
 };

@@ -100,7 +100,10 @@ const Select = (props: SelectProps) => {
                 key={index}
                 onClick={() => {
                   setSelectedOption(option);
-                  if (onChange) onChange({ target: { name: name, value: option.value } });
+                  if (onChange) {
+                    onChange({ target: { name: name, value: option.value } });
+                    setOpenOptions(false);
+                  }
                 }}
               >
                 {option.label}
@@ -115,16 +118,12 @@ const Select = (props: SelectProps) => {
 
 // use only for { value , label } Array
 const getMaxLenghtText = (optionsType: any[]) => {
-  optionsType.forEach((element:any,index:number) => {
-    if(element.label===null) 
-      optionsType.splice(index,1)
+  optionsType.forEach((element: any, index: number) => {
+    if (element.label === null) optionsType.splice(index, 1);
   });
-  
+
   let textArray = optionsType.filter((option: any, i: number, array: any[]) => {
-    
-    return option.label.length === Math.max(...array.map((option_in) => 
-    
-    option_in.label.length));
+    return option.label.length === Math.max(...array.map((option_in) => option_in.label.length));
   });
 
   if (textArray.length > 0) return textArray[0].label;

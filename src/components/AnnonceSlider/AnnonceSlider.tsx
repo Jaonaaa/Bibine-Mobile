@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
 import { AnnonceData } from "../../data/Types";
 import { alaivoGet } from "../../utils/Alaivo";
+import ButtonCartoon from "../AnnonceDetails/ButtonCartoon/ButtonCartoon";
+import AddIcon from "../../assets/icons/AddIcon";
 
 interface AnnonceSliderProps {
   title: string;
@@ -63,7 +65,12 @@ const AnnonceSlider = (props: AnnonceSliderProps) => {
           {!loadSupp
             ? [...Array(4).keys()].map((k, index) => (
                 <div key={index}>
-                  <AnnonceBox callback={close} key={index} loadedContent={props.loadedContent} id_annonce={index + ""} />
+                  <AnnonceBox
+                    callback={close}
+                    key={index}
+                    loadedContent={props.loadedContent}
+                    id_annonce={index + ""}
+                  />
                   <hr />
                 </div>
               ))
@@ -73,6 +80,10 @@ const AnnonceSlider = (props: AnnonceSliderProps) => {
                   <hr />
                 </div>
               ))}
+          <div className="add_new_annonce">
+            <ButtonCartoon callback={() => {}} text="Voir plus" icon={<AddIcon />} />
+          </div>
+          <hr />
         </IonContent>
       </IonModal>
     </div>
@@ -119,7 +130,11 @@ const useGetData = () => {
 
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
-    let res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
+    let res = (await alaivoGet(
+      `bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`,
+      null,
+      true
+    )) as any;
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
     setAnnoncesSupp((ans) => [...ans, ...annocs]);

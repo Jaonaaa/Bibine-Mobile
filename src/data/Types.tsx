@@ -43,6 +43,11 @@ interface MotorData {
   nom: string;
   state: number;
 }
+interface CouleurData {
+  id: string;
+  nom: string;
+  state: number;
+}
 
 export interface AnnonceData {
   loadedContent?: boolean;
@@ -70,4 +75,5 @@ export interface AnnonceData {
   favoris?: string[];
   date?: string;
   description?: string;
+  couleur?: CouleurData;
 }

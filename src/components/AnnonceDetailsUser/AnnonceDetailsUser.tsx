@@ -2,14 +2,14 @@ import PageTemplate from "../PageTemplate/PageTemplate";
 import ArrowDownBoxIcon from "../../assets/icons/ArrowDownBoxIcon";
 import PictureSwaper from "../AnnonceDetails/PictureSwaper/PictureSwaper";
 import SubDetailsUser from "./SubDetailsUser/SubDetailsUser";
-import Picture from "../../assets/img/cat.jpg";
 import DetailsAnnonceUser from "./DetailsAnnonceUser/DetailsAnnonceUser";
-import "./AnnonceDetailsUser.sass";
-import EditIcon from "../../assets/icons/EditIcon";
 import { useEffect, useState } from "react";
 import { AnnonceData } from "../../data/Types";
 import { alaivoGet } from "../../utils/Alaivo";
 import { useParams } from "react-router";
+import EditStatus from "./EditStatus/EditStatus";
+import "./AnnonceDetailsUser.sass";
+
 interface AnnonceDetailsProps {
   id: string;
 }
@@ -75,9 +75,7 @@ const AnnonceDetailsUser = () => {
         <hr />
         <SubDetailsUser loaded={annonce ? true : false} {...annonce} />
         <DetailsAnnonceUser loaded={annonce ? true : false} {...annonce} />
-        <div id="edit_btn">
-          <EditIcon />
-        </div>
+        <EditStatus />
       </div>
     </PageTemplate>
   );
@@ -96,7 +94,6 @@ const useGetData = (id: any) => {
     let res = (await alaivoGet("bibine/actu/annonces/" + id, null, true)) as any;
     setLoaded(true);
     let annoc = res.data as AnnonceData;
-    console.log(annoc);
     setAnnonce(annoc);
   };
 

@@ -1,0 +1,37 @@
+.block_flottant
+    position: absolute
+    right: 0%
+    top: -90%
+    width: fit-content
+    white-space: nowrap
+    height: 3rem
+    background: var(--ion-color-primary)
+    transform: translateX(0%)
+    display: flex
+    justify-content: center
+    align-items: center
+    animation: show_up_b_flottant 0.2s forwards
+    border-radius: 0.5rem
+    padding: 0 0.8rem
+    .text
+        font-size: 0.8rem
+    .icon
+        margin-left: 0.3rem
+        width: 1rem
+        display: flex
+        justify-content: center
+        align-items: center
+        svg
+            path
+                stroke: #fff
+
+@keyframes show_up_b_flottant
+
+    0%
+        opacity: 0.2
+        transform: translateX(0%) scale(0.1)
+        top: 0
+    100%
+        opacity: 1
+        transform: translateX(0%) scale(1)
+        top: -90%

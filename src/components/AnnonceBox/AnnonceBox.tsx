@@ -20,6 +20,7 @@ const AnnonceBox = (props: AnnonceData) => {
       return yearTab[1] + "/" + yearTab[0];
     } else return "XX/XXXX";
   };
+
   return (
     <div
       className={`box_annonce ${props.loadedContent ? "" : "skeleton_container"}`}
@@ -43,7 +44,6 @@ const AnnonceBox = (props: AnnonceData) => {
               setLoadedPicture(true);
             }}
             className={loadedPicture ? "" : "skeleton"}
-            //Cat
             src={props.pictures ? props.pictures[0] : Cat}
             alt=""
           />

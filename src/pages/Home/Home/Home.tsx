@@ -97,7 +97,6 @@ const Home: React.FC = () => {
         {activeTab.id === "*" ? (
           <>
             <AnnonceSlider title="Nouveautés" context="news" />
-            <AnnonceSlider title="Meilleurs ventes" context="bestSellers" />
             <AnnonceSlider title="Populaire" context="popular" />
           </>
         ) : (

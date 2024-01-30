@@ -11,7 +11,7 @@ const useAddAnnonce = () => {
   const [percent, setPercent] = useState(0);
   const [sending, setSending] = useState(false);
   //
-  const targetLoadContent = 4;
+  const targetLoadContent = 5;
   const [loadedAll, setLoadedAll] = useState(false);
   const [count_loaded, setCountLoaded] = useState(0);
   //
@@ -84,6 +84,9 @@ const useAddAnnonce = () => {
 
     let brand = { id: data["brand"] };
     data["brand"] = brand;
+
+    let colors = { id: data["couleur"] };
+    data["couleur"] = colors;
 
     let motor = { id: data["motor"] };
     data["motor"] = motor;

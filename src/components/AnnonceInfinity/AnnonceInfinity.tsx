@@ -5,6 +5,7 @@ import AddIcon from "../../assets/icons/AddIcon";
 import { alaivoGet } from "../../utils/Alaivo";
 import { AnnonceData } from "../../data/Types";
 import "./AnnonceInfinity.sass";
+import Loader from "../Loader/Loader";
 
 interface AnnonceBox {
   category?: string;
@@ -12,11 +13,13 @@ interface AnnonceBox {
 
 const AnnonceInfinity = (props: AnnonceBox) => {
   const [count, setCount] = useState(4);
-  const { annonces, load, offset, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp } = useGetData(props.category);
+  const { annonces, load, offset, btnAddOn, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } =
+    useGetData(props.category);
   const addNewAnnonce = () => {
     getAnnoncesSupp();
   };
   useEffect(() => {
+    resetPlus();
     getAnnonces();
   }, [props.category]);
   return (
@@ -25,13 +28,21 @@ const AnnonceInfinity = (props: AnnonceBox) => {
         ? [...Array(5).keys()].map((k, index) => <AnnonceBox key={index} loadedContent={load} />)
         : annonces.map((k, index) => <AnnonceBox {...k} key={index} loadedContent={load} />)}
 
-      {offset[0] > 0 && !loadSupp
-        ? [...Array(3).keys()].map((k, index) => <AnnonceBox key={index} loadedContent={loadSupp} />)
-        : annoncesSupp.map((k, index) => <AnnonceBox {...k} key={index} loadedContent={loadSupp} />)}
+      {annoncesSupp.map((k, index) => (
+        <AnnonceBox {...k} key={index} loadedContent={true} />
+      ))}
 
-      <div className="add_new_annonce">
-        <ButtonCartoon callback={addNewAnnonce} text="Afficher plus" icon={<AddIcon />} />
-      </div>
+      {!loadSupp ? (
+        <div className="loader_supp_container">
+          <Loader />
+        </div>
+      ) : btnAddOn ? (
+        <div className="add_new_annonce">
+          <ButtonCartoon callback={addNewAnnonce} text="Afficher plus" icon={<AddIcon />} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
@@ -41,11 +52,12 @@ const useGetData = (props: any) => {
   const [load, setLoaded] = useState(false);
   const [annoncesSupp, setAnnoncesSupp] = useState<AnnonceData[]>([]);
   const [offset, setOffset] = useState([0, 5]);
-  const [countPages, setCountPages] = useState(1);
-  const [loadSupp, setLoadedSupp] = useState(false);
+  const [countPages, setCountPages] = useState(999);
+  const [loadSupp, setLoadedSupp] = useState(true);
+  const [btnAddOn, setBtnAddOn] = useState(true);
 
   useEffect(() => {
-    //   getPagesCount();
+    getPagesCount();
     getAnnonces();
   }, []);
 
@@ -71,21 +83,31 @@ const useGetData = (props: any) => {
 
   const getAnnoncesSupp = () => {
     setOffset((old) => [old[0] + 1, old[1]]);
+    if (offset[0] + 2 >= countPages) {
+      setBtnAddOn(false);
+    }
   };
 
   const resetPlus = () => {
     setOffset([0, 5]);
+    setAnnoncesSupp([]);
+    setBtnAddOn(true);
   };
 
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
-    let res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
+    let res = (await alaivoGet(
+      `bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`,
+      null,
+      true
+    )) as any;
+    // ampio anleh pagination par type eto /: condition or * sa typer
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
     setAnnoncesSupp((ans) => [...ans, ...annocs]);
   };
 
-  return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus, offset };
+  return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus, offset, btnAddOn };
 };
 
 export default AnnonceInfinity;

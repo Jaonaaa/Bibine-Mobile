@@ -29,11 +29,6 @@ function formatCustomDate(inputDate: string) {
   return `${day}/${month}/${year} à ${hours}:${minutes}`;
 }
 
-// Example usage:
-const inputDate = "2024-01-29T19:05:14.815+00:00";
-const formattedDate = formatCustomDate(inputDate);
-console.log(formattedDate); // Output: 29/01/24 à 19:05
-
 const NotifItem = (props: NotifItemProps) => {
   const { data, template } = props;
   return (

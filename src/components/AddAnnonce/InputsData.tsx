@@ -41,6 +41,14 @@ let maintenance = async () => {
   });
 };
 
+let colors = async () => {
+  return new Promise(async (resolve, reject) => {
+    let res = (await alaivoGet("bibine/actu/colors", null, true)) as any;
+    res = res.data.map((re: any) => ({ label: re.nom, value: re.id }));
+    resolve(res);
+  });
+};
+
 export const inputsFirst = [
   {
     title: "Marque",
@@ -94,10 +102,12 @@ export const inputsFourth = [
 
 export const inputsFifth = [
   {
-    title: "Quantité en stock",
-    type: "number",
-    name: "stock",
+    title: "Couleur",
+    type: "dropdown",
+    name: "couleur",
+    options_src: colors,
   },
+
   {
     title: "Kilometrage",
     type: "number",
