@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-
-import "./PriceRangeSection.sass";
 import Hider from "../../../Hider/Hider";
 import { AnimatePresence } from "framer-motion";
-import AnnonceBox from "../../../AnnonceBox/AnnonceBox";
 import Filter from "./Filter/Filter";
 import CrossIcon from "../../../../assets/icons/CrossIcon";
 import ArrowSwipeRight from "../../../../assets/icons/ArrowSwipeRight";
+import useMyNotifs from "../../../../utilsComponent/Notif/useNotifs";
+import "./PriceRangeSection.sass";
 
 // and max
 interface PriceRangeSectionProps {
@@ -16,17 +15,21 @@ interface PriceRangeSectionProps {
   diff: number;
   callback: Function;
   name: string;
+  clear: Function;
 }
 const PriceRangeSection = (props: PriceRangeSectionProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [minValue, maxValue] = [props.min, props.max];
 
-  const [min, setMin] = useState(minValue);
-  const [max, setMax] = useState(maxValue);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(0);
+
+  const [empty, setEmpty] = useState(true);
 
   const handleMinMax = (min: number, max: number) => {
     setMin(min);
     setMax(max);
+    setEmpty(false);
     props.callback({
       name: props.name,
       value: {
@@ -35,11 +38,27 @@ const PriceRangeSection = (props: PriceRangeSectionProps) => {
       },
     });
   };
+
   const handleModal = () => {
     setOpenModal(!openModal);
   };
+
+  const clearData = () => {
+    props.clear(props.name);
+    setEmpty(true);
+    setMin(0);
+    setMax(0);
+  };
   return (
     <div className={"price_containers"}>
+      {!empty && (
+        <div className="clearer">
+          <div className="round" onClick={clearData}>
+            <CrossIcon />
+          </div>
+        </div>
+      )}
+
       <div className="content_price">
         <div className="min">
           {min} {props.unit}
@@ -83,6 +102,7 @@ interface PriceRangerProps {
 const PriceRanger = (props: PriceRangerProps) => {
   const [min, setMin] = useState(props.min);
   const [max, setMax] = useState(props.max);
+  const { addNotifs, notifs } = useMyNotifs();
 
   const handleMinMax = (min: number, max: number) => {
     setMin(min);
@@ -90,12 +110,19 @@ const PriceRanger = (props: PriceRangerProps) => {
   };
 
   const handleValidate = () => {
-    if (props.callBack) props.callBack(min, max);
-    props.closer();
+    console.log(min, max);
+    if (+min >= +max) {
+      addNotifs("error", "La valeur minimun devrait être inférieure au valeur maximun", 1500);
+      //
+    } else {
+      if (props.callBack) props.callBack(min, max);
+      props.closer();
+    }
   };
 
   return (
     <>
+      {notifs.map((notif) => notif)}
       <div className="modal_price_ranger">
         <div className="closer" onClick={props.closer}>
           <CrossIcon />

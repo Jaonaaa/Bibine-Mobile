@@ -10,6 +10,8 @@ interface ValidationModalProps {
   callBack?: MouseEventHandler<HTMLButtonElement>;
   title?: string;
   icon?: React.ReactNode | string;
+  cancelOn?: boolean;
+  validationText?: string;
 }
 
 const ValidationModal = (props: ValidationModalProps) => {
@@ -30,11 +32,15 @@ const ValidationModal = (props: ValidationModalProps) => {
               <div className="title"> {props.title} </div>
               <div className="content">{props.content}</div>
               <div className="buttons">
-                <button onClick={props.closer} className="cancel">
-                  Annuler
-                </button>
+                {props.cancelOn !== false ? (
+                  <button onClick={props.closer} className="cancel">
+                    Annuler
+                  </button>
+                ) : (
+                  ""
+                )}
                 <button onClick={props.callBack} className="confirm">
-                  Valider
+                  {props.validationText ? props.validationText : "Valider"}
                 </button>
               </div>
             </div>

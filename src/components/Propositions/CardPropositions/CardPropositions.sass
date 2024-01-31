@@ -1,0 +1,108 @@
+.card_proposition
+    width: 100%
+    min-height: 10rem
+    height: 10rem
+    box-shadow: 0 0 0.1rem 0.1rem #c1c0c04d
+    border-radius: 0.2rem
+    margin-bottom: 1rem
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding: 0.8rem 0.8rem
+    .head,.under_head,.bottom
+        width: 100%
+        display: flex
+        align-items: center
+        justify-content: space-between
+        .pics
+            position: relative
+            width: 1.5rem
+            .pic
+                min-height: 2rem
+                min-width: 2rem
+                position: absolute
+                background: #fdb8b8
+                border-radius: 50%
+                display: flex
+                justify-content: center
+                align-items: center
+                img
+                    width: 100%
+                    object-fit: cover
+
+            .sender
+                right: 0
+                z-index: 2
+                background: #7de6e6
+            .receiver
+                right: 2.25rem
+                z-index: 2
+                background: #894eb4
+                top: 1.75rem
+            .annonce-car
+                right: 0.5rem
+                top: 0.25rem
+                z-index: 1
+                min-height: 3.2rem
+                min-width: 3.2rem
+    .head
+        margin-bottom: 0.5rem
+        align-items: flex-start
+        .title
+            font-weight: bolder
+            font-family: Sora_B
+            font-size: 0.95rem
+    .under_head
+        display: flex
+        align-items: center
+        .date
+            color: #7373739d
+            font-size: 0.79rem
+            font-weight: bolder
+            display: flex
+            align-items: center
+            .icon
+                width: 0.8rem
+                height: 0.8rem
+                background: #fda8a8
+                margin-right: 0.3rem
+            .text
+                display: flex
+                align-items: flex-end
+                align-self: baseline
+
+    .bottom
+        margin-top: auto
+        .status
+            display: flex
+            justify-content: center
+            align-items: center
+            .stat_block
+                font-size: 0.72rem
+                padding: 0.15rem 1.15rem
+                border-radius: 0.3rem
+                display: flex
+                justify-content: center
+                align-items: flex-end
+                height: 1.6rem
+            .waiting
+                background: #edef51
+                color: #7e8015
+                font-weight: bolder
+        .buttons
+            display: flex
+            align-items: center
+            .btn
+                border-radius: 0.2rem
+                display: flex
+                align-items: center
+                .text
+                    font-size: 0.72rem
+                    font-weight: bolder
+                .icon
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    width: 1rem
+                    margin-left: 0.25rem

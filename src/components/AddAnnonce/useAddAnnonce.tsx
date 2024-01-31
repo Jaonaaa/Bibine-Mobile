@@ -14,6 +14,7 @@ const useAddAnnonce = () => {
   const targetLoadContent = 5;
   const [loadedAll, setLoadedAll] = useState(false);
   const [count_loaded, setCountLoaded] = useState(0);
+  const [finished, setFinished] = useState(false);
   //
 
   const upLoaded = () => {
@@ -70,12 +71,10 @@ const useAddAnnonce = () => {
     let data = { ...formData };
     data = await reformData(data);
     let user = getUser();
-    let res = await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false);
+    await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false);
     addNotifs("OK", "Annonce enregistré", 2000);
     setSending(false);
-    setTimeout(() => {
-      window.location.href = "/main/home";
-    }, 500);
+    setFinished(true);
   };
 
   const reformData = async (data: any) => {
@@ -121,6 +120,7 @@ const useAddAnnonce = () => {
     percent,
     sendAll,
     setLoadedAll,
+    finished,
   };
 };
 

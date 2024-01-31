@@ -10,6 +10,7 @@ import useMyNotifs from "../../../../utilsComponent/Notif/useNotifs";
 interface DateSectionProps {
   callback: Function;
   name: string;
+  clear: Function;
 }
 
 const DateSection = (props: DateSectionProps) => {
@@ -18,9 +19,12 @@ const DateSection = (props: DateSectionProps) => {
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
 
+  const [empty, setEmpty] = useState(true);
+
   const handleMinMax = (min: string, max: string) => {
     setMin(min);
     setMax(max);
+    setEmpty(false);
     props.callback({
       name: props.name,
       value: {
@@ -33,20 +37,34 @@ const DateSection = (props: DateSectionProps) => {
     setOpenModal(!openModal);
   };
   useEffect(() => {
-    let date = new Date();
+    // let date = new Date();
     // month date now
-    setMax(date.toISOString().slice(0, 10));
+    //setMax(date.toISOString().slice(0, 10));
     // min
-    date.setFullYear(date.getFullYear() - 2);
-    setMin(date.toISOString().slice(0, 10));
+    //date.setFullYear(date.getFullYear() - 2);
+    //setMin(date.toISOString().slice(0, 10));
   }, []);
+
+  const clearData = () => {
+    props.clear(props.name);
+    setEmpty(true);
+    setMin("");
+    setMax("");
+  };
 
   return (
     <div className={"price_containers"}>
+      {!empty && (
+        <div className="clearer">
+          <div className="round" onClick={clearData}>
+            <CrossIcon />
+          </div>
+        </div>
+      )}
       <div className="content_price">
-        <div className="min"> {min} </div>
+        <div className="min"> {min === "" ? "XX-XX-XX" : min} </div>
         <div className="divider_price"> à </div>
-        <div className="max"> {max} </div>
+        <div className="max"> {max === "" ? "XX-XX-XX" : max} </div>
       </div>
       <div className="opener" onClick={handleModal}>
         <ArrowSwipeRight />
@@ -54,12 +72,7 @@ const DateSection = (props: DateSectionProps) => {
       <AnimatePresence>
         {openModal && (
           <Hider animate="showUp" classCss="glassy">
-            <DateRange
-              closer={handleModal}
-              callBack={handleMinMax}
-              min={min}
-              max={max}
-            />
+            <DateRange closer={handleModal} callBack={handleMinMax} min={min} max={max} />
           </Hider>
         )}
       </AnimatePresence>
@@ -88,13 +101,11 @@ const DateRange = (props: DateIntervalProps) => {
   const handleValidate = () => {
     let debut = new Date(min);
     let fin = new Date(max);
-    if (debut >= fin) {
+    if (min === "" || max == "") {
+      addNotifs("error", "Veuiller remplir tous les dates", 1500);
+    } else if (debut >= fin) {
       //
-      addNotifs(
-        "error",
-        "La date de début doit être supérieure au date de fin",
-        1500
-      );
+      addNotifs("error", "La date de début doit être supérieure au date de fin", 1500);
       //
     } else {
       if (props.callBack) props.callBack(min, max);
@@ -111,22 +122,8 @@ const DateRange = (props: DateIntervalProps) => {
         </div>
 
         <div className="date_ranger_section">
-          <Input
-            title="Date Debut"
-            fullWidth
-            name="date_debut"
-            type="date"
-            onChange={handleMin}
-            defaultValue={min}
-          />
-          <Input
-            title="Date Fin"
-            fullWidth
-            defaultValue={max}
-            name="date_fin"
-            type="date"
-            onChange={handleMax}
-          />
+          <Input title="Date Debut" fullWidth name="date_debut" type="date" onChange={handleMin} defaultValue={min} />
+          <Input title="Date Fin" fullWidth defaultValue={max} name="date_fin" type="date" onChange={handleMax} />
         </div>
 
         <button onClick={handleValidate}> Valider </button>

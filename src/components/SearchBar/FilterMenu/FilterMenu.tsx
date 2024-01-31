@@ -21,9 +21,9 @@ const FilterMenu = (props: FilterMenuProps) => {
     setFormData((data_old: any) => ({ ...data_old, [data.name]: data.value }));
   };
 
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
+  const clearMe = (name: string) => {
+    formData[name] = null;
+  };
 
   return (
     <div className="filter_menu" style={{ top: props.top + "px", right: props.right + "px" }}>
@@ -47,15 +47,23 @@ const FilterMenu = (props: FilterMenuProps) => {
       </MenuSection>
 
       <MenuSection title="Echelle des prix">
-        <PriceRangeSection callback={handleForm} min={1000000} max={200000000} name="prices" unit="Ar" diff={100} />
+        <PriceRangeSection
+          clear={clearMe}
+          callback={handleForm}
+          min={1000000}
+          max={200000000}
+          name="prices"
+          unit="Ar"
+          diff={100}
+        />
       </MenuSection>
 
       <MenuSection title="Date de publication">
-        <DateSection callback={handleForm} name="dates" />
+        <DateSection clear={clearMe} callback={handleForm} name="dates" />
       </MenuSection>
 
       <MenuSection title="Etat voiture">
-        <PriceRangeSection callback={handleForm} min={0} max={10} unit="" name="etats" diff={1} />
+        <PriceRangeSection clear={clearMe} callback={handleForm} min={0} max={10} unit="" name="etats" diff={1} />
       </MenuSection>
 
       <div className="handler">
@@ -69,7 +77,7 @@ const FilterMenu = (props: FilterMenuProps) => {
             props.apply(formData);
           }}
         >
-          VALIDER{" "}
+          VALIDER
         </div>
       </div>
     </div>

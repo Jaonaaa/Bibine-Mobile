@@ -46,16 +46,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (connected) connect();
-    
     else disconnect();
   }, [connected]);
 
   return (
     <IonApp>
-    
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/main" component={HomePage}></Route>
+          <Route path="/main" component={HomePage} />
           <Route path="/splash" component={Welcome} />
           <Route path="/log" component={Login} />
           <Route path="/profile" component={Profile} />

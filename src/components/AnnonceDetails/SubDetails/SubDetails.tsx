@@ -64,7 +64,7 @@ const SubDetails = (props: AnnonceData) => {
     <div className="sub_container">
       {notifs.map((notif) => notif)}
       <div className="state_product">
-        {state === 0 ? (
+        {state === 2 ? (
           <div className="state sold_out">Article non disponible </div>
         ) : (
           <div className={`state in_stock ${loaded ? "" : "skeleton"}`}>Article disponible </div>
@@ -78,9 +78,7 @@ const SubDetails = (props: AnnonceData) => {
       <div className="header">
         <div className="price_box">
           <div className="upper">
-            <div className="price_text">
-              {loaded ? PriceParser(prix) : <span className="blank_price skeleton"> </span>}{" "}
-            </div>
+            <div className="price_text">{loaded ? PriceParser(prix) : <span className="blank_price skeleton"> </span>} </div>
             <div className="unit"> Ar </div>
           </div>
           <div className="under">

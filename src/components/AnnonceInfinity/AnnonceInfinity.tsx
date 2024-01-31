@@ -6,14 +6,14 @@ import { alaivoGet } from "../../utils/Alaivo";
 import { AnnonceData } from "../../data/Types";
 import "./AnnonceInfinity.sass";
 import Loader from "../Loader/Loader";
+import EmptyIcon from "../../assets/icons/EmptyIcon";
 
 interface AnnonceBox {
   category?: string;
 }
 
 const AnnonceInfinity = (props: AnnonceBox) => {
-  const [count, setCount] = useState(4);
-  const { annonces, load, offset, btnAddOn, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } = useGetData(
+  const { annonces, load, noResult, btnAddOn, getAnnonces, getAnnoncesSupp, annoncesSupp, loadSupp, resetPlus } = useGetData(
     props.category
   );
   const addNewAnnonce = () => {
@@ -23,6 +23,7 @@ const AnnonceInfinity = (props: AnnonceBox) => {
     resetPlus();
     getAnnonces();
   }, [props.category]);
+
   return (
     <div className="annonce_infinity_container">
       {!load
@@ -32,12 +33,22 @@ const AnnonceInfinity = (props: AnnonceBox) => {
       {annoncesSupp.map((k, index) => (
         <AnnonceBox {...k} key={index} loadedContent={true} />
       ))}
+      {load && noResult ? (
+        <div className="no_result_container">
+          <div className="icon">
+            <EmptyIcon />
+          </div>
+          <div className="text">Aucun résultat trouvé !</div>
+        </div>
+      ) : (
+        ""
+      )}
 
       {!loadSupp ? (
         <div className="loader_supp_container">
           <Loader />
         </div>
-      ) : btnAddOn ? (
+      ) : !noResult && btnAddOn ? (
         <div className="add_new_annonce">
           <ButtonCartoon callback={addNewAnnonce} text="Afficher plus" icon={<AddIcon />} />
         </div>
@@ -56,6 +67,7 @@ const useGetData = (props: any) => {
   const [countPages, setCountPages] = useState(999);
   const [loadSupp, setLoadedSupp] = useState(true);
   const [btnAddOn, setBtnAddOn] = useState(true);
+  const [noResult, setNoResult] = useState(false);
 
   useEffect(() => {
     getPagesCount();
@@ -72,6 +84,7 @@ const useGetData = (props: any) => {
   };
 
   const getAnnonces = async () => {
+    setNoResult(false);
     setLoaded(false);
     let res = null;
     if (props.id === "*")
@@ -79,6 +92,8 @@ const useGetData = (props: any) => {
     else res = (await alaivoGet(`bibine/actu/type/${props.id}/annonces`, null, true)) as any;
     setLoaded(true);
     let annocs = res.data as AnnonceData[];
+    if (annocs.length === 0) setNoResult(true);
+    else setNoResult(false);
     setAnnonces(annocs);
   };
 
@@ -104,7 +119,7 @@ const useGetData = (props: any) => {
     setAnnoncesSupp((ans) => [...ans, ...annocs]);
   };
 
-  return { annonces, annoncesSupp, load, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus, offset, btnAddOn };
+  return { annonces, annoncesSupp, load, noResult, getAnnonces, getAnnoncesSupp, loadSupp, resetPlus, offset, btnAddOn };
 };
 
 export default AnnonceInfinity;

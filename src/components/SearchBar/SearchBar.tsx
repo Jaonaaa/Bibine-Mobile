@@ -7,6 +7,7 @@ import FilterMenu from "./FilterMenu/FilterMenu";
 import { setUpFormData } from "./SearchFunc";
 import { alaivoPost } from "../../utils/Alaivo";
 import "./SearchBar.sass";
+import useMyNotifs from "../../utilsComponent/Notif/useNotifs";
 
 interface SearchBarProps {
   hideHeader: (state: boolean) => {};
@@ -20,6 +21,7 @@ const SearchBar = (props: SearchBarProps) => {
   const [filterOn, setFilterOn] = useState(false);
   const filterBox = useRef<HTMLDivElement>(null);
   const searchBar = useRef<HTMLInputElement>(null);
+  const { addNotifs, notifs } = useMyNotifs();
 
   const { position, getPosition } = usePosition(filterBox);
 
@@ -47,6 +49,7 @@ const SearchBar = (props: SearchBarProps) => {
     setFetching(true);
     let res = (await alaivoPost("bibine/actu/annonces/search", JSON.stringify(newForm), null, true)) as any;
     setFetching(false);
+    if (res.data.length === 0) addNotifs("info", "Aucun résultat pour votre recherche", 2000);
     addAnnonces(res.data);
   };
 
@@ -66,6 +69,7 @@ const SearchBar = (props: SearchBarProps) => {
 
   return (
     <form className="search_bar_box" onSubmit={handleSearch}>
+      {notifs.map((notif) => notif)}
       <button onClick={handleSearch}>
         <div className="icon_search center">
           <SearchIcon />

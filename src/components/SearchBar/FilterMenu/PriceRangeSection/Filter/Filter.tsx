@@ -18,12 +18,8 @@ const Filter = (props: FilterProps) => {
   let [min, max] = [props.min, props.max];
   const [minValue, setMinValue] = useState(props.current_min);
   const [maxValue, setMaxValue] = useState(props.current_max);
-  const [leftSlider, setLeftSlider] = useState(
-    getPercent(props.current_min, props.max)
-  );
-  const [rightSlider, setRightSlider] = useState(
-    getPercent(props.current_max, props.max)
-  );
+  const [leftSlider, setLeftSlider] = useState(getPercent(props.current_min, props.max));
+  const [rightSlider, setRightSlider] = useState(getPercent(props.current_max, props.max));
 
   const handleMinValue = (e: any) => {
     let value = e.target.value === "" ? min : e.target.value;
@@ -42,8 +38,9 @@ const Filter = (props: FilterProps) => {
   };
   const checkDiff = (min: number, max: number) => {
     let diff = max - min;
-    if (diff < props.diff) return false;
-    else return true;
+    // if (diff < props.diff) return false;
+    //else
+    return true;
   };
   useEffect(() => {
     props.callBack(minValue, maxValue);
@@ -51,29 +48,17 @@ const Filter = (props: FilterProps) => {
 
   return (
     <div className="filter_container">
-      <div className="title">Filter</div>
+      <div className="title"></div>
       <div className="form_content">
         <div className="input_text_row">
           <div className="block">
             <label htmlFor="min">Min </label>
-            <input
-              type="text"
-              onChange={handleMinValue}
-              value={minValue}
-              name=""
-              id="min"
-            />
+            <input type="text" onChange={handleMinValue} value={minValue} name="" id="min" />
           </div>
           <div className="space"> - </div>
           <div className="block">
             <label htmlFor="max">Max </label>
-            <input
-              type="text"
-              onChange={hanldeMaxValue}
-              value={maxValue}
-              name=""
-              id="max"
-            />
+            <input type="text" onChange={hanldeMaxValue} value={maxValue} name="" id="max" />
           </div>
         </div>
 

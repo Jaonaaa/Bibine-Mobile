@@ -15,6 +15,7 @@ import Search from "../Search/Search";
 import Parameter from "../../../components/Parameter/Parameter";
 import { storage } from "../../../data/storage";
 import { URL_message } from "../../../utils/Alaivo";
+import Propositions from "../../../components/Propositions/Propositions";
 
 export const paths = [
   {
@@ -57,6 +58,14 @@ export const pathsSideMenu = [
     page: "Faire une annonce",
     component: AddAnnonce,
     pageIn: true,
+    icon: <AddAnnonceIcon />,
+    connected: true,
+  },
+  {
+    path: "/main/propositions",
+    page: "Propositions",
+    pageIn: true,
+    component: Propositions,
     icon: <AddAnnonceIcon />,
     connected: true,
   },

@@ -16,6 +16,7 @@ import useAddAnnonce from "./useAddAnnonce";
 import Hider from "../Hider/Hider";
 import { AnimatePresence } from "framer-motion";
 import "./AddAnnonce.sass";
+import ValidationModal from "../../utilsComponent/Modal/Validation/ValidationModal";
 
 const AddAnnonce: React.FC = () => {
   const {
@@ -31,7 +32,11 @@ const AddAnnonce: React.FC = () => {
     sending,
     percent,
     sendAll,
+    finished,
   } = useAddAnnonce();
+
+  const finishedContent =
+    "Votre annonce a bien été enregistrer et est maintenant em attente de validation par les admins de Bibine. ";
 
   return (
     <PageTemplate
@@ -48,6 +53,17 @@ const AddAnnonce: React.FC = () => {
 
       {notifs.map((notif) => notif)}
       {sending && <Hider classCss="glassy" loader />}
+      {finished && (
+        <ValidationModal
+          content={finishedContent}
+          cancelOn={false}
+          callBack={() => {
+            window.location.href = "/main/home";
+          }}
+          validationText="Revenir à la page d'acceuil"
+          title="Annonce enregistré !!"
+        />
+      )}
       <div className="container_add_annonce_all">
         <FormAnnonce
           uploaded={upLoaded}

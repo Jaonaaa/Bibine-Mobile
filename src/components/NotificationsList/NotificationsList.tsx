@@ -3,8 +3,8 @@ import NotifsBlock from "./NotifsBlock/NotifsBlock";
 import { useEffect, useState } from "react";
 import { getUser } from "../../data/storage";
 import { alaivoGet } from "../../utils/Alaivo";
-import "./NotificationsList.sass";
 import { IonRefresher, IonRefresherContent, RefresherEventDetail } from "@ionic/react";
+import "./NotificationsList.sass";
 
 const NotificationsList: React.FC = () => {
   const { loaded, notifications, getAllNotifs } = useGetData();
