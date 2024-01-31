@@ -1,5 +1,6 @@
 import React from "react";
 import ArrowRight from "../../../assets/icons/ArrowRight";
+import Cat from "../../../assets/img/cat.jpg";
 import "./CardPropositions.sass";
 
 const CardPropositions = () => {
@@ -8,9 +9,15 @@ const CardPropositions = () => {
       <div className="head">
         <div className="title"> Audi | Audi 43 GT </div>
         <div className="pics">
-          <div className="pic sender"></div>
-          <div className="pic receiver"></div>
-          <div className="pic annonce-car"></div>
+          <div className="pic sender">
+            <img src={Cat} alt="" />
+          </div>
+          <div className="pic receiver">
+            <img src={Cat} alt="" />
+          </div>
+          <div className="pic annonce-car">
+            <img src={Cat} alt="" />
+          </div>
         </div>
       </div>
       <div className="under_head">

@@ -1,15 +1,6 @@
 import { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
-import {
-  IonIcon,
-  IonLabel,
-  IonMenu,
-  IonRouterOutlet,
-  IonSplitPane,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-} from "@ionic/react";
+import { IonIcon, IonLabel, IonMenu, IonRouterOutlet, IonSplitPane, IonTabBar, IonTabButton, IonTabs } from "@ionic/react";
 
 import Home from "../Home/Home";
 import Search from "../Search/Search";
@@ -80,26 +71,13 @@ const HomePage = (props: HomePageProps) => {
 
               {pathsSideMenu.map((path, index) => {
                 return path.pageIn ? (
-                  <Route
-                    key={index}
-                    path={path.path}
-                    component={path.component}
-                    exact
-                  />
+                  <Route key={index} path={path.path} component={path.component} exact />
                 ) : (
                   <Route path="/main/home" key={index} component={Home} exact />
                 );
               })}
-              <Route
-                path="/main/annonce/:id"
-                component={AnnonceDetails}
-                exact
-              />
-              <Route
-                path="/main/annonce/achat/:id"
-                component={AchatAnnonce}
-                exact
-              />
+              <Route path="/main/annonce/:id" component={AnnonceDetails} exact />
+              <Route path="/main/annonce/achat/:id" component={AchatAnnonce} exact />
 
               <Redirect exact from="/main" to="/main/home" />
             </IonRouterOutlet>
@@ -110,19 +88,10 @@ const HomePage = (props: HomePageProps) => {
                   key={index}
                   tab={path.page}
                   href={path.path}
-                  className={`${
-                    isTabSelected(path.path) ? "selected" : "tab_nav"
-                  }`}
+                  className={`${isTabSelected(path.path) ? "selected" : "tab_nav"}`}
                   selected={isTabSelected(path.path)}
                 >
-                  <IonIcon
-                    className="tab_icon"
-                    icon={
-                      isTabSelected(path.path)
-                        ? path.iconFilled
-                        : path.iconOutline
-                    }
-                  />
+                  <IonIcon className="tab_icon" icon={isTabSelected(path.path) ? path.iconFilled : path.iconOutline} />
                   <IonLabel className="tab_label"> {path.page}</IonLabel>
                 </IonTabButton>
               ))}
