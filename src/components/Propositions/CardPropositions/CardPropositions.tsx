@@ -40,9 +40,10 @@ const CardPropositions = (props: CardPropositionsProps) => {
 
   const validateTransaction = async () => {
     setSending(true);
-    let res = await alaivoPut("bibine/achat", JSON.stringify(props), null, false);
+    let res = (await alaivoPost("bibine/achat", JSON.stringify({ id: props.id }), null, false)) as any;
     console.log(res);
-    addNotifs("OK", "Félicitation !! L'annonce a bien été acheté :) . Merci de faire confiance a Bibine <3", 2000);
+    if (res.status.status === "error") addNotifs("error", res.status.details, 1500);
+    else addNotifs("OK", "Félicitation !! L'annonce a bien été acheté :) . Merci de faire confiance a Bibine <3", 2000);
     setSending(false);
   };
 

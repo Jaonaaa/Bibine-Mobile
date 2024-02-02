@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CardPropositions, { CardPropositionsProps } from "../CardPropositions/CardPropositions";
-import "./Sended.sass";
 import Loader from "../../Loader/Loader";
 import { alaivoGet } from "../../../utils/Alaivo";
 import { getUser } from "../../../data/storage";
+import "./Sended.sass";
 
 const Sended = () => {
   const { loaded, propositions } = useGetData();
@@ -34,8 +34,13 @@ const useGetData = () => {
 
   const fetchPropo = async () => {
     setLoaded(false);
-    let res = (await alaivoGet(`bibine/user/${user.id}/sent_purchases?offset=0`, null, false)) as any;
-
+    // naka ze rehetra efa lasa ftsny
+    // let res = (await alaivoGet(`bibine/user/${user.id}/sent_purchases?offset=0`, null, false)) as any;
+    // maka ze rehetra efa valider
+    // misy count koa ao
+    let res = (await alaivoGet(`bibine/user/${user.id}/accepted?offset=0`, null, false)) as any;
+    // maka ze rehetra efa valider le transsaction
+    console.log(res);
     setPropositions(res.data);
     setLoaded(true);
   };
