@@ -12,7 +12,7 @@ const useUserTime = () => {
   };
 
   const log = () => {
-    if (!firstTime()) window.location.href = storage.homePage;
+    if (!firstTime()) window.location.replace(storage.homePage);
   };
   return { firstTime, closeFirstTime, log };
 };

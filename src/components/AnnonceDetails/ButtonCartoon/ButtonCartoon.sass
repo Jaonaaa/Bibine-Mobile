@@ -70,3 +70,14 @@ $pink-shadow: #bdbdbd7c
         &::before
             box-shadow: 0 0 0 2px $pink-border, 0 0 $pink-shadow
             transform: translate3d(0, 0, -1em)
+
+.disabled
+    background: #b2b0b0
+    border: 2px solid #7d7b7b
+    &::before
+        background: #b2b0b0
+        box-shadow: 0 0 0 2px #787676, 0 0.625em 0 0 #8d84843b
+    &:hover
+        background: #9a9090
+        &::before
+            background: #9a9090

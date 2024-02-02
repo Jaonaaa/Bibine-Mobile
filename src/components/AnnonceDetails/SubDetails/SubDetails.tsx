@@ -10,7 +10,7 @@ import { URL_message, alaivoDelete, alaivoPost } from "../../../utils/Alaivo";
 import ValidationModal from "../../../utilsComponent/Modal/Validation/ValidationModal";
 import { AnimatePresence } from "framer-motion";
 import { AnnonceData } from "../../../data/Types";
-import { getUser } from "../../../data/storage";
+import { getUser, storage } from "../../../data/storage";
 import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
 
 import "./SubDetails.sass";
@@ -86,7 +86,7 @@ const SubDetails = (props: AnnonceData) => {
           </div>
         </div>
         <div className="icon">
-          <Message loaded={loaded} />
+          <Message loaded={loaded} addNotifs={addNotifs} user={user} />
           <div
             className={`fav ico ${user ? (fav ? "fav_on" : "") : ""}`}
             onClick={() => {
@@ -97,6 +97,9 @@ const SubDetails = (props: AnnonceData) => {
                   addToFavorites();
                 }
               }
+              if (user === null) {
+                addNotifs("info", "Vous devez être connecté avant de pouvoir faire cette action.", 1500);
+              }
             }}
           >
             {loadFav ? <Loader size="1.2rem" /> : <FavoriIcon />}
@@ -106,8 +109,16 @@ const SubDetails = (props: AnnonceData) => {
       <div className="content_sub">
         <ButtonCartoon
           icon={loaded ? <CartIcon /> : null}
+          className={state === 2 ? "disabled" : ""}
           callback={() => {
-            if (loaded) to_forward("/main/annonce/achat/" + vendeur?.idvendeur);
+            if (state === 2) {
+              addNotifs("info", "L'article n'est plus disponible", 1500);
+            } else if (user === null) {
+              addNotifs("info", "Vous devez être connecté avant de pouvoir poursuivre vers l'achat de cette article.", 1500);
+            } else if (loaded) {
+              localStorage.setItem(storage.price_, "" + prix);
+              to_forward("/main/annonce/achat/" + props.id);
+            }
           }}
           text={loaded ? "Acheter" : "(* ￣︿￣)"}
         />
@@ -121,6 +132,8 @@ interface MessageProps {
   idSeller?: string;
   idAnnonce?: string;
   loaded?: boolean;
+  addNotifs: (status: "OK" | "warning" | "info" | "error" | "succes" | "star", details: string, timer: number) => void;
+  user: any;
 }
 const Message = (props: MessageProps) => {
   const [messageRedirectionOn, setMessageRedirection] = useState(false);
@@ -146,7 +159,9 @@ const Message = (props: MessageProps) => {
       <div
         className="message ico"
         onClick={() => {
-          if (props.loaded) setMessageRedirection(true);
+          if (props.user === null)
+            props.addNotifs("info", "Vous devez être connecté avant de pouvoir faire cette action.", 1500);
+          else if (props.loaded) setMessageRedirection(true);
         }}
       >
         <MessageAnnonceIcon />

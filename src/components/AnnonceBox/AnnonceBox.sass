@@ -68,8 +68,16 @@
                 display: flex
                 align-items: center
                 flex-wrap: nowrap
+
+                max-width: 60%
                 @include breakpoints.break_XSM()
                     font-size: 0.92rem
+
+                .text
+                    font-family: "Sora_SM"
+                    white-space: nowrap
+                    text-overflow: ellipsis
+                    overflow: hidden
                 .unit
                     font-family: "Poppins_L"
                     margin-left: 0.5rem

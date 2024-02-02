@@ -16,6 +16,7 @@ import Parameter from "../../../components/Parameter/Parameter";
 import { storage } from "../../../data/storage";
 import { URL_message } from "../../../utils/Alaivo";
 import Propositions from "../../../components/Propositions/Propositions";
+import PropositionsIcon from "../../../assets/icons/PropositionsIcon";
 
 export const paths = [
   {
@@ -66,7 +67,7 @@ export const pathsSideMenu = [
     page: "Propositions",
     pageIn: true,
     component: Propositions,
-    icon: <AddAnnonceIcon />,
+    icon: <PropositionsIcon />,
     connected: true,
   },
   {

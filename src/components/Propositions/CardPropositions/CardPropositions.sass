@@ -1,7 +1,7 @@
 .card_proposition
     width: 100%
-    min-height: 10rem
-    height: 10rem
+    min-height: 11rem
+    height: 11rem
     box-shadow: 0 0 0.1rem 0.1rem #c1c0c04d
     border-radius: 0.2rem
     margin-bottom: 1rem
@@ -21,8 +21,11 @@
             .pic
                 min-height: 2rem
                 min-width: 2rem
+                height: 2rem
+                width: 2rem
                 position: absolute
                 background: #fdb8b8
+                border: 2px solid #fff
                 border-radius: 50%
                 overflow: hidden
                 display: flex
@@ -30,16 +33,17 @@
                 align-items: center
                 img
                     width: 100%
+                    height: 100%
                     object-fit: cover
 
             .sender
                 right: 0
                 z-index: 2
-                background: #7de6e6
+                background: #000000
             .receiver
                 right: 2.25rem
                 z-index: 2
-                background: #894eb4
+                background: #000000
                 top: 1.75rem
             .annonce-car
                 right: 0.5rem
@@ -47,6 +51,8 @@
                 z-index: 1
                 min-height: 3.2rem
                 min-width: 3.2rem
+                height: 3.2rem
+                width: 3.2rem
     .head
         margin-bottom: 0.5rem
         align-items: flex-start
@@ -59,26 +65,50 @@
         align-items: center
         .date
             color: #7373739d
-            font-size: 0.79rem
+            font-size: 0.7rem
             font-weight: bolder
             display: flex
             align-items: center
+            margin-right: 0.5rem
             .icon
                 width: 0.8rem
                 height: 0.8rem
-                background: #fda8a8
                 margin-right: 0.3rem
+                display: flex
+                justify-content: center
+                margin-top: -0.19rem
+                align-items: center
+                svg
+                    path
+                        fill: #7373739d
             .text
                 display: flex
                 align-items: flex-end
                 align-self: baseline
-
+    .price
+        width: 100%
+        display: flex
+        align-items: center
+        margin-top: 0.5rem
+        .text
+            font-size: 1.3rem
+            font-family: Sora_R
+            font-weight: bolder
+        .unit
+            margin-left: 0.3rem
+            font-size: 0.7rem
+            font-family: Sora_R
+            margin-top: 0.3rem
     .bottom
         margin-top: auto
+
         .status
             display: flex
-            justify-content: center
+            justify-content: flex-start
             align-items: center
+            max-width: 80%
+            flex-wrap: wrap
+
             .stat_block
                 font-size: 0.72rem
                 padding: 0.15rem 1.15rem
@@ -87,24 +117,36 @@
                 justify-content: center
                 align-items: flex-end
                 height: 1.6rem
+                margin: 0.1rem 0.1rem 0.1rem 0
+                white-space: nowrap
             .waiting
                 background: #edef51
                 color: #7e8015
+                font-weight: bolder
+            .validate
+                background: #89f67a
+                color: #228111
                 font-weight: bolder
         .buttons
             display: flex
             align-items: center
             .btn
-                padding: 0.15rem 0.2rem 0.15rem 1rem
+                padding: 0.48rem 0.8rem 0.4rem 1rem
                 border-radius: 0.2rem
+                background: #000
+                cursor: pointer
+                color: #fff
                 display: flex
                 align-items: center
                 .text
-                    font-size: 0.8rem
+                    font-size: 0.7rem
                     font-weight: bolder
                 .icon
                     display: flex
                     justify-content: center
                     align-items: center
-                    width: 1.3rem
+                    width: 0.9rem
                     margin-left: 0.25rem
+                    svg
+                        path
+                            stroke: #fff

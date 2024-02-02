@@ -1,15 +1,8 @@
 export const PriceParser = (price: string | number | undefined) => {
-  let response: string = "";
-  price = `${price}`;
-  let counter: number = 0;
-  for (let i = price.length - 1; i >= 0; i--) {
-    response = price[i] + response;
-    counter++;
-    if (counter % 3 === 0) {
-      response = " " + response;
-    }
-  }
-  return response.trim().replace(" ", ".");
+  if (price === "" || price === null || price === undefined) return "0";
+  return price
+    .toLocaleString("en-US", { style: "decimal", minimumFractionDigits: 0, maximumFractionDigits: 0 })
+    .replace(/,/g, ".");
 };
 
 export default PriceParser;

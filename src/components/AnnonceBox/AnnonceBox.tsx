@@ -63,7 +63,9 @@ const AnnonceBox = (props: AnnonceData) => {
                 {year()} | {props.motor?.nom} | {props.modele?.type.nom}
               </div>
               <div className="price">
-                {props.prix ? PriceParser(props.prix) : getNumberPrice(10000, 500000)} <div className="unit"> Ar </div>
+                <div className="text">{props.prix ? PriceParser(props.prix) : getNumberPrice(10000, 500000)}</div>
+
+                <div className="unit"> Ar </div>
               </div>
               <div className="marchand">
                 <div className="avatar">

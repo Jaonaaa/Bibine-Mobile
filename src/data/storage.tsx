@@ -9,6 +9,8 @@ export const storage = {
   user: "user",
   refresh_token: "refresh_token",
   details_user: "details_user",
+  /// aaza gaga
+  price_: "kjgfkjdhhkjffjkdsf",
 };
 
 export interface messageStruct {

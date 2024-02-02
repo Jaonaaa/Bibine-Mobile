@@ -50,6 +50,7 @@ const SideMenu = (paths: SideMenuTabProps) => {
       localStorage.removeItem(storage.user);
       localStorage.removeItem(storage.refresh_token);
       localStorage.removeItem(storage.details_user);
+      localStorage.removeItem(storage.price_);
 
       window.location.href = "/main/home";
       return true;
