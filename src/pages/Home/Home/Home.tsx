@@ -14,13 +14,12 @@ import AvatarToogler from "../AvatarToogler/AvatarToogler";
 import AnnonceSlider from "../../../components/AnnonceSlider/AnnonceSlider";
 import { useEffect, useState } from "react";
 import AnnonceInfinity from "../../../components/AnnonceInfinity/AnnonceInfinity";
-
 import useUserConnectivity from "../../../hooks/useUserConnectivity";
 import OfflineIndicator from "../../../components/OfflineIndicator/OfflineIndicator";
-import "./Home.sass";
-import { alaivoGet } from "../../../utils/Alaivo";
 import Loader from "../../../components/Loader/Loader";
+import { alaivoGet } from "../../../utils/Alaivo";
 import { capitalizeFirstLetter } from "../../../utils/Format";
+import "./Home.sass";
 
 const types_predef = [
   {

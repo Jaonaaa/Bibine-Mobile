@@ -1,4 +1,4 @@
-import React, { FormEvent, cloneElement, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { inputsSeventh } from "./InputsData";
 import { resizeFile } from "../../utils/Files";
 import { alaivoPost } from "../../utils/Alaivo";
@@ -22,7 +22,6 @@ const useAddAnnonce = () => {
   };
 
   useEffect(() => {
-    // console.log(formData);
     if (count_loaded === targetLoadContent) setLoadedAll(true);
   }, [count_loaded]);
 
@@ -54,6 +53,65 @@ const useAddAnnonce = () => {
     });
   };
 
+  const handleSecondForm = (e: FormEvent) => {
+    e.preventDefault();
+    if (formData["year"] === null || formData["year"] === "")
+      addNotifs("error", "Veuiller fournir l'année de sortie de la voiture", 2000);
+    else {
+      let date = new Date(formData["year"]);
+      const currentDate = new Date(); // current date
+      const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      if (date > firstDayOfMonth) addNotifs("error", "L'année de sortie ne peut pas être supérieur a aujourd'hui", 2000);
+      else {
+        setPercent((percent) => percent + 100);
+      }
+    }
+  };
+
+  const handleFifthForm = (e: FormEvent) => {
+    e.preventDefault();
+    if (formData["kilometre"] === null || formData["kilometre"] === "")
+      addNotifs("error", "Veuiller fournir un kilometrage", 2000);
+    else if (formData["consommation"] === null || formData["consommation"] === "") {
+      addNotifs("error", "Veuiller fournir une consommation", 2000);
+    } else if (+formData["consommation"] < 0 || +formData["kilometre"] < 0) {
+      addNotifs("error", "Les valeurs ne peuvent pas être négatives", 2000);
+    } else if (+formData["consommation"] === 0) {
+      addNotifs("error", "Consommation invalide", 2000);
+    } else setPercent((percent) => percent + 100);
+  };
+
+  const handleSeventhForm = (e: FormEvent) => {
+    e.preventDefault();
+    if (formData["pictures"] === null || formData["pictures"] === "") {
+      addNotifs("error", "Veuiller entrer au moins 1 image", 2000);
+    } else if (formData["pictures"].length === 0) addNotifs("error", "Veuiller entrer au moins 1 image", 2000);
+    else setPercent((percent) => percent + 100);
+  };
+
+  const handleNineth = () => {
+    if (formData["prix"] === null || formData["prix"] === "") {
+      addNotifs("error", "Veuiller entrer un prix", 2000);
+    } else if (+formData["prix"] <= 0) addNotifs("error", "Le prix doit être supérieure a 0", 2000);
+    else return true;
+  };
+
+  const handleEighthForm = (e: FormEvent) => {
+    e.preventDefault();
+    if (formData["vendeur"] === null || formData["vendeur"] === "")
+      addNotifs("error", "Veuiller préciser que vous êtes le propriétaire N°? de cette voiture ", 2000);
+    else if (formData["etat"] === null || formData["etat"] === "") {
+      addNotifs("error", "Veuiller donner l'état de cette voiture sur 10", 2000);
+    } else if (+formData["vendeur"] < 0 || +formData["etat"] < 0) {
+      addNotifs("error", "Les valeurs ne peuvent pas être négatives", 2000);
+    } else if (+formData["etat"] === 0) {
+      addNotifs("error", "L'etat de cette voiture est trop bas :(", 2000);
+    } else if (+formData["vendeur"] === 0) {
+      //
+      addNotifs("error", "Veuillez entrer le nombre 1 si vous êtes le premier propriétaire de cette voiture  ", 2000);
+    } else setPercent((percent) => percent + 100);
+  };
+
   const back = (e: FormEvent) => {
     e.preventDefault();
     setPercent((percent) => percent - 100);
@@ -67,14 +125,16 @@ const useAddAnnonce = () => {
   //
   const sendAll = async (e: FormEvent) => {
     e.preventDefault();
-    setSending(true);
-    let data = { ...formData };
-    data = await reformData(data);
-    let user = getUser();
-    await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false);
-    addNotifs("OK", "Annonce enregistré", 2000);
-    setSending(false);
-    setFinished(true);
+    if (handleNineth()) {
+      setSending(true);
+      let data = { ...formData };
+      data = await reformData(data);
+      let user = getUser();
+      await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false);
+      addNotifs("OK", "Annonce enregistré", 2000);
+      setSending(false);
+      setFinished(true);
+    }
   };
 
   const reformData = async (data: any) => {
@@ -108,6 +168,11 @@ const useAddAnnonce = () => {
   };
 
   return {
+    handleSecondForm,
+    handleFifthForm,
+    handleSeventhForm,
+    handleEighthForm,
+    handleNineth,
     formData,
     handleInput,
     next,

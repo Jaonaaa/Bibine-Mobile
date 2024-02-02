@@ -33,6 +33,11 @@ const AddAnnonce: React.FC = () => {
     percent,
     sendAll,
     finished,
+    handleSecondForm,
+    handleFifthForm,
+    handleSeventhForm,
+    handleEighthForm,
+    handleNineth,
   } = useAddAnnonce();
 
   const finishedContent =
@@ -81,7 +86,7 @@ const AddAnnonce: React.FC = () => {
           callBack={handleInput}
           formData={formData}
           back={back}
-          next={next}
+          next={handleSecondForm}
           inputs={inputsSecond}
           index={1}
           percent={percent}
@@ -112,7 +117,7 @@ const AddAnnonce: React.FC = () => {
           callBack={handleInput}
           formData={formData}
           back={back}
-          next={next}
+          next={handleFifthForm}
           inputs={inputsFifth}
           index={4}
           percent={percent}
@@ -133,7 +138,7 @@ const AddAnnonce: React.FC = () => {
           callBack={handleInput}
           formData={formData}
           back={back}
-          next={next}
+          next={handleSeventhForm}
           inputs={inputsSeventh}
           index={6}
           percent={percent}
@@ -155,7 +160,7 @@ const AddAnnonce: React.FC = () => {
           callBack={handleInput}
           formData={formData}
           back={back}
-          next={next}
+          next={handleEighthForm}
           inputs={inputsEighth}
           index={7}
           percent={percent}
