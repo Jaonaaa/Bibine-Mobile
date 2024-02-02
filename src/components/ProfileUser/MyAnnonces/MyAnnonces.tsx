@@ -41,11 +41,7 @@ const useGetData = () => {
   const getAllTypes = async () => {
     setloaded(false);
     let user = getUser();
-    let res = (await alaivoGet(
-      "bibine/actu/user/" + user.id + "/own_annonces",
-      null,
-      true
-    )) as any;
+    let res = (await alaivoGet("bibine/actu/user/" + user.id + "/own_annonces?limit=10", null, true)) as any;
     setloaded(true);
     setAnnonces(res.data);
   };

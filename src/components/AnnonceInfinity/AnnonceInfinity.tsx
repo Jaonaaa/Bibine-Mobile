@@ -38,7 +38,10 @@ const AnnonceInfinity = (props: AnnonceBox) => {
           <div className="icon">
             <EmptyIcon />
           </div>
-          <div className="text">Aucun résultat trouvé !</div>
+          <div className="text">
+            {/* <div className="__">¯\_(ツ)_/¯</div> */}
+            <div className="none">Aucun résultat trouvé !</div>
+          </div>
         </div>
       ) : (
         ""
@@ -78,9 +81,28 @@ const useGetData = (props: any) => {
     if (offset[0] !== 0) getAnnoncesSuppLoad();
   }, [offset]);
 
+  useEffect(() => {
+    setOffset([0, 5]);
+    getPagesCountTyped();
+  }, [props.id]);
+
+  useEffect(() => {
+    if (offset[0] + 2 >= countPages) {
+      setBtnAddOn(false);
+    }
+  }, [countPages]);
+
   const getPagesCount = async () => {
     let res = (await alaivoGet("bibine/actu/valid_annonces/pagination?limit=5", null, true)) as any;
     setCountPages(res.data);
+  };
+
+  const getPagesCountTyped = async () => {
+    let res = (await alaivoGet(`bibine/actu/types/${props.id}/pagination?limit=5`, null, true)) as any;
+    setCountPages(res.data);
+    if (offset[0] + 2 >= res.data) {
+      setBtnAddOn(false);
+    }
   };
 
   const getAnnonces = async () => {
@@ -112,8 +134,15 @@ const useGetData = (props: any) => {
 
   const getAnnoncesSuppLoad = async () => {
     setLoadedSupp(false);
-    let res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
-    // ampio anleh pagination par type eto /: condition or * sa typer
+    let res = null;
+    if (props.id === "*")
+      res = (await alaivoGet(`bibine/actu/pagination/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
+    else
+      res = (await alaivoGet(
+        `bibine/actu/type/${props.id}/annonces?offset=${offset[0]}&limit=${offset[1]}`,
+        null,
+        true
+      )) as any;
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
     setAnnoncesSupp((ans) => [...ans, ...annocs]);

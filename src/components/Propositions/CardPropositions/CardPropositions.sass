@@ -1,7 +1,7 @@
 .card_proposition
     width: 100%
-    min-height: 11rem
-    height: 11rem
+    min-height: 12.5rem
+    height: 12.5rem
     box-shadow: 0 0 0.1rem 0.1rem #c1c0c04d
     border-radius: 0.2rem
     margin-bottom: 1rem
@@ -63,6 +63,7 @@
     .under_head
         display: flex
         align-items: center
+        margin-bottom: 0.6rem
         .date
             color: #7373739d
             font-size: 0.7rem
@@ -85,15 +86,23 @@
                 display: flex
                 align-items: flex-end
                 align-self: baseline
+
     .price
         width: 100%
         display: flex
         align-items: center
         margin-top: 0.5rem
+        .pres
+            font-size: 0.7rem
+            margin-right: 0.5rem
         .text
-            font-size: 1.3rem
+            font-size: 1.2rem
             font-family: Sora_R
             font-weight: bolder
+            max-width: 70%
+            white-space: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
         .unit
             margin-left: 0.3rem
             font-size: 0.7rem
@@ -120,7 +129,7 @@
                 margin: 0.1rem 0.1rem 0.1rem 0
                 white-space: nowrap
             .waiting
-                background: #edef51
+                background: #efefbc
                 color: #7e8015
                 font-weight: bolder
             .validate

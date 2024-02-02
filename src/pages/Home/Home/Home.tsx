@@ -89,6 +89,7 @@ const Home: React.FC = () => {
       <hr />
       <IonContent fullscreen className="padding">
         {!connected ? <OfflineIndicator /> : ""}
+        {activeTab.id !== "*" && <div className="title_type"> {capitalizeFirstLetter(activeTab.nom)}</div>}
         {notifs.map((notif) => notif)}
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>

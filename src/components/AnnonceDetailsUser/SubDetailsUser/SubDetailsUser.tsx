@@ -3,12 +3,12 @@ import { AnnonceData } from "../../../data/Types";
 import PriceParser from "../../../utils/Format";
 
 const SubDetailsUser = (props: AnnonceData) => {
-  const { vendeur, stock, state, prix, favoris, loaded } = props;
+  const { vendeur, stock, state, prix, favoris, loaded, validity } = props;
 
   return (
     <div className="sub_container">
       <div className="state_product">
-        {state === 2 ? (
+        {validity === 1 ? (
           <div className="state sold_out">Article non disponible </div>
         ) : (
           <div className={`state in_stock ${loaded ? "" : "skeleton"}`}>Article disponible </div>

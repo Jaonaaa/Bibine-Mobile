@@ -23,7 +23,7 @@ const DevPage = () => {
 
 const BonusDev = () => {
   const { connectSpecicifed, sendPrivateMessage, stompClient, disconnect } = useConnectServer();
-  const [formData, setFormData] = useState({ URL: "car-production-3a7c.up.railway.app", target: "", message: "" });
+  const [formData, setFormData] = useState({ URL: "bibine-production.up.railway.app", target: "", message: "" });
   const [hiderOn, setHiderOn] = useState(false);
   const { notifs, addNotifs } = useMyNotifs();
   useEffect(() => {

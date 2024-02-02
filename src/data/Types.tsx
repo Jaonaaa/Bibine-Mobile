@@ -75,5 +75,6 @@ export interface AnnonceData {
   favoris?: string[];
   date?: string;
   description?: string;
+  validity?: number;
   couleur?: CouleurData;
 }

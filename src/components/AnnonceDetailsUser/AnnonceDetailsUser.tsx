@@ -15,7 +15,7 @@ interface AnnonceDetailsProps {
 }
 const AnnonceDetailsUser = () => {
   const { id } = useParams<AnnonceDetailsProps>();
-  const { annonce, getAnnonce } = useGetData(id);
+  const { annonce, getAnnonce, setAnnonce } = useGetData(id);
 
   const scrollToDetails = () => {
     let details = document.getElementById("details_annonnce_container");
@@ -36,11 +36,7 @@ const AnnonceDetailsUser = () => {
   return (
     <PageTemplate
       tiltePage={
-        annonce !== null ? (
-          annonce.modele?.nom + " " + annonce.brand?.nom
-        ) : (
-          <div className="skeleton full_bar_title"></div>
-        )
+        annonce !== null ? annonce.modele?.nom + " " + annonce.brand?.nom : <div className="skeleton full_bar_title"></div>
       }
       subtitle={
         annonce !== null ? (
@@ -54,11 +50,7 @@ const AnnonceDetailsUser = () => {
         <div className="annonce_user">
           <div className="profile">
             <div className="avatar">
-              {annonce !== null ? (
-                <img src={annonce.vendeur?.profile} />
-              ) : (
-                <div className="avatar_blank skeleton"></div>
-              )}
+              {annonce !== null ? <img src={annonce.vendeur?.profile} /> : <div className="avatar_blank skeleton"></div>}
             </div>
             <div className="user_data">
               <div className="name">
@@ -75,7 +67,7 @@ const AnnonceDetailsUser = () => {
         <hr />
         <SubDetailsUser loaded={annonce ? true : false} {...annonce} />
         <DetailsAnnonceUser loaded={annonce ? true : false} {...annonce} />
-        <EditStatus />
+        <EditStatus annonce={annonce} setAnnonce={setAnnonce} />
       </div>
     </PageTemplate>
   );
@@ -97,7 +89,7 @@ const useGetData = (id: any) => {
     setAnnonce(annoc);
   };
 
-  return { annonce, load, getAnnonce };
+  return { annonce, load, getAnnonce, setAnnonce };
 };
 
 export default AnnonceDetailsUser;

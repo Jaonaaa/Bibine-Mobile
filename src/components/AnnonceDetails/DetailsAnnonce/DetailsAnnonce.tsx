@@ -27,6 +27,7 @@ const DetailsAnnonce = (props: AnnonceData) => {
           dangerouslySetInnerHTML={loaded ? desc() : { __html: "" }}
         ></div>
       </div>
+
       <div className="box">
         <div className="title">
           <div className="icon">

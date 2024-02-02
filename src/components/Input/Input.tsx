@@ -97,6 +97,7 @@ function Input({
             autoComplete="true"
             type={type}
             multiple
+            accept="image/*"
             name={name}
             id={name}
             onChange={handleValueFile}

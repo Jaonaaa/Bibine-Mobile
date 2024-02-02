@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageTemplate from "../PageTemplate/PageTemplate";
-import AnnonceBox from "../AnnonceBox/AnnonceBox";
 import { useParams } from "react-router-dom";
-import PriceParser, { getNumberPrice, getRandomNumber } from "../../utils/Format";
-import "./AchatAnnonce.sass";
+import PriceParser, { getNumberPrice } from "../../utils/Format";
 import Input from "../Input/Input";
 import HelperText from "../AddAnnonce/HelperText/HelperText";
 import ButtonCartoon from "../AnnonceDetails/ButtonCartoon/ButtonCartoon";
 import Hider from "../Hider/Hider";
 import { AnimatePresence } from "framer-motion";
 import MyPropositions from "./MyPropositions/MyPropositions";
+import { getUser, storage } from "../../data/storage";
+import { alaivoGet, alaivoPost } from "../../utils/Alaivo";
+import useMyNotifs from "../../utilsComponent/Notif/useNotifs";
+import "./AchatAnnonce.sass";
+import Loader from "../Loader/Loader";
 
 interface AchatAnnonce {
   id: string; //idAnnonce alaiana avy am path erry ambony
@@ -17,39 +20,79 @@ interface AchatAnnonce {
 const AchatAnnonce = () => {
   const { id } = useParams<AchatAnnonce>();
   const [transactionOn, setTransactionOn] = useState(false);
+  const { addNotifs, amount, onSend, notifs } = useGetData();
+  const [amountEntered, setAmountEntered] = useState(0);
+  const price_article = localStorage.getItem(storage.price_);
+  const user = getUser();
+  const buy = async () => {
+    if (checkAmountValide()) {
+      setTransactionOn(true);
 
-  const price_article = getRandomNumber(10000, 500000);
+      let data = {
+        annonce: id,
+        montant: amountEntered,
+      };
 
-  const buy = () => {
-    setTransactionOn(true);
-    setTimeout(() => {
+      console.log(data);
+      let res = await alaivoPost(`bibine/user/${user.id}/purchases`, JSON.stringify(data), null, false);
+      console.log(res);
       setTransactionOn(false);
-    }, 2000);
+    }
   };
+
+  const checkAmountValide = () => {
+    if (price_article)
+      if (+amountEntered >= +price_article) {
+        return true;
+      } else {
+        addNotifs("error", "La somme entrer est inférieur au prix de l'article", 1750);
+        return false;
+      }
+  };
+
+  const getOut = () => {
+    let price_annonce = localStorage.getItem(storage.price_);
+    if (price_annonce === null) {
+      window.history.back();
+    }
+  };
+
+  useEffect(() => {
+    setAmountEntered(amount);
+  }, [onSend]);
+
+  const handleAmount = (e: any) => {
+    setAmountEntered(e.target.value);
+  };
+
+  getOut();
 
   return (
     <PageTemplate tiltePage="Paiement" subtitle="Article : Audi T9 AZ-REIM ">
+      {notifs.map((notif) => notif)}
       <div className="row_annonce">
         <div className="label">Mon solde </div>
         <div className="value">
-          <div className="price">{getNumberPrice(150000, 250000)}</div>
+          <div className="price">{onSend ? <Loader size="1.6rem" /> : PriceParser(amount)}</div>
           <div className="unit">Ar</div>
         </div>
       </div>
       <div className="row_annonce">
         <div className="label">Prix de l'article </div>
         <div className="value">
-          <div className="price">{PriceParser(price_article)}</div>
+          <div className="price">
+            {onSend ? <Loader size="1.6rem" /> : PriceParser(price_article !== null ? (+price_article as any) : 0)}
+          </div>
           <div className="unit">Ar</div>
         </div>
       </div>
       <Input
-        defaultValue={"" + price_article}
+        defaultValue={"" + amountEntered}
         type="number"
         title="Votre prix"
         fullWidth
         name="my_price"
-        onChange={() => {}}
+        onChange={handleAmount}
       />
       <HelperText textHelp="Le vendeur sera notifié de votre proposition d'achat et le montant entré sera automtiquement déduit de votre compte en cas de validation de votre offre d'achat par le vendeur" />
       <ButtonCartoon callback={buy} text="Valider" className="btn_validation_achat" />
@@ -64,4 +107,22 @@ const AchatAnnonce = () => {
   );
 };
 
+const useGetData = () => {
+  const { addNotifs, notifs } = useMyNotifs();
+  const [amount, setAmount] = useState(0);
+  const [onSend, setOnSend] = useState(false);
+  const user = getUser();
+
+  const getAmout = async () => {
+    setOnSend(true);
+    let res = (await alaivoGet(`bibine/user/${user.id}/solde`, null, false)) as any;
+    setOnSend(false);
+    setAmount(res.data);
+  };
+
+  useEffect(() => {
+    getAmout();
+  }, []);
+  return { amount, onSend, notifs, addNotifs };
+};
 export default AchatAnnonce;

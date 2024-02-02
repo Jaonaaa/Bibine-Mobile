@@ -17,7 +17,7 @@ import "./SubDetails.sass";
 import Loader from "../../Loader/Loader";
 
 const SubDetails = (props: AnnonceData) => {
-  const { vendeur, stock, state, prix, favoris, loaded } = props;
+  const { vendeur, stock, validity, state, prix, favoris, loaded } = props;
   const { addNotifs, notifs } = useMyNotifs();
   const [fav, setFav] = useState(false);
   const user = getUser();
@@ -64,7 +64,7 @@ const SubDetails = (props: AnnonceData) => {
     <div className="sub_container">
       {notifs.map((notif) => notif)}
       <div className="state_product">
-        {state === 2 ? (
+        {validity === 1 ? (
           <div className="state sold_out">Article non disponible </div>
         ) : (
           <div className={`state in_stock ${loaded ? "" : "skeleton"}`}>Article disponible </div>
