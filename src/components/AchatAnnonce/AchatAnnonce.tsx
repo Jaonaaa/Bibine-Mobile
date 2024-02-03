@@ -33,9 +33,9 @@ const AchatAnnonce = () => {
         montant: amountEntered,
       };
 
-      console.log(data);
       let res = await alaivoPost(`bibine/user/${user.id}/purchases`, JSON.stringify(data), null, false);
       console.log(res);
+      addNotifs("OK", "Votre proposition à bien été envoyé ", 1750);
       setTransactionOn(false);
     }
   };
@@ -101,7 +101,13 @@ const AchatAnnonce = () => {
           Vos propositions <span className="number"> 3 </span>
         </div>
       </div>
-      <AnimatePresence>{transactionOn && <Hider classCss="white" loader></Hider>}</AnimatePresence>
+      <AnimatePresence>
+        {transactionOn && (
+          <Hider classCss="white" loader>
+            <div className="text_hider">Vérification et envoie de la proposition en cours...</div>
+          </Hider>
+        )}
+      </AnimatePresence>
       <MyPropositions />
     </PageTemplate>
   );

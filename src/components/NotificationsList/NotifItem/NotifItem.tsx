@@ -1,5 +1,6 @@
 import React from "react";
 import "./NotifItem.sass";
+import { URL_message } from "../../../utils/Alaivo";
 
 export interface Notif {
   content: string;
@@ -53,7 +54,12 @@ const NotifItem = (props: NotifItemProps) => {
           </div>{" "}
         </>
       ) : (
-        <div className={`item_notif ${props.read ? "" : "unread"}`}>
+        <div
+          className={`item_notif ${props.read ? "" : "unread"}`}
+          onClick={() => {
+            window.location.href = URL_message;
+          }}
+        >
           <div className="avatar">
             <div className="picture">{data?.picturePath ? <img src={data?.picturePath} alt="avatar" /> : "   Je"}</div>
             <div className="icon_categorie"></div>

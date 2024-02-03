@@ -96,8 +96,8 @@ const Home: React.FC = () => {
         </IonRefresher>
         {activeTab.id === "*" ? (
           <>
-            <AnnonceSlider title="Nouveautés" context="news" />
-            <AnnonceSlider title="Populaire" context="popular" />
+            <AnnonceSlider title="Nouveautés" fetching="latest" context="news" />
+            <AnnonceSlider title="Populaire" fetching="" context="popular" />
           </>
         ) : (
           ""

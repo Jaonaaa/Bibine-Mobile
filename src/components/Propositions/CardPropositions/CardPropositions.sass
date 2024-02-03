@@ -9,6 +9,7 @@
     flex-direction: column
     align-items: center
     justify-content: center
+    transition: all 0.5s ease-in-out
     padding: 0.8rem 0.8rem
     .head,.under_head,.bottom
         width: 100%
@@ -140,7 +141,7 @@
             display: flex
             align-items: center
             .btn
-                padding: 0.48rem 0.8rem 0.4rem 1rem
+                padding: 0.48rem 0.8rem 0.4rem 0.8rem
                 border-radius: 0.2rem
                 background: #000
                 cursor: pointer
@@ -150,6 +151,7 @@
                 .text
                     font-size: 0.7rem
                     font-weight: bolder
+                    margin-left: 0.2rem
                 .icon
                     display: flex
                     justify-content: center
@@ -159,3 +161,9 @@
                     svg
                         path
                             stroke: #fff
+.hidden_card
+    height: 0
+    min-height: 0
+    overflow: hidden
+    opacity: 0.5
+    padding: 0 0.8rem

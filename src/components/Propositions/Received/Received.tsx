@@ -3,22 +3,36 @@ import CardPropositions, { CardPropositionsProps } from "../CardPropositions/Car
 import Loader from "../../Loader/Loader";
 import { alaivoGet } from "../../../utils/Alaivo";
 import { getUser } from "../../../data/storage";
+import Empty from "../../ProfileUser/Empty/Empty";
+import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
 
 const Received = () => {
   const { loaded, propositions } = useGetData();
+  const { addNotifs, notifs } = useMyNotifs();
+
   const user = getUser();
 
   return (
     <div className="list_propostions">
+      {notifs.map((notif) => notif)}
+
       {loaded ? (
         propositions.map((k, i) => (
-          <CardPropositions key={i} {...k} sender={k.user.profile} block="receiving" receiver={user.profile} />
+          <CardPropositions
+            key={i}
+            {...k}
+            sender={k.user.profile}
+            block="receiving"
+            receiver={user.profile}
+            addNotifs={addNotifs}
+          />
         ))
       ) : (
         <div className="loader_propo">
           <Loader />
         </div>
       )}
+      {loaded && propositions.length === 0 && <Empty remark="Aucune demande de propositions recues pour l'instant" />}
     </div>
   );
 };

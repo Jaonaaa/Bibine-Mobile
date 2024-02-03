@@ -22,20 +22,23 @@ const DevPage = () => {
 };
 
 const BonusDev = () => {
+  const { notifs, addNotifs } = useMyNotifs();
   const { connectSpecicifed, sendPrivateMessage, stompClient, disconnect } = useConnectServer();
   const [formData, setFormData] = useState({ URL: "bibine-production.up.railway.app", target: "", message: "" });
   const [hiderOn, setHiderOn] = useState(false);
-  const { notifs, addNotifs } = useMyNotifs();
   useEffect(() => {
     return () => {
       disconnect();
     };
   }, []);
 
-  const sendToSpecified = () => {
+  const sendToSpecified = async () => {
     if (stompClient) {
       let message = formData.message.replace(/\\n/g, "\n");
-      sendPrivateMessage(message, formData.target, "https://" + formData.URL + "/");
+      await sendPrivateMessage(message, formData.target, "https://" + formData.URL + "/").catch(() => {
+        addNotifs("OK", "Message envoyé 😗 ", 1500);
+      });
+      addNotifs("OK", "Message envoyé 😗 ", 1500);
     } else {
       addNotifs("error", "Stomp client is not available", 2000);
     }

@@ -4,7 +4,7 @@ import { AnnonceData } from "../../../../data/Types";
 const ListMaintenance = (props: AnnonceData) => {
   const { loaded } = props;
   return (
-    <div className="list">
+    <div className="list__l">
       {loaded
         ? props.maintenance?.map((mana, index) => (
             <div className="row centered_row" key={index}>

@@ -19,14 +19,8 @@ const MySolde = () => {
 
   const getAmout = async () => {
     setOnSend(true);
-    let res = (await alaivoGet(
-      `bibine/user/${user.id}/solde`,
-      null,
-      false
-    )) as any;
-    console.log(res.data);
+    let res = (await alaivoGet(`bibine/user/${user.id}/solde`, null, false)) as any;
     setOnSend(false);
-
     setAmount(res.data);
   };
   useEffect(() => {
@@ -47,9 +41,7 @@ const MySolde = () => {
       tiltePage="Mon Solde"
       subtitle="La somme de votre solde utilisable dans l'application Bibine sera affcihé ici"
     >
-      <AnimatePresence>
-        {onSend && <Hider loader classCss="glassy" />}
-      </AnimatePresence>
+      <AnimatePresence>{onSend && <Hider loader classCss="glassy" />}</AnimatePresence>
       {notifs.map((notif) => notif)}
       <div className="solde_container">
         <div className="carte_solde" id="recharge_modal">
@@ -82,12 +74,7 @@ const MySolde = () => {
 
 const SmallArrowRightIcon = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="4.479"
-      height="7.453"
-      viewBox="0 0 4.479 7.453"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="4.479" height="7.453" viewBox="0 0 4.479 7.453">
       <path
         id="Tracé_356"
         data-name="Tracé 356"

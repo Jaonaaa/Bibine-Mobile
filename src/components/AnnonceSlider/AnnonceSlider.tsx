@@ -1,7 +1,6 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import { IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
 import ArrowRight from "../../assets/icons/ArrowRight";
 import AnnonceBox from "../AnnonceBox/AnnonceBox";
-import "./AnnonceSlider.sass";
 import { useEffect, useRef, useState } from "react";
 import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
 import { AnnonceData } from "../../data/Types";
@@ -9,6 +8,7 @@ import { alaivoGet } from "../../utils/Alaivo";
 import ButtonCartoon from "../AnnonceDetails/ButtonCartoon/ButtonCartoon";
 import AddIcon from "../../assets/icons/AddIcon";
 import Loader from "../Loader/Loader";
+import "./AnnonceSlider.sass";
 
 interface AnnonceSliderProps {
   title: string;
@@ -16,11 +16,14 @@ interface AnnonceSliderProps {
   loadedContent?: boolean;
   context: string;
   category?: string;
+  fetching: string;
 }
 
 const AnnonceSlider = (props: AnnonceSliderProps) => {
   const modal = useRef<HTMLIonModalElement>(null);
-  const { annonces, load, getAnnonces, getAnnoncesSupp, btnAddOn, annoncesSupp, loadSupp, resetPlus } = useGetData();
+  const { annonces, load, getAnnonces, getAnnoncesSupp, btnAddOn, annoncesSupp, loadSupp, resetPlus } = useGetData(
+    props.fetching
+  );
 
   const close = () => {
     modal.current?.dismiss();
@@ -94,7 +97,7 @@ const AnnonceSlider = (props: AnnonceSliderProps) => {
   );
 };
 
-const useGetData = () => {
+const useGetData = (fetching: string) => {
   const [annonces, setAnnonces] = useState<AnnonceData[]>([]);
   const [annoncesSupp, setAnnoncesSupp] = useState<AnnonceData[]>([]);
   const [offset, setOffset] = useState([0, 5]);
@@ -114,12 +117,15 @@ const useGetData = () => {
 
   const getPagesCount = async () => {
     let res = (await alaivoGet("bibine/actu/valid_annonces/pagination?limit=5", null, true)) as any;
+    // console.log(res);
     setCountPages(res.data);
   };
 
   const getAnnonces = async () => {
     setLoaded(false);
-    let res = (await alaivoGet(`bibine/actu/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
+    let res = null;
+    if (fetching === "latest") res = (await alaivoGet("bibine/actu/annonces/recentes", null, true)) as any;
+    else res = (await alaivoGet(`bibine/actu/annonces?offset=${offset[0]}&limit=${offset[1]}`, null, true)) as any;
     setLoaded(true);
     let annocs = res.data as AnnonceData[];
     setAnnonces(annocs);
@@ -127,7 +133,7 @@ const useGetData = () => {
 
   const getAnnoncesSupp = () => {
     setOffset((old) => [old[0] + 1, old[1]]);
-    if (offset[0] + 2 >= countPages) {
+    if (offset[0] + 2 > countPages) {
       setBtnAddOn(false);
     }
   };

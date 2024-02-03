@@ -30,8 +30,8 @@ const AnnonceInfinity = (props: AnnonceBox) => {
         ? [...Array(5).keys()].map((k, index) => <AnnonceBox key={index} loadedContent={load} />)
         : annonces.map((k, index) => <AnnonceBox {...k} key={index} loadedContent={load} />)}
 
-      {annoncesSupp.map((k, index) => (
-        <AnnonceBox {...k} key={index} loadedContent={true} />
+      {annoncesSupp.map((k) => (
+        <AnnonceBox {...k} key={k.id} loadedContent={true} />
       ))}
       {load && noResult ? (
         <div className="no_result_container">
@@ -39,7 +39,6 @@ const AnnonceInfinity = (props: AnnonceBox) => {
             <EmptyIcon />
           </div>
           <div className="text">
-            {/* <div className="__">¯\_(ツ)_/¯</div> */}
             <div className="none">Aucun résultat trouvé !</div>
           </div>
         </div>
@@ -83,11 +82,11 @@ const useGetData = (props: any) => {
 
   useEffect(() => {
     setOffset([0, 5]);
-    getPagesCountTyped();
+    if (props.id !== "*") getPagesCountTyped();
   }, [props.id]);
 
   useEffect(() => {
-    if (offset[0] + 2 >= countPages) {
+    if (offset[0] + 2 >= countPages && load) {
       setBtnAddOn(false);
     }
   }, [countPages]);
@@ -121,7 +120,7 @@ const useGetData = (props: any) => {
 
   const getAnnoncesSupp = () => {
     setOffset((old) => [old[0] + 1, old[1]]);
-    if (offset[0] + 2 >= countPages) {
+    if (offset[0] + 2 > countPages) {
       setBtnAddOn(false);
     }
   };
@@ -145,6 +144,9 @@ const useGetData = (props: any) => {
       )) as any;
     setLoadedSupp(true);
     let annocs = res.data as AnnonceData[];
+    if (annocs.length === 0 || annocs.length < offset[1]) {
+      setBtnAddOn(false);
+    }
     setAnnoncesSupp((ans) => [...ans, ...annocs]);
   };
 

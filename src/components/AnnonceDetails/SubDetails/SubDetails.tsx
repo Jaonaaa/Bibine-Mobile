@@ -106,12 +106,13 @@ const SubDetails = (props: AnnonceData) => {
           </div>
         </div>
       </div>
+
       <div className="content_sub">
         <ButtonCartoon
           icon={loaded ? <CartIcon /> : null}
-          className={state === 2 ? "disabled" : ""}
+          className={validity === 1 ? "disabled" : ""}
           callback={() => {
-            if (state === 2) {
+            if (validity === 1) {
               addNotifs("info", "L'article n'est plus disponible", 1500);
             } else if (user === null) {
               addNotifs("info", "Vous devez être connecté avant de pouvoir poursuivre vers l'achat de cette article.", 1500);

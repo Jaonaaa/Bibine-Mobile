@@ -5,7 +5,7 @@ import "./List.sass";
 const List = (props: AnnonceData) => {
   const { loaded } = props;
   return (
-    <div className="list">
+    <div className="list__l">
       {loaded ? (
         <>
           {props.caracteristic?.map((carac, index) => (

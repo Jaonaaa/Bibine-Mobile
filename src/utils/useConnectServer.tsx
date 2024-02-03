@@ -90,7 +90,7 @@ export const useConnectServer = () => {
     alert("SockJS connection closed");
   };
 
-  const sendPrivateMessage = (message: string, receiver: string | null, URL: string) => {
+  const sendPrivateMessage = async (message: string, receiver: string | null, URL: string) => {
     if (stompClient) {
       let user = getUser();
       let messageToSent = {
@@ -101,7 +101,9 @@ export const useConnectServer = () => {
         receiverEmail: receiver,
       };
       /////
-      alaivoPost(`new_url${URL}send-message`, JSON.stringify(messageToSent), null, false);
+      await alaivoPost(`new_url${URL}send-message`, JSON.stringify(messageToSent), null, false).catch((err) => {
+        return "Error sending message";
+      });
     } else alert("Connection au serveur non établie ￣へ￣ ");
   };
 
