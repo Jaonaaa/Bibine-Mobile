@@ -129,11 +129,11 @@ const FormSignUp = () => {
     const targetDate = new Date(dtn);
     const today = new Date();
     const fiveYearsAgo = new Date();
-    fiveYearsAgo.setFullYear(today.getFullYear() - 5);
+    fiveYearsAgo.setFullYear(today.getFullYear() - 18);
     if (targetDate < fiveYearsAgo) {
       return true;
     } else {
-      addNotifs("error", "Il faut être supérieur à au moins 5 ans pour s'inscrire chez Bibine ", 2200);
+      addNotifs("error", "Il faut être supérieur à au moins 18 ans pour s'inscrire chez Bibine ", 2200);
       return false;
     }
   };

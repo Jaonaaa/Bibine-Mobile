@@ -130,7 +130,14 @@ const useAddAnnonce = () => {
       let data = { ...formData };
       data = await reformData(data);
       let user = getUser();
-      await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false);
+      await alaivoPost("bibine/user/" + user.id + "/annonces", JSON.stringify(data), null, false).catch((err) => {
+        setSending(false);
+        addNotifs(
+          "error",
+          "Une erreur s'est produit pendant le transfert de votre annonce,veuillez attendre et réessayer.",
+          2000
+        );
+      });
       addNotifs("OK", "Annonce enregistré", 2000);
       setSending(false);
       setFinished(true);

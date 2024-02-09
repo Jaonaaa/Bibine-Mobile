@@ -40,6 +40,7 @@
             align-items: center
             font-family: Sora_R
             font-size: 0.85rem
+            color: var(--text-color)
             @include breakpoints.break_XSM()
                 font-size: 0.75rem
             .quantity
@@ -78,6 +79,8 @@
                     text-overflow: ellipsis
                     color: #272626
                     margin-right: .5rem
+                    color: var(--text-color)
+
                     @include breakpoints.break_XSM()
                         font-size: 1.54rem
                     .blank_price
@@ -103,6 +106,10 @@
                 display: flex
                 justify-content: center
                 align-items: center
+                svg
+                    path
+                        stroke: var(--text-color)
+
         .user_price_box
             margin: auto
         .icon
@@ -124,10 +131,16 @@
                 transition: all 0.2s ease-in-out
                 &:hover
                     background: #f9ffff
+                svg
+                    path:not([fill="none"])
+                        fill: var(--text-color)
+                    path:not([stroke="none"])
+                        // stroke: var(--text-color)
+
             .message
                 margin: 0 1rem 0 0
 
             .fav_on
                 svg
                     path
-                        fill: var(--ion-color-secondary)
+                        fill: var(--ion-color-secondary) !important

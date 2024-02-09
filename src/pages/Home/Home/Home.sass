@@ -8,7 +8,7 @@
         top: 0
         width: 1rem
         height: 100%
-        background: linear-gradient(90deg,#fff,#fff,transparent )
+        background: linear-gradient(90deg,var(--bg-color-body),var(--bg-color-body),transparent )
         z-index: 2
     &::after
         content: ""
@@ -17,7 +17,7 @@
         top: 0
         width: 1rem
         height: 100%
-        background: linear-gradient(90deg,transparent,#fff,#fff )
+        background: linear-gradient(90deg,transparent,var(--bg-color-body),var(--bg-color-body) )
         z-index: 2
     &::-webkit-scrollbar
         display: none
@@ -26,6 +26,8 @@
     padding: 0.2rem 1rem 0.2rem 0.2rem
     display: flex
     width: auto
+    &::-webkit-scrollbar
+        display: none
     .chip
         max-width: 8rem
         overflow: hidden
@@ -38,14 +40,15 @@
         @include breakpoints.break_XSM()
             min-width: 5.1rem
     ion-chip
-        color: #525151
-        border: 1px solid #525151c2
+        color: var(--color-chip)
+        border: 1px solid var(--border-chip)
         max-width: 7rem
+        background: var(--bg-chip)
 
     .active-chip
-        color: #fff
-        background: #000000
-        border-color: #000000
+        color: var(--color-chip-on)
+        background: var(--bg-chip-on)
+        border-color: var(--border-chip-on)
     .loading_menu
         display: flex
         justify-content: center
@@ -60,7 +63,7 @@
     font-weight: bolder
     font-size: 1.55rem
     letter-spacing: 0.045rem
-    color: #353535
+    color: var(--text-bold-color)
     margin-left: 0.2rem
     margin-bottom: -2.4rem
     pointer-events: none

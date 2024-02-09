@@ -30,9 +30,20 @@ const SearchBar = (props: SearchBarProps) => {
     setSearchText(e.target.value);
   };
 
-  const handleSearch = (e: any) => {
+  const handleSearch = async (e: any) => {
     e.preventDefault();
+
     hideFilter();
+    setFetching(true);
+    let res = (await alaivoPost(
+      "bibine/actu/annonces/search",
+      JSON.stringify({ description: searchText }),
+      null,
+      true
+    )) as any;
+    setFetching(false);
+    if (res.data.length === 0) addNotifs("info", "Aucun résultat pour votre recherche", 2000);
+    addAnnonces(res.data);
   };
 
   const clearSearch = () => {

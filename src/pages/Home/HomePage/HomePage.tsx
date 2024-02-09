@@ -13,15 +13,12 @@ import useExit from "../../../hooks/useExit";
 import { paths, pathsSideMenu } from "./PathsHome";
 import useNotification from "../../../hooks/useNotifications";
 import useUserTime from "../../../hooks/useUserTime";
-
-import "./HomePage.sass";
 import DevPage from "../../../components/Parameter/DevPage/DevPage";
 import AchatAnnonce from "../../../components/AchatAnnonce/AchatAnnonce";
+import { useDefaultTheme } from "../../../theme/Theme";
+import "./HomePage.sass";
 
-interface HomePageProps {
-  sendingMessage: Function;
-}
-const HomePage = (props: HomePageProps) => {
+const HomePage = () => {
   useExit();
   const { closeFirstTime, firstTime } = useUserTime();
   const { changeStatusBar } = useStatusBar();
@@ -33,7 +30,8 @@ const HomePage = (props: HomePageProps) => {
       WelcomeUser();
     }
     setTimeout(() => {
-      changeStatusBar();
+      // changeStatusBar();
+      useDefaultTheme();
     }, 750);
   }, []);
 

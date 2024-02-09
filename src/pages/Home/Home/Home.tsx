@@ -91,9 +91,9 @@ const Home: React.FC = () => {
         {!connected ? <OfflineIndicator /> : ""}
         {activeTab.id !== "*" && <div className="title_type"> {capitalizeFirstLetter(activeTab.nom)}</div>}
         {notifs.map((notif) => notif)}
-        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+        {/* <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
-        </IonRefresher>
+        </IonRefresher> */}
         {activeTab.id === "*" ? (
           <>
             <AnnonceSlider title="Nouveautés" fetching="latest" context="news" />

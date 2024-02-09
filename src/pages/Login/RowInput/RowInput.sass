@@ -20,7 +20,8 @@
             position: absolute
             right: 1rem
             top: 55%
-            background: #fff
+            background: var(--bg-color-body )
+
             z-index: 2
             pointer-events: none
             &::after
@@ -32,19 +33,19 @@
                 z-index: 1
                 background: red
                 height: 100%
-                background: #fff
+                background: var(--bg-color-body )
                 pointer-events: none
 
         input
             width: 100%
             padding: 1rem 0.85rem
             outline: none
-            color: #000
+            color: var(--text-color)
             background: transparent
             transition: all 0.2s ease-in-out
             border-radius: 0.12rem
             border: none
-            box-shadow: 0 0 0.1rem 0.05rem #a7a5a5e8
+            box-shadow: 0 0 0.1rem 0.05rem var(--box-shadow-color)
             transition: all 0.2s ease-in-out
             @include breakpoints.break_MD()
                 font-size: 0.87rem
@@ -59,7 +60,7 @@
             pointer-events: none
             top: 48%
             font-size: 0.9rem
-            color: var(--ion-text-color)
+            color: var(--text-color)
             transition: all 0.2s ease-in-out
             left: 1rem
             @include breakpoints.break_MD()
@@ -99,7 +100,7 @@
 
         // padding: 0.3rem
         background: var(--bg-color-body)
-        box-shadow: 0 0 0rem 0.1rem #6765655a
+        box-shadow: 0 0 0rem 0.1rem var(--box-shadow-color)
         @include breakpoints.break_XSM()
             width: 15.5rem
             margin-top: 0.2rem

@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchPageIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" className="arrow-lic">
       <g id="Search" transform="translate(-40 -102)">
         <rect
           id="Rectangle_27"

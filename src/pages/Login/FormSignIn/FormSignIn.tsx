@@ -59,14 +59,7 @@ const FormSignIn = () => {
           <form action="" method="post" onSubmit={handleSubmit}>
             {/* /// check if the email valid */}
             <RowInput title="Email" type="text" id="email" name="email" fullWidth onChange={handleInput} />
-            <RowInput
-              title="Mot de passe"
-              type="password"
-              id="password"
-              name="password"
-              fullWidth
-              onChange={handleInput}
-            />
+            <RowInput title="Mot de passe" type="password" id="password" name="password" fullWidth onChange={handleInput} />
             <div className="button">
               <button>Se connecter</button>
             </div>

@@ -24,7 +24,7 @@
             font-size: 1.55rem
 
             letter-spacing: 0.045rem
-            color: #353535
+            color: var(--text-color)
             @include breakpoints.break_XSM()
                 font-size: 1.3rem
         .linkto
@@ -40,10 +40,13 @@
                 font-size: 0.75rem
             .text
                 margin-right: 0.2rem
+                color: var(--text-color)
 
             svg
                 margin-top: 0.2rem
                 width: 1.2rem
+                path
+                    stroke: var(--text-color)
     .slider_content
         display: flex
         overflow-x: scroll

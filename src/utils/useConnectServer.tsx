@@ -26,7 +26,7 @@ export const useConnectServer = () => {
     stompClient.connect({}, function () {
       setSocket(sock);
       setStompClient(stompClient);
-      //  console.log("Connected");
+      console.log("Connected");
       stompClient.subscribe("/user/topic/private-messages", (message: any) => {
         console.log("Private message ___");
         let data = JSON.parse(message.body) as messageStruct;

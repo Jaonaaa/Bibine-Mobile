@@ -1,11 +1,10 @@
 // @import url('https://fonts.googleapis.com/css?family=Rubik:700&display=swap')
 @use '../../../breakpoints'
-$text: #e5e2e2
-$light-pink: #272727
-$pink: #343534
-$dark-pink: #151515
-$pink-border: #5f5f5f
-$pink-shadow: #bdbdbd7c
+// var(--btn-text): #e5e2e2
+// var(--btn-light-pink): #272727
+// var(--btn-dark-pink): #151515
+// var(--btn-pink-border): #5f5f5f
+// var(--btn-pink-shadow): #bdbdbd7c
 
 .learn-more
     position: relative
@@ -25,12 +24,12 @@ $pink-shadow: #bdbdbd7c
 
 .learn-more
     font-weight: 600
-    color: $text
+    color: var(--btn-text)
     width: 100%
     text-transform: uppercase
     padding: 1.25em 2em
-    background: $light-pink
-    border: 2px solid $pink-border
+    background: var(--btn-light-pink)
+    border: 2px solid var(--btn-pink-border)
     border-radius: 0.75em
     transform-style: preserve-3d
     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1)
@@ -51,24 +50,24 @@ $pink-shadow: #bdbdbd7c
         left: 0
         right: 0
         bottom: 0
-        background: $dark-pink
+        background: var(--btn-dark-pink)
         border-radius: inherit
-        box-shadow: 0 0 0 2px $pink-border, 0 0.625em 0 0 $pink-shadow
+        box-shadow: 0 0 0 2px var(--btn-pink-border), 0 0.625em 0 0 var(--btn-pink-shadow)
         transform: translate3d(0, 0.75em, -1em)
         transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1)
 
     &:hover
-        background: $pink
+        background: var(--btn-pink)
         transform: translate(0, 0.25em)
         &::before
-            box-shadow: 0 0 0 2px $pink-border, 0 0.5em 0 0 $pink-shadow
+            box-shadow: 0 0 0 2px var(--btn-pink-border), 0 0.5em 0 0 var(--btn-pink-shadow)
             transform: translate3d(0, 0.5em, -1em)
 
     &:active
-        background: $pink
+        background: var(--btn-pink)
         transform: translate(0em, 0.75em)
         &::before
-            box-shadow: 0 0 0 2px $pink-border, 0 0 $pink-shadow
+            box-shadow: 0 0 0 2px var(--btn-pink-border), 0 0 var(--btn-pink-shadow)
             transform: translate3d(0, 0, -1em)
 
 .disabled

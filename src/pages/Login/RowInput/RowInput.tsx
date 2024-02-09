@@ -76,7 +76,7 @@ const RowInput = ({
               )}
             </label>
 
-            <input style={{ display: "none" }} type="file" id={id} name={name} onChange={handleValueFile} />
+            <input style={{ display: "none" }} accept="image/*" type="file" id={id} name={name} onChange={handleValueFile} />
           </>
         ) : (
           <>

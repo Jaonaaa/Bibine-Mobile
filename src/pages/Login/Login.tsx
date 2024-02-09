@@ -4,12 +4,14 @@ import FormSignUp from "./FormSignUp/FormSignUp";
 import { IonPage, IonRouterOutlet } from "@ionic/react";
 import { Redirect, Route } from "react-router";
 import useStatusBar from "../../hooks/useStatusBar";
+import { useDefaultTheme } from "../../theme/Theme";
 import "./Login.sass";
 
 const Login = () => {
   const { changeStatusBar } = useStatusBar();
   useEffect(() => {
     changeStatusBar();
+    useDefaultTheme();
   }, []);
   return (
     <IonPage>

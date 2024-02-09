@@ -71,7 +71,7 @@ export const pathsSideMenu = [
     connected: true,
   },
   {
-    path: URL_message,
+    path: URL_message + "message/my-profile/" + localStorage.getItem(storage.token),
     page: "Messages",
     pageIn: false,
     component: Search,

@@ -42,10 +42,10 @@ const AchatAnnonce = () => {
 
   const checkAmountValide = () => {
     if (price_article)
-      if (+amountEntered >= +price_article) {
+      if (+amountEntered > 0) {
         return true;
       } else {
-        addNotifs("error", "La somme entrer est inférieur au prix de l'article", 1750);
+        addNotifs("error", "La somme entrer doit etre positive ou superieur a 0", 1750);
         return false;
       }
   };
@@ -97,9 +97,9 @@ const AchatAnnonce = () => {
       <HelperText textHelp="Le vendeur sera notifié de votre proposition d'achat et le montant entré sera automtiquement déduit de votre compte en cas de validation de votre offre d'achat par le vendeur" />
       <ButtonCartoon callback={buy} text="Valider" className="btn_validation_achat" />
       <div className="proposition">
-        <div className="label" id="my_propositions">
+        {/* <div className="label" id="my_propositions">
           Vos propositions <span className="number"> 3 </span>
-        </div>
+        </div> */}
       </div>
       <AnimatePresence>
         {transactionOn && (
@@ -108,7 +108,7 @@ const AchatAnnonce = () => {
           </Hider>
         )}
       </AnimatePresence>
-      <MyPropositions />
+      {/* <MyPropositions /> */}
     </PageTemplate>
   );
 };

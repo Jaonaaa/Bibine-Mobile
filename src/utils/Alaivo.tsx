@@ -1,7 +1,8 @@
+import { storage } from "../data/storage";
 import { getHeader, getHeaderAuthJWT } from "../hooks/useIdentity";
 
-export const URL = "https://bibine-production.up.railway.app/";
-export const URL_message = "https://main--serene-mooncake-d83e90.netlify.app/?t=" + localStorage.getItem("token");
+export const URL = "https://bibine-production-f3c6.up.railway.app/";
+export const URL_message = "https://main--serene-mooncake-d83e90.netlify.app/";
 
 const rebuildURL = (url = "") => {
   if (url.indexOf("new_url") !== -1) return url.replace("new_url", "");

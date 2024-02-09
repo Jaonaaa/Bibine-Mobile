@@ -1,5 +1,7 @@
+@use '../breakpoints'
 ion-header
     box-shadow: none !important
+    background: var(--bg-color-body)
 
 .skeleton
     animation: skeleton-loading 1s linear infinite alternate
@@ -12,3 +14,14 @@ ion-header
     to
         background-color: hsl(0deg 1.83% 36.41% / 74%)
         color: transparent
+
+    /////import css-variables from 
+
+.toolbar-container
+    background: var(--bg-color-body)
+
+ion-toolbar
+    --ion-background-color: ar(--bg-color-body)
+    --background: var(--bg-color-body)
+ion-content
+    --background: var(--bg-color-body)

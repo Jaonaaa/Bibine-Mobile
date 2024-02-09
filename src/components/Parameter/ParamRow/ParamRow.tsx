@@ -7,6 +7,7 @@ interface ParamRowProps {
   callback?: MouseEventHandler<HTMLDivElement>;
   component: React.ReactNode;
   label: string;
+  default?: Boolean;
 }
 const ParamRow: React.FC<ParamRowProps> = (props) => {
   const { type, callback, component, label } = props;

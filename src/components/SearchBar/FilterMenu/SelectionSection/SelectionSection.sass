@@ -13,7 +13,8 @@
         .categorie_item
             width: fit-content
             padding: 0.33rem 1rem 0.33rem 1.3rem
-            background: #000000 //var(--primary)// linear-gradient(45deg,var(--primary),var(--secondary) )
+            background: var(--primary)
+            //var(--primary)// linear-gradient(45deg,var(--primary),var(--secondary) )
             color: #fff
             display: flex
             align-items: center
@@ -47,11 +48,12 @@
     flex-direction: column
     align-items: flex-start
     justify-content: flex-start
-    background: #fff
+    background: var(--bg-color-body)
     width: 77vw
     max-height: 60vh
     position: relative
     padding: 1rem 0.8rem 1rem 1rem
+
     @include breakpoints.break_XSM()
         width: 70vw
         padding: 0.9rem 0.7rem 0.9rem 0.9rem
@@ -70,7 +72,7 @@
         background: #b5b2b269
     .title
         font-size: 1.4rem
-        color: #424242
+        color: var(--text-bold-color)
         font-family: Sora_SM
         width: 100%
         margin-bottom: 1.2rem
@@ -85,7 +87,7 @@
         @include breakpoints.break_XSM()
             height: 2rem
         .label
-            color: #474646
+            color: var(--text-color)
             font-weight: bolder
             font-size: 1.05rem
             white-space: nowrap
@@ -116,6 +118,8 @@
         justify-content: flex-start
         max-height: 80%
         overflow-y: scroll
+        &::-webkit-scrollbar
+            display: none
         .row_item
             width: 100%
             display: flex
@@ -124,7 +128,7 @@
             @include breakpoints.break_XSM()
                 min-height: 2.8rem
             .label
-                color: #474646
+                color: var(--text-color)
                 font-weight: bolder
                 font-size: 1.05rem
                 white-space: nowrap

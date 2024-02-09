@@ -37,12 +37,14 @@ import "./theme/variables.css";
 
 import "./theme/App.sass";
 import "./index.css";
+import { useDefaultTheme } from "./theme/Theme";
 
 setupIonicReact();
 
 const App: React.FC = () => {
   const { connect, disconnect } = useConnectServer();
   const { connected } = useUserConnectivity(false);
+  useDefaultTheme();
 
   useEffect(() => {
     if (connected) connect();

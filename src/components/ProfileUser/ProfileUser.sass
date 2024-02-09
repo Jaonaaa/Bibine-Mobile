@@ -34,13 +34,14 @@ ion-item
             .value
                 font-family: Poppins_B
                 font-weight: bolder
-                color: #000000
+                color: var(--text-bold-color)
                 font-size: 1.3rem
                 margin-bottom: 0.3rem
                 @include breakpoints.break_XSM()
                     font-size: 1.1rem
             .label
-                color: #525151
+                color: var(--text-color)
+                opacity: 0.7
                 font-size: 0.9rem
                 @include breakpoints.break_XSM()
                     font-size: 0.76rem
@@ -62,6 +63,7 @@ ion-item
         .username
             font-family: "Sora_SM"
             font-size: 1.2rem
+            color: var(--text-bold-color)
             margin-top: 1.8rem
             @include breakpoints.break_XSM()
                 font-size: 1rem
@@ -74,7 +76,7 @@ ion-item
             justify-content: center
             white-space: nowrap
             align-items: center
-            color: #fff
+            color: var(--text-bold-color)
 
             font-size: 3.4rem
             border-radius: 50%
@@ -87,6 +89,7 @@ ion-item
                 position: absolute
                 left: 50%
                 top: 50%
+                color: var(--text-bold-color)
                 transform: translate(-50%,-50%)
             .picture_box
                 position: absolute
@@ -111,7 +114,7 @@ ion-item
                 bottom: 0.3rem
                 min-width: 2.2rem
                 min-height: 2.2rem
-                background: #fff
+                background: var(--bg-body-color)
                 display: flex
                 z-index: 3
                 justify-content: center
@@ -156,19 +159,21 @@ ion-item
     position: relative
     margin-top: 1.5rem
     ion-label
-        color: #000000
+        background: transparent
+
         @include breakpoints.break_XSM()
             font-size: 0.78rem
 
     ion-segment-button 
-        background: #ffffff
-        color: #dbddde
+        background: transparent
+        color: var(--text-color)
         --indicator-color: linear-gradient(70deg,var(--ion-color-primary),var(--ion-color-secondary))
         --indicator-height: 2.1px
     .divider
         width: 100%
         height: 1px
-        background: #817f7f99
+        background: var(--text-color)
+        opacity: 0.3
         margin-top: -0.05rem
         z-index: 0
     .container
@@ -180,8 +185,10 @@ ion-item
         max-height: 50vh
         overflow-y: scroll
         padding: 1rem 0.2rem
-        background: #ffffff
+        background: var(--bg-color-body)
         width: 100%
+        &::-webkit-scrollbar
+            display: none
         .list_annonce
             display: flex
             align-items: center

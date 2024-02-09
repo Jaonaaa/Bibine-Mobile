@@ -50,7 +50,9 @@ const useGetData = () => {
     setLoaded(false);
     let res = (await alaivoGet(`bibine/user/${user.id}/valid/purchases?offset=0`, null, false)) as any;
     console.log(res);
-    setPropositions(res.data);
+    let data = res.data.filter((data: any) => +data.state !== 3);
+    setPropositions(data);
+
     setLoaded(true);
   };
   return { loaded, propositions };

@@ -1,0 +1,78 @@
+Recherche 
+
+url : bibine/actu/annonces/search
+
+retourne : 
+
+ - Par mot clé 
+    {
+        description : "SUV bla"
+    }
+ - Par filtrage critere bdb 
+  {
+        brands :  [{id: "MKE3", nom: "Honda", state: 1}, {id: "MKE4", nom: "Chevrolet", state: 1}]
+        couleurs : null
+        dateInf :  "2024-01-30T00:00:00.0"
+        dateSup :  "2024-02-08T00:00:00.0"
+        infEtat :  "2"
+        infMontant :  "10202385"
+        modeles : [{id: "MDL48", nom: "Citroën C5 Aircross", places: 5, doors: 4, state: 1, date: "2023-03-20",…},…]
+        supEtat :  "6"
+        supMontant :  "33277396"
+        types :  [{id: "TPE2", nom: "sedan", state: 1}, {id: "TPE3", nom: "SUV", state: 1}]
+  }
+  // rehefa tsisy leurcritere ho filtrena de ;ila atao null / tsy maintsy ozy Isabelle 
+
+
+
+Login 
+
+url : auth/authenticate
+
+retourne : 
+
+ {
+    details_user_ :  null
+    refresh_token : "c6ed2e3a-ef19-40a6-a8d0-f27feac3acdc"
+    token :  "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6InBldGVyQGdtYWlsLmNvbSIsImlhdCI6MTcwNzQxNDM0NiwiZXhwIjoxNzA4NzEwMzQ2fQ.9AtPssF3hhGhhxG1wbWg2HwJjx9lFiWOC0RdwKyOPIQ"
+    user :  {
+            accountNonExpired : true
+            accountNonLocked :  true
+            authorities :  [{authority: "USER"}]
+            compte : 1907322
+            country : {id: "CTR1", nom: "United States", state: 1}
+            credentialsNonExpired :  true
+            dtn :  "2017-01-26"
+            email : "peter@gmail.com"
+            enabled :  true
+            gender : 0
+            id :  26
+            name :  "Peter Parker"
+            password :  "$2a$10$8biaEM.TIZH.Nvagna15OOTQ43CjgES19YEKEOFwfpprg0JKtEt/q"
+            profile :  "https://i.ibb.co/qM4q70D/f7a2354b9ed0.jpg"
+            roles :  "USER"
+            username :  "peter@gmail.com"
+    }
+ }
+
+
+Profil  
+
+- annonces 
+url :  "bibine/actu/user/" + user.id + "/own_annonces?limit=10
+
+- annonces  vendues  
+url  :  `bibine/actu/user/${user.id}/annonces_vendu`
+
+-  annonces favoris 
+url : `bibine/actu/user/${user.id}/annonces_favoris`
+
+Favoris 
+
+- addFavoris 
+url : POST `bibine/user/${user.id}/annonces_favoris/${annonce.id}`
+
+- removeFavoris 
+url : DELETE `bibine/user/${user.id}/annonces_favoris/${annonce.id}`
+
+=> tsisy json alefa

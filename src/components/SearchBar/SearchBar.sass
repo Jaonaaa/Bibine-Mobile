@@ -6,7 +6,7 @@
     width: 92%
     overflow: hidden
     z-index: 7
-    box-shadow: 0 0.15rem 0.3rem 0.1rem #a09f9f68
+    box-shadow: 0 0.15rem 0.3rem 0.1rem var(--box-shadow-color)
     border-radius: 0.3rem
     max-height: 3.6rem
     min-height: 3.2rem
@@ -18,6 +18,8 @@
         svg
             @include breakpoints.break_XSM()
                 width: 1.2rem
+            path
+                stroke: var(--text-color)
 
     .input
         display: flex
@@ -35,6 +37,7 @@
             width: 100%
             font-size: 0.91rem
             height: 100%
+            color: var(--text-color)
             @include breakpoints.break_XSM()
                 font-size: 0.85rem
             &::placeholder
@@ -62,7 +65,8 @@
         svg
             @include breakpoints.break_XSM()
             width: 0.8rem
-
+            path,line
+                stroke: var(--text-color)
         &::before
             content: ""
             position: absolute
@@ -82,8 +86,8 @@
     .filter_on
         svg
 
-            path
-                fill: #000000
+            path,line
+                fill: var(--text-color)
 
     .center
         display: flex
@@ -94,4 +98,4 @@
         height: 3.3rem
         transition: all 0.2s ease-in-out
         &:hover
-            background: #f4ffffb8
+            background: var(--hover-bg)

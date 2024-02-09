@@ -56,9 +56,7 @@ const ProfileUser = () => {
   const {} = useBackHandler();
   const { to_forward } = useNav();
   const handleContent = (e: CustomEvent<SegmentChangeEventDetail>) => {
-    const sec = sections.filter(
-      (section) => section.value === e.detail.value
-    )[0];
+    const sec = sections.filter((section) => section.value === e.detail.value)[0];
     setContent(sec);
   };
 
@@ -67,11 +65,7 @@ const ProfileUser = () => {
   };
 
   const getStat = async () => {
-    let res = (await alaivoGet(
-      "bibine/actu/user/" + user.id + "/count",
-      null,
-      true
-    )) as any; // 3 chose
+    let res = (await alaivoGet("bibine/actu/user/" + user.id + "/count", null, true)) as any; // 3 chose
     setStatUser(res.data);
   };
 
@@ -117,11 +111,7 @@ const ProfileUser = () => {
                 className="picture_box"
                 onClick={() => {
                   if (user.profile === null) {
-                    addNotifs(
-                      "info",
-                      "Vous n'avez pas de photo de profile :( ",
-                      1500
-                    );
+                    addNotifs("info", "Vous n'avez pas de photo de profile :( ", 1500);
                   } else handleHider();
                 }}
               >

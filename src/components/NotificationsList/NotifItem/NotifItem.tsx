@@ -1,6 +1,7 @@
 import React from "react";
-import "./NotifItem.sass";
 import { URL_message } from "../../../utils/Alaivo";
+import { storage } from "../../../data/storage";
+import "./NotifItem.sass";
 
 export interface Notif {
   content: string;
@@ -57,7 +58,7 @@ const NotifItem = (props: NotifItemProps) => {
         <div
           className={`item_notif ${props.read ? "" : "unread"}`}
           onClick={() => {
-            window.location.href = URL_message;
+            window.location.href = URL_message + "message/my-profile/" + localStorage.getItem(storage.token);
           }}
         >
           <div className="avatar">

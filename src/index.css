@@ -43,6 +43,90 @@
   /* ///// */
 }
 
+/* /// THEME /// */
+
+.light_theme {
+  --primary: #3a4ac4;
+  --primary-hovered: rgb(18, 77, 165);
+  --secondary: #f72222;
+  --secondary-hovered: #bd0f0f;
+  --box-shadow-color: #a09f9f68;
+  --bg-color: #fff;
+  --bg-color-body: #ffffff;
+  --bg-color-hovered: #edededcf;
+  --text-bold-color: #000;
+  --text-color: #353535;
+  --input-bg: #ffffff;
+
+  /* /// BUTTON */
+  --btn-text: #e5e2e2;
+  --btn-light-pink: #272727;
+  --btn-pink: #343534;
+  --btn-dark-pink: #151515;
+  --btn-pink-border: #5f5f5f;
+  --btn-pink-shadow: #bdbdbd7c;
+  /*NOTIFICATION */
+  --bg-unread: #ebf5ff92;
+
+  /*CHIP */
+  --bg-chip: transparent;
+  --bg-chip-on: #000;
+  --border-chip-on: #000000;
+  --border-chip: #525151c2;
+  --color-chip-on: #fff;
+  --color-chip: #525151;
+
+  /*HELPER */
+  --helper-bg: #e8f7f691;
+  --helper-color: #535353f5;
+
+  /* /HOVER ELEMENT >> */
+  --hover-bg: #f4ffffb8;
+}
+
+.dark_theme {
+  --primary: #3a4ac4;
+  --primary-hovered: rgb(18, 77, 165);
+  --secondary: #f72222;
+  --secondary-hovered: #bd0f0f;
+  --box-shadow-color: #3e3e3e;
+  --bg-color: #16161a;
+  --bg-color-body: #0f0f10;
+  --bg-color-hovered: #0b0d19;
+  --text-bold-color: #fff;
+  --text-color: #cbc7c7;
+  --input-bg: #110e1e;
+
+  /* /// BUTTON */
+  --btn-text: #e5e2e2;
+  --btn-light-pink: rgb(37, 36, 45);
+  --btn-pink: #2d352d;
+  --btn-dark-pink: #151515;
+  --btn-pink-border: #151515;
+  --btn-pink-shadow: #64636326;
+
+  /*NOTIFICATION */
+  --bg-unread: #0c173592;
+
+  /*CHIP */
+  --bg-chip: #201f1fca;
+  --bg-chip-on: #fff;
+  --border-chip-on: #ffffff;
+  --border-chip: #201f1fca;
+  --color-chip-on: #000000;
+  --color-chip: #f6f6f6;
+
+  /*HELPER */
+  --helper-bg: #9dd6d291;
+  --helper-color: #f0f0f0f5;
+
+  /* /HOVER ELEMENT >> */
+  --hover-bg: #222223b8;
+}
+
+
+
+
 ::selection {
   background-color: var(--primary);
   color: #fff;
@@ -68,6 +152,7 @@
 ion-tab-bar {
   opacity: 1;
   padding-top: 0.4rem;
+  background-color: var(--bg-color-body);
   border-top: 1px solid rgba(214, 214, 214, 0.171);
 }
 

@@ -11,8 +11,8 @@ export const setUpFormData = (formData: any) => {
     res["supMontant"] = newFormData["prices"]["max"];
   }
   if (newFormData["dates"]) {
-    res["dateInf"] = newFormData["dates"]["min"];
-    res["dateSup"] = newFormData["dates"]["max"];
+    res["dateInf"] = newFormData["dates"]["min"] + "T00:00:00.0";
+    res["dateSup"] = newFormData["dates"]["max"] + "T00:00:00.0";
   }
   ////
   if (newFormData["marque"]) {

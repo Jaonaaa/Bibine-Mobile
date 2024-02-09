@@ -9,7 +9,7 @@ import ButtonCartoon from "../ButtonCartoon/ButtonCartoon";
 import { URL_message, alaivoDelete, alaivoPost } from "../../../utils/Alaivo";
 import ValidationModal from "../../../utilsComponent/Modal/Validation/ValidationModal";
 import { AnimatePresence } from "framer-motion";
-import { AnnonceData } from "../../../data/Types";
+import { AnnonceData, VendeurData } from "../../../data/Types";
 import { getUser, storage } from "../../../data/storage";
 import useMyNotifs from "../../../utilsComponent/Notif/useNotifs";
 
@@ -69,10 +69,6 @@ const SubDetails = (props: AnnonceData) => {
         ) : (
           <div className={`state in_stock ${loaded ? "" : "skeleton"}`}>Article disponible </div>
         )}
-
-        {/* <div className="text">
-          En stock : <span className="quantity"> {loaded ? stock : 0} </span>
-        </div> */}
       </div>
 
       <div className="header">
@@ -86,7 +82,7 @@ const SubDetails = (props: AnnonceData) => {
           </div>
         </div>
         <div className="icon">
-          <Message loaded={loaded} addNotifs={addNotifs} user={user} />
+          <Message loaded={loaded} addNotifs={addNotifs} user={user} vendeur={vendeur} />
           <div
             className={`fav ico ${user ? (fav ? "fav_on" : "") : ""}`}
             onClick={() => {
@@ -135,12 +131,13 @@ interface MessageProps {
   loaded?: boolean;
   addNotifs: (status: "OK" | "warning" | "info" | "error" | "succes" | "star", details: string, timer: number) => void;
   user: any;
+  vendeur?: VendeurData;
 }
 const Message = (props: MessageProps) => {
   const [messageRedirectionOn, setMessageRedirection] = useState(false);
 
   const redirectMessage = () => {
-    window.location.href = URL_message;
+    window.location.href = URL_message + "message/my-profile/" + localStorage.getItem(storage.token);
   };
 
   return (
@@ -148,7 +145,7 @@ const Message = (props: MessageProps) => {
       <AnimatePresence>
         {messageRedirectionOn && (
           <ValidationModal
-            content="Vous allez être rediriger vers la page de conversation de vous et ce vendeur {} en continuant , êtes vous sur d'y aller ?"
+            content={`Vous allez être rediriger vers la page de conversation de vous et ce vendeur <strong> ${props.vendeur?.nom} </strong> en continuant , êtes vous sur d'y aller ?`}
             callBack={redirectMessage}
             closer={() => {
               setMessageRedirection(false);

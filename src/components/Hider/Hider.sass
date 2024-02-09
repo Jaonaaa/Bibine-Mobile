@@ -1,6 +1,6 @@
 @use '../../breakpoints'
 #hider
-    background: #ffffff
+    background: var(--bg-color-body)
     position: fixed
     top: 0
     left: 0
@@ -14,7 +14,7 @@
     .text_hider
         font-size: 1rem
         margin-top: 1rem
-        color: #333232
+        color: var(--text-color)
         transition: all 0.2s ease-in-out
         @include breakpoints.break_XSM()
             font-size: 0.85rem
@@ -23,7 +23,7 @@
     background: #00000025 !important
     backdrop-filter: blur(0.1rem)
 .white
-    background: #ffffff !important
+    background: var(--bg-color-body) !important
 .loader_container
     position: absolute
     left: 50%

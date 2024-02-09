@@ -64,7 +64,7 @@ const EditStatus = (props: EditStatusProps) => {
               <Loader white size="1.5rem" />
             ) : (
               <>
-                <div className="text">Changer son status </div>
+                <div className="text">Changer son statut </div>
                 <div className="icon">
                   <ArrowRight />
                 </div>

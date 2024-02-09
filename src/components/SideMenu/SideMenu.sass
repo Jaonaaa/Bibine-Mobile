@@ -1,6 +1,7 @@
 @use '../../breakpoints'
 .side_menu
     height: 100vh
+    background: var(--bg-color-body)
     .blank
         height: 8rem
         width: 100%
@@ -8,24 +9,27 @@
         position: relative
     .profile_box
         padding-top: 0.9rem
-        background: #fff
+        background: var(--bg-color-body)
+        --inner-border-width: 0 0 0px 0
     .title_avatar
         margin-left: 0.5rem
         .name_user
             font-size: 1.15rem
             font-family: Poppins_B
+            color: var(--text-color)
             @include breakpoints.break_XSM()
                 font-size: 0.95rem
         .action_title
             font-size: 0.8rem
-            color: #747373
+            color: var(--text-color)
+            opacity: 0.6
             @include breakpoints.break_XSM()
                 font-size: 0.68rem
     hr
         width: 98%
         height: 1px
         margin: auto
-        background: #dedddd91
+        background: var(--bg-color-body)
         margin-bottom: 1.2rem
         @include breakpoints.break_XSM()
             margin-bottom: 0.6rem
@@ -47,10 +51,19 @@
             align-items: center
             @include breakpoints.break_XSM()
                 width: 1.8rem
+            svg
+                path:not([fill="none"]),line:not([fill="none"])
+                    fill: var( --text-color)
+                line:not([stroke="none"])
+                    stroke: var( --text-color)
+            .arrow-lic
+                path
+                    stroke: var( --text-color)
         .label
             font-size: 0.85rem
             margin-left: 0.5rem
             white-space: nowrap
+            color: var(--text-color)
             text-overflow: ellipsis
             overflow: hidden
             max-width: 13rem
@@ -90,4 +103,4 @@
                 height: 0.75rem
 ion-item
     &::part(native)
-        border-color: #fff
+        border-color: var(--text-color)

@@ -25,6 +25,7 @@
             width: fit-content
             position: relative
             margin-bottom: 1.4rem
+            color: var(--text-bold-color)
             @include breakpoints.break_XSM()
                 margin-bottom: 1rem
             .text
@@ -71,12 +72,17 @@
                     @include breakpoints.break_XSM()
                         width: 1.6rem
                         margin-right: 0.2rem
+                    path:not([fill="none"])
+                        fill: var(--text-bold-color)
+                    path:not([stroke="none"])
+                        stroke: var(--text-bold-color)
 
         .description
             display: flex
             align-items: center
             width: 100%
             font-size: 0.82rem
+            color: var(--text-color)
             @include breakpoints.break_XSM()
                 font-size: 0.7rem
         .blank_desc

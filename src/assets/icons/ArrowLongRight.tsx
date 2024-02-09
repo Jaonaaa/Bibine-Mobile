@@ -2,7 +2,7 @@ import React from "react";
 
 const ArrowLongRight = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" className="arrow-lic">
       <g id="Groupe_235" data-name="Groupe 235" transform="translate(-116 -27)">
         <rect
           id="Rectangle_30"

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { MouseEventHandler, useState } from "react";
 import PageTemplate from "../PageTemplate/PageTemplate";
 import ParamRow from "./ParamRow/ParamRow";
 import { IonToggle } from "@ionic/react";
 import TagLineIcon from "../../assets/icons/TagLineIcon";
 import useNav from "../../hooks/useNav";
 import "./Parameter.sass";
+import { getCurrentThemeName, switchTheme } from "../../theme/Theme";
 
 const Parameter: React.FC = () => {
   const { to_forward } = useNav();
@@ -13,6 +14,11 @@ const Parameter: React.FC = () => {
     {
       label: "Mode nuit",
       type: "toogler",
+      default: getCurrentThemeName() === "dark" ? true : false,
+      callback: () => {
+        if (getCurrentThemeName() === "dark") switchTheme("light");
+        else switchTheme("dark");
+      },
     },
     {
       label: "Nous contacter",
@@ -37,7 +43,7 @@ const Parameter: React.FC = () => {
             key={i}
             type={param.type as "toogler" | "clickable"}
             callback={param.callback}
-            component={<IonToggle />}
+            component={<Toogler callback={param.callback} checked={param.default} />}
             label={param.label}
           />
         ))}
@@ -46,6 +52,27 @@ const Parameter: React.FC = () => {
         </div>
       </div>
     </PageTemplate>
+  );
+};
+
+interface TooglerProps {
+  checked?: boolean;
+  callback: Function;
+}
+const Toogler = (props: TooglerProps) => {
+  const { checked, callback } = props;
+  const [isChecked, setChecked] = useState(checked);
+
+  return (
+    <>
+      <IonToggle
+        checked={isChecked}
+        onClick={() => {
+          callback();
+          setChecked(!isChecked);
+        }}
+      />
+    </>
   );
 };
 

@@ -1,10 +1,4 @@
-import {
-  IonContent,
-  IonHeader,
-  IonModal,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import "./Recharge.sass";
 import ButtonCartoon from "../../../AnnonceDetails/ButtonCartoon/ButtonCartoon";
@@ -38,12 +32,7 @@ const Recharge = (props: RechargeProps) => {
     e.preventDefault();
     setTransactionOn(true);
 
-    let res = (await alaivoPost(
-      `bibine/user/${user.id}/recharge?montant=${amount}`,
-      null,
-      null,
-      false
-    ).catch((a: any) => {
+    let res = (await alaivoPost(`bibine/user/${user.id}/recharge?montant=${amount}`, null, null, false).catch((a: any) => {
       setTransactionOn(false);
     })) as any;
 
@@ -72,9 +61,7 @@ const Recharge = (props: RechargeProps) => {
     >
       <IonHeader>
         <IonToolbar>
-          <IonTitle className="title_modal_content">
-            Recharger mon compte
-          </IonTitle>
+          <IonTitle className="title_modal_content">Recharger mon compte</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
@@ -105,20 +92,9 @@ const Recharge = (props: RechargeProps) => {
               <div className="unit"> Ar </div>
             </div>
           </div>
-          <HelperText
-            textHelp={
-              "Veuillez entrer la somme que vous souhaitez rechar ger sur votre compte."
-            }
-          />
-          <AnimatePresence>
-            {transactionOn && <Hider classCss="glassy" loader />}
-          </AnimatePresence>
-          <ButtonCartoon
-            className="recharge_btn"
-            callback={() => {}}
-            icon={<MoneyBagIcon />}
-            text="Recharger"
-          />
+          <HelperText textHelp={"Veuillez entrer la somme que vous souhaitez rechar ger sur votre compte."} />
+          <AnimatePresence>{transactionOn && <Hider classCss="glassy" loader />}</AnimatePresence>
+          <ButtonCartoon className="recharge_btn" callback={() => {}} icon={<MoneyBagIcon />} text="Recharger" />
         </form>
       </IonContent>
     </IonModal>

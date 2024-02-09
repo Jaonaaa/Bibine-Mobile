@@ -3,10 +3,12 @@
 .header_page
     display: flex
     flex-direction: column
+    background: var(--bg-color-body)
     .title
         font-size: 1.6rem
         font-family: "Poppins_B"
         margin-bottom: 0.2rem
+        color: var(--text-bold-color)
         @include breakpoints.break_XSM()
             font-size: 1.28rem
         .full_bar_title
@@ -18,6 +20,8 @@
         font-size: 0.77rem
         color: #858585
         width: 95%
+        background: var(--bg-color-body)
+
         @include breakpoints.break_XSM()
             font-size: 0.68rem
         .full_bar_subtitle
@@ -25,12 +29,16 @@
             margin-top: 0.3rem
             height: 0.8rem
             border-radius: 0.2rem
+
 .centered_padding
     width: 100%
     padding: 0 1rem
 .page_content
     --padding-top: 0
+    --background: var(--bg-color-body)
+
     .content
         padding-top: 2rem
 ion-back-button  
         margin-left: -0.77rem
+        color: var(--text-color)

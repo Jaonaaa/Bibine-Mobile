@@ -33,6 +33,8 @@
             font-weight: bolder
             font-family: Poppins_B
             margin-left: 0rem
+
+            color: var(--text-bold-color)
             @include breakpoints.break_XSM()
                 font-size: 1rem
         .divider_price
@@ -41,7 +43,10 @@
             font-weight: bolder
         .max
             font-size: 1.2rem
+
             font-weight: bolder
+            color: var(--text-bold-color)
+
             font-family: Poppins_B
             @include breakpoints.break_XSM()
                 font-size: 1rem
@@ -56,7 +61,7 @@
 .modal_price_ranger
     display: flex
     flex-direction: column
-    background: #fff
+    background: var(--bg-color-body)
     width: 80vw
     box-shadow: 0 0.1rem 0.54rem 0.1rem #7978787f
     min-height: 5rem
@@ -66,7 +71,7 @@
     @include breakpoints.break_XSM()
         width: 70vw
     .closer
-        color: #171717
+
         position: absolute
         right: 0.6rem
         top: 0.6rem
@@ -91,7 +96,7 @@
                 stroke-width: 2px
                 stroke: var(--ion-color-secondary)
     button
-        color: #fff
+
         background: #000000
 
         border: 2px solid #000000

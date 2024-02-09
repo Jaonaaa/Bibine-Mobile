@@ -30,7 +30,7 @@ const ValidationModal = (props: ValidationModalProps) => {
 
             <div className="details_container">
               <div className="title"> {props.title} </div>
-              <div className="content">{props.content}</div>
+              <div className="content" dangerouslySetInnerHTML={{ __html: props.content + "" }}></div>
               <div className="buttons">
                 {props.cancelOn !== false ? (
                   <button onClick={props.closer} className="cancel">

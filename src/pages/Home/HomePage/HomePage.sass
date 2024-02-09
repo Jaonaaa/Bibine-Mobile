@@ -40,13 +40,17 @@
             min-height: 1.9rem !important
 
     .tab_nav
-        color: #000
+        color: var(--text-color)
+        background: var(--bg-color-body)
+
     .selected
-        // color: inherit
+        background: var(--bg-color-body)
+
 ion-title
     font-size: 1.48rem
     font-family: "Sora_SM"
     padding-inline-start: 0.6rem
+    color: var(--text-bold-color)
     @include breakpoints.break_XSM()
         font-size: 1.28rem
 .tab_bar
@@ -56,10 +60,16 @@ ion-title
         height: 2.8rem
         padding-top: 0.2rem
     .tab_icon
+
         path
-            fill: blue
+            fill: var(--primary)
         @include breakpoints.break_XSM()
             font-size: 1.4rem
+
     .tab_label
+        color: inherit
         @include breakpoints.break_XSM()
             font-size: 0.65rem
+
+.home_icon
+    fill: red

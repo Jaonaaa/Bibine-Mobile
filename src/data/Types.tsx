@@ -32,7 +32,7 @@ interface LocalisationData {
   nom: string;
   state: number;
 }
-interface VendeurData {
+export interface VendeurData {
   idvendeur: number;
   proprietaire: number;
   profile: string;
